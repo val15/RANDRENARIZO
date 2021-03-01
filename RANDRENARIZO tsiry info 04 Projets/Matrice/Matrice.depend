@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1449063918 source:/home/val15/workspace/c++/Matrice/main.cpp
+	<iostream>
+	"Matrice.h"
+	"Ligne.h"
+	<vector>
+
+1449061556 /home/val15/workspace/c++/Matrice/include/Matrice.h
+	"Ligne.h"
+	<vector>
+
+1449062754 source:/home/val15/workspace/c++/Matrice/src/Matrice.cpp
+	<iostream>
+	<string>
+	<sstream>
+	"Matrice.h"
+	"Ligne.h"
+
+1447246359 /home/val15/workspace/c++/Matrice/include/Ligne.h
+	<vector>
+
+1447246359 source:/home/val15/workspace/c++/Matrice/src/Ligne.cpp
+	"Ligne.h"
+	<iostream>
+

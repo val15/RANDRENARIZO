@@ -1,0 +1,16 @@
+-on part d'un fichier .db qui est une base de données sqlite(fichier qui a éte obtenu en utilisant le programme ficherToSQLite spécialement créé pour ce programme, l'opération a pris plus de 12h pour un fichier de 1,60M)
+-on crée une grille de dimension selon le choix de l'utilisateur, et on le remplit par des "_"
+-on tire au hasard une case de départ avec les coordonnées de y et de x
+-on tire au hasard l'orientation,la longueur,la direction(normal ou inverse) le sens (horizentale, vertical, diagonal)
+	-si le mo deborde, on recule selon le sens ou la dirrection
+-à partir de là on crée un objet qui ne contient encore rien mais qui a ses carracteristiques
+-on lit dans la grille les lettres qui correspent à ce mot
+-on obtient un patterne 
+	par exemple:	- pour un Mot de longeur 5 si toutes les cases sont vides, on obtient un "_____"
+			- si pour un mot de 11 cases dont certaines cases contennent déjà des lettres "_H__OS__H__" 
+-avec ce patterne, on cherche un mot qui respecte ce patterne dans la base de bonnées, avec une requette sqlite
+	dans nos exemples, pour le premier: n'importe quel mot de longueur 5, pour le second un mot comme PHILOSOPHIE par exemple 
+-on place le mot obtenu dans la grille et on recommence jusqu'a ce que le nombre des cases vides soit inférieur 
+ou égal au nombre de côtés
+-on cherche alors un mot dans la base de bonnées de longueur égale à ces cases vides et on place ce dérnier dans la grille pour ainsi obtenir le mot caché
+

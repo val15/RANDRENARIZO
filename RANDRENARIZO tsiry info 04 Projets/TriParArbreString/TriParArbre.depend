@@ -1,0 +1,160 @@
+# depslib dependency file v1.0
+1456956253 source:/home/val15/workspace/c++/TriParArbre/Arbre.cpp
+	"Arbre.h"
+
+1456955814 /home/val15/workspace/c++/TriParArbre/Arbre.h
+	"Element.h"
+	<vector>
+	<iostream>
+	<stdio.h>
+	<math.h>
+	"Chainne.h"
+	"Fichier.h"
+
+1456950513 /home/val15/workspace/c++/TriParArbre/Element.h
+	"Arbre.h"
+	"Chainne.h"
+	<string>
+
+1456950530 source:/home/val15/workspace/c++/TriParArbre/Element.cpp
+	"Element.h"
+	"Arbre.h"
+
+1456950397 source:/home/val15/workspace/c++/TriParArbre/main.cpp
+	<iostream>
+	<string>
+	<dirent.h>
+	"Element.h"
+	"Arbre.h"
+	"Chainne.h"
+	"Fichier.h"
+
+1455870168 /home/val15/workspace/c++/TriParArbre/Arbre.cpp
+	"Arbre.h"
+	<iostream>
+	<stdio.h>
+	<math.h>
+
+1455891356 /home/val15/workspace/c++/TriParArbre/ObjetArbre.h
+	<iostream>
+
+1455890762 source:/home/val15/workspace/c++/TriParArbre/ObjetArbre.cpp
+	"ObjetArbre.h"
+	<iostream>
+
+1456845217 source:/home/val15/workspace/c++/TriParArbre/Chaine.cpp
+	"Chaine.h"
+
+1456784700 /home/val15/workspace/c++/TriParArbre/Chaine.h
+	<math.h>
+	<iostream>
+	<string>
+
+1456956554 source:/home/val15/workspace/c++/TriParArbre/Fichier.cpp
+	"Fichier.h"
+
+1456784293 /home/val15/workspace/c++/TriParArbre/Fichier.h
+	<string>
+	<iostream>
+	<fstream>
+
+1456920814 source:/home/val15/workspace/c++/TriParArbreManD/Arbre.cpp
+	"Arbre.h"
+
+1456920804 /home/val15/workspace/c++/TriParArbreManD/Arbre.h
+	"Element.h"
+	<vector>
+	<iostream>
+	<stdio.h>
+	<math.h>
+	"Chaine.h"
+	"Fichier.h"
+
+1456818625 /home/val15/workspace/c++/TriParArbreManD/Element.h
+	"Arbre.h"
+	"Chaine.h"
+	<string>
+
+1456784700 /home/val15/workspace/c++/TriParArbreManD/Chaine.h
+	<math.h>
+	<iostream>
+	<string>
+
+1456784293 /home/val15/workspace/c++/TriParArbreManD/Fichier.h
+	<string>
+	<iostream>
+	<fstream>
+
+1456845217 source:/home/val15/workspace/c++/TriParArbreManD/Chaine.cpp
+	"Chaine.h"
+
+1456818625 source:/home/val15/workspace/c++/TriParArbreManD/Element.cpp
+	"Element.h"
+	"Arbre.h"
+
+1456915966 source:/home/val15/workspace/c++/TriParArbreManD/Fichier.cpp
+	"Fichier.h"
+
+1456915752 source:/home/val15/workspace/c++/TriParArbreManD/main.cpp
+	<iostream>
+	<string>
+	<dirent.h>
+	"Element.h"
+	"Arbre.h"
+	"Chaine.h"
+	"Fichier.h"
+
+1456950318 /home/val15/workspace/c++/TriParArbre/Chainne.h
+	<math.h>
+	<iostream>
+	<string>
+
+1456950255 source:/home/val15/workspace/c++/TriParArbre/Chainne.cpp
+	"Chainne.h"
+
+1457026379 source:/home/val15/workspace/c++/TriParArbreString/Arbre.cpp
+	"Arbre.h"
+
+1457026113 /home/val15/workspace/c++/TriParArbreString/Arbre.h
+	"Element.h"
+	<vector>
+	<iostream>
+	<stdio.h>
+	<math.h>
+	"Chainne.h"
+	"Fichier.h"
+
+1457026285 /home/val15/workspace/c++/TriParArbreString/Element.h
+	"Arbre.h"
+	"Chainne.h"
+	<string>
+
+1456950318 /home/val15/workspace/c++/TriParArbreString/Chainne.h
+	<math.h>
+	<iostream>
+	<string>
+
+1456784293 /home/val15/workspace/c++/TriParArbreString/Fichier.h
+	<string>
+	<iostream>
+	<fstream>
+
+1456950255 source:/home/val15/workspace/c++/TriParArbreString/Chainne.cpp
+	"Chainne.h"
+
+1456956554 source:/home/val15/workspace/c++/TriParArbreString/Fichier.cpp
+	"Fichier.h"
+
+1457026308 source:/home/val15/workspace/c++/TriParArbreString/Element.cpp
+	"Element.h"
+	"Arbre.h"
+
+1457025933 source:/home/val15/workspace/c++/TriParArbreString/main.cpp
+	<iostream>
+	<string>
+	<dirent.h>
+	"Element.h"
+	"Arbre.h"
+	"Chainne.h"
+	"Fichier.h"
+

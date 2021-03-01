@@ -1,0 +1,2 @@
+il faut importer le dll "System.Data.SQLite.dll" car ici on utilse SQLLite comme sgbdr
+la vitesse de generation des case depent fortement des la taille de la grille (de queqlque secondes pour une grille de 5 cotês à plus de 15mn pour une grille de 20 cotées)

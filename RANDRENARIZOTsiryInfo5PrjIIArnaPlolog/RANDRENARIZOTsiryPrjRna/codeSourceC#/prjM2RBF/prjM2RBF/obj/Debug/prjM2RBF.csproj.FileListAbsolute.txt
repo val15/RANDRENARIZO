@@ -1,0 +1,18 @@
+C:\Users\val15\Documents\Visual Studio 2017\Projects\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.csprojResolveAssemblyReference.cache
+C:\Users\val15\Documents\Visual Studio 2017\Projects\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.exe.config
+C:\Users\val15\Documents\Visual Studio 2017\Projects\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.exe
+C:\Users\val15\Documents\Visual Studio 2017\Projects\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.pdb
+C:\Users\val15\Documents\Visual Studio 2017\Projects\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.exe
+C:\Users\val15\Documents\Visual Studio 2017\Projects\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.pdb
+C:\workspaceWin\RANDRANARIZOTsiryInfo5PrjSigRna\RNARANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.exe.config
+C:\workspaceWin\RANDRANARIZOTsiryInfo5PrjSigRna\RNARANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.exe
+C:\workspaceWin\RANDRANARIZOTsiryInfo5PrjSigRna\RNARANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.pdb
+C:\workspaceWin\RANDRANARIZOTsiryInfo5PrjSigRna\RNARANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.csprojResolveAssemblyReference.cache
+C:\workspaceWin\RANDRANARIZOTsiryInfo5PrjSigRna\RNARANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.exe
+C:\workspaceWin\RANDRANARIZOTsiryInfo5PrjSigRna\RNARANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.pdb
+D:\tsiry\myRepos\RANDRENARIZOTsiryInfo5PrjSigRna\RANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.exe.config
+D:\tsiry\myRepos\RANDRENARIZOTsiryInfo5PrjSigRna\RANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.exe
+D:\tsiry\myRepos\RANDRENARIZOTsiryInfo5PrjSigRna\RANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\bin\Debug\prjM2RBF.pdb
+D:\tsiry\myRepos\RANDRENARIZOTsiryInfo5PrjSigRna\RANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.csproj.CoreCompileInputs.cache
+D:\tsiry\myRepos\RANDRENARIZOTsiryInfo5PrjSigRna\RANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.exe
+D:\tsiry\myRepos\RANDRENARIZOTsiryInfo5PrjSigRna\RANDRENARIZOTsiryPrjRna\codeSourceC#\prjM2RBF\prjM2RBF\obj\Debug\prjM2RBF.pdb

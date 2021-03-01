@@ -1,0 +1,89 @@
+# depslib dependency file v1.0
+1456251144 source:/home/val15/workspace/c++/TriParArbre/Arbre.cpp
+	"Arbre.h"
+
+1456251144 /home/val15/workspace/c++/TriParArbre/Arbre.h
+	"Element.h"
+	<vector>
+	"ObjetArbre.h"
+	<iostream>
+	<stdio.h>
+	<math.h>
+
+1456080120 /home/val15/workspace/c++/TriParArbre/Element.h
+	"Arbre.h"
+	"ObjetArbre.h"
+
+1456122003 source:/home/val15/workspace/c++/TriParArbre/Element.cpp
+	"Element.h"
+	"Arbre.h"
+
+1456264089 source:/home/val15/workspace/c++/TriParArbre/main.cpp
+	<iostream>
+	<string>
+	"Element.h"
+	"Arbre.h"
+	"Chaine.h"
+
+1455870168 /home/val15/workspace/c++/TriParArbre/Arbre.cpp
+	"Arbre.h"
+	<iostream>
+	<stdio.h>
+	<math.h>
+
+1455891357 /home/val15/workspace/c++/TriParArbre/ObjetArbre.h
+	<iostream>
+
+1455890762 source:/home/val15/workspace/c++/TriParArbre/ObjetArbre.cpp
+	"ObjetArbre.h"
+	<iostream>
+
+1456264255 source:/home/val15/workspace/c++/TriParArbre/Chaine.cpp
+	"Chaine.h"
+
+1456264255 /home/val15/workspace/c++/TriParArbre/Chaine.h
+	<math.h>
+	<iostream>
+	<string>
+
+1456790488 source:/home/val15/workspace/c++/TriParArbreInt/Arbre.cpp
+	"Arbre.h"
+
+1456251144 /home/val15/workspace/c++/TriParArbreInt/Arbre.h
+	"Element.h"
+	<vector>
+	"ObjetArbre.h"
+	<iostream>
+	<stdio.h>
+	<math.h>
+
+1456080120 /home/val15/workspace/c++/TriParArbreInt/Element.h
+	"Arbre.h"
+	"ObjetArbre.h"
+
+1455891356 /home/val15/workspace/c++/TriParArbreInt/ObjetArbre.h
+	<iostream>
+
+1456264254 source:/home/val15/workspace/c++/TriParArbreInt/Chaine.cpp
+	"Chaine.h"
+
+1456264254 /home/val15/workspace/c++/TriParArbreInt/Chaine.h
+	<math.h>
+	<iostream>
+	<string>
+
+1456122002 source:/home/val15/workspace/c++/TriParArbreInt/Element.cpp
+	"Element.h"
+	"Arbre.h"
+
+1456790436 source:/home/val15/workspace/c++/TriParArbreInt/main.cpp
+	<iostream>
+	<string>
+	"Element.h"
+	"Arbre.h"
+	"Chaine.h"
+
+1455890762 source:/home/val15/workspace/c++/TriParArbreInt/ObjetArbre.cpp
+	"ObjetArbre.h"
+	<iostream>
+

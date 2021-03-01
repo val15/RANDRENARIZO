@@ -1,0 +1,7 @@
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\bin\Debug\ficherToSQLite.exe.config
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\bin\Debug\ficherToSQLite.exe
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\bin\Debug\ficherToSQLite.pdb
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.csprojResolveAssemblyReference.cache
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.exe
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.pdb
+c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\bin\Debug\System.Data.SQLite.dll

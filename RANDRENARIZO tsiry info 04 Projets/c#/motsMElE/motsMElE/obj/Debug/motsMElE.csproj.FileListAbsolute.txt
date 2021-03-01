@@ -1,0 +1,26 @@
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\bin\Debug\motsMElE.exe.config
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\bin\Debug\motsMElE.exe
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\bin\Debug\motsMElE.pdb
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\bin\Debug\System.Data.SQLite.dll
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.csprojResolveAssemblyReference.cache
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.Form1.resources
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.Properties.Resources.resources
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.GenerateResource.Cache
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.exe
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.pdb
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.BoutonLettre.resources
+C:\Users\val15\Documents\Visual Studio 2012\Projects\motsMElE\motsMElE\obj\Debug\motsMElE.FormImprimer.resources
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\bin\Debug\motsMElE.exe.config
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\bin\Debug\motsMElE.exe
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\bin\Debug\motsMElE.pdb
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\bin\Debug\System.Data.SQLite.dll
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csprojAssemblyReference.cache
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.BoutonLettre.resources
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.Form1.resources
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.FormImprimer.resources
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.Properties.Resources.resources
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.GenerateResource.cache
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.CoreCompileInputs.cache
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.CopyComplete
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.exe
+D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.pdb
