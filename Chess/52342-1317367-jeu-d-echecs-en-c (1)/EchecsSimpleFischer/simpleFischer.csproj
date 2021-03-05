@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1E297331-4D8E-47DC-AB98-A40F5B2C7EFE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>simpleFischer</RootNamespace>
+    <AssemblyName>simpleFischer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>publishtest6\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://orioljimenez.free.fr/simplefischer/</InstallUrl>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>C54F9E9B81080D12802F251FF81668E67F6AA734</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>simpleFischer_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Source\Cases\Cavalier.cs" />
+    <Compile Include="Source\Coups\DeplacementDouble.cs" />
+    <Compile Include="Source\Coups\Promotion.cs" />
+    <Compile Include="Source\Coups\GrandRoque.cs" />
+    <Compile Include="Source\Coups\PetitRoque.cs" />
+    <Compile Include="Source\Coups\PriseEnPassant.cs" />
+    <Compile Include="Source\Coups\Prise.cs" />
+    <Compile Include="Source\Coups\Deplacement.cs" />
+    <Compile Include="Source\Coups\Coup.cs" />
+    <Compile Include="Source\Cases\Pion.cs" />
+    <Compile Include="Source\Cases\Fou.cs" />
+    <Compile Include="Source\Cases\Dame.cs" />
+    <Compile Include="Source\Cases\Tour.cs" />
+    <Compile Include="Source\Cases\Roi.cs" />
+    <Compile Include="Source\Cases\Piece.cs" />
+    <Compile Include="Source\Cases\Case.cs" />
+    <Compile Include="Source\Position.cs" />
+    <Compile Include="Source\Joueurs\Ordinateur.cs" />
+    <Compile Include="Source\Joueurs\Humain.cs" />
+    <Compile Include="Source\Joueurs\Joueur.cs" />
+    <Compile Include="Source\Dialogues\Form_choix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Dialogues\Form_choix.Designer.cs">
+      <DependentUpon>Form_choix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Partie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Partie.Designer.cs">
+      <DependentUpon>Partie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Dialogues\Form_resultat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Dialogues\Form_resultat.Designer.cs">
+      <DependentUpon>Form_resultat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\ControlesUtilisateur\UserControl_cadran.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_cadran.Designer.cs">
+      <DependentUpon>UserControl_cadran.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_case.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_case.Designer.cs">
+      <DependentUpon>UserControl_case.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_echiquier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_echiquier.Designer.cs">
+      <DependentUpon>UserControl_echiquier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_feuilleDeJeu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_feuilleDeJeu.Designer.cs">
+      <DependentUpon>UserControl_feuilleDeJeu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_pendule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\ControlesUtilisateur\UserControl_pendule.Designer.cs">
+      <DependentUpon>UserControl_pendule.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Source\Dialogues\Form_choix.resx">
+      <DependentUpon>Form_choix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Partie.resx">
+      <DependentUpon>Partie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Dialogues\Form_resultat.resx">
+      <DependentUpon>Form_resultat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Source\ControlesUtilisateur\UserControl_cadran.resx">
+      <DependentUpon>UserControl_cadran.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\ControlesUtilisateur\UserControl_case.resx">
+      <DependentUpon>UserControl_case.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\ControlesUtilisateur\UserControl_echiquier.resx">
+      <DependentUpon>UserControl_echiquier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\ControlesUtilisateur\UserControl_feuilleDeJeu.resx">
+      <DependentUpon>UserControl_feuilleDeJeu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\ControlesUtilisateur\UserControl_pendule.resx">
+      <DependentUpon>UserControl_pendule.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="simpleFischer_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stockfish.exe" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

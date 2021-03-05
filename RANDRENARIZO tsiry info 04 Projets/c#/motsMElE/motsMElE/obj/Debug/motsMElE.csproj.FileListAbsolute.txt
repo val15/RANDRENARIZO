@@ -24,3 +24,17 @@ D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsME
 D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.CopyComplete
 D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.exe
 D:\tsiry\myRepos\RANDRENARIZO tsiry info 04 Projet c# vbnet jsp socket\c#\motsMElE\motsMElE\obj\Debug\motsMElE.pdb
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\bin\Debug\motsMElE.exe.config
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\bin\Debug\motsMElE.exe
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\bin\Debug\motsMElE.pdb
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\bin\Debug\System.Data.SQLite.dll
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csprojAssemblyReference.cache
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.BoutonLettre.resources
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.Form1.resources
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.FormImprimer.resources
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.Properties.Resources.resources
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.GenerateResource.cache
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.CoreCompileInputs.cache
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.csproj.CopyComplete
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.exe
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\motsMElE\obj\Debug\motsMElE.pdb

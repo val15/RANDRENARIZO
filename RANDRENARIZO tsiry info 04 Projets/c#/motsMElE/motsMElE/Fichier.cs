@@ -24,7 +24,7 @@ namespace motsMElE
                 NbLinge = lines.Count();
             }
         }
-        public string lireUneLinge(int numlinge)//commence par 0
+        public string LireUneLinge(int numlinge)//commence par 0
         {
             if (numlinge < NbLinge)
             {
@@ -35,24 +35,24 @@ namespace motsMElE
                 return "NUMERO DE LIGNE INCORRECT!!";
 
         }
-        public string lireTout()
+        public string LireTout()
         {
             return System.IO.File.ReadAllText(NomFichier);
 
         }
-        public void ecrireAlaFin(string texte)//ne supprime pas le fichier mais ajoute à la fin
+        public void EcrireAlaFin(string texte)//ne supprime pas le fichier mais ajoute à la fin
         {
             if (File.Exists(NomFichier))
             {
-                string contenu = lireTout();
+                string contenu = LireTout();
                 contenu = contenu + "\r\n" + texte;
                 System.IO.File.WriteAllText(NomFichier, contenu);
             }
             else
-                ecrireAuDebut(texte);
+                EcrireAuDebut(texte);
 
         }
-        public void ecrireAuDebut(string texte)//supprime le contunu du fichier et le remplace
+        public void EcrireAuDebut(string texte)//supprime le contunu du fichier et le remplace
         {
             System.IO.File.WriteAllText(NomFichier, texte);
         }

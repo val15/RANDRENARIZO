@@ -71,7 +71,7 @@ namespace motsMElE
             if (m_tbNomFichier.Text != "")
             {
                 Fichier f0 = new Fichier(m_tbNomFichier.Text);
-                f0.ecrireAuDebut(m_tbImprimer.Text);
+                f0.EcrireAuDebut(m_tbImprimer.Text);
                 this.Close();
             }
             else

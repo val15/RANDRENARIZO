@@ -37,13 +37,22 @@ namespace motsMElE
             m_nUDCotee.Minimum = 5;
             ListBtl = new List<List<BoutonLettre>>();
             LstStringAChercE = new List<string>();
-        }
+     
 
-        private void Form1_Load(object sender, EventArgs e)
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+      Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
+      e.Graphics.DrawLine(pen, 20, 10, 300, 100);
+    }
+
+    private void Form1_Load(object sender, EventArgs e)
         {
             m_btRemplir.Enabled = false;
             m_cbCorrection.Enabled = false;
-        }
+      
+    }
 
         
 
@@ -211,7 +220,10 @@ namespace motsMElE
 
             m_cbCorrection.Enabled = true;
             m_btImprimer.Enabled = true;
-        }
+
+      this.Refresh();
+     
+    }
 
         public void actualiserTbMotsACherchE()
         {

@@ -5,3 +5,11 @@ c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLi
 c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.exe
 c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.pdb
 c:\users\val15\documents\visual studio 2012\Projects\ficherToSQLite\ficherToSQLite\bin\Debug\System.Data.SQLite.dll
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\bin\Debug\ficherToSQLite.exe.config
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\bin\Debug\ficherToSQLite.exe
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\bin\Debug\ficherToSQLite.pdb
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.csprojAssemblyReference.cache
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.csproj.CoreCompileInputs.cache
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.csproj.CopyComplete
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.exe
+D:\tsiry\inProgressMM\RANDRENARIZO-master\RANDRENARIZO-master\RANDRENARIZO tsiry info 04 Projets\c#\motsMElE\ficherToSQLite\ficherToSQLite\obj\Debug\ficherToSQLite.pdb

@@ -61,12 +61,15 @@ namespace motsMElE
                    {
                        MessageBox.Show("vous avez trouver tout les mots ","felécitation");
                    }
+
                    resetTout();
                }
             }
         }
 
-        private bool verifierSiStrActuelPeutEtreEncoreDansLaListe()
+   
+
+    private bool verifierSiStrActuelPeutEtreEncoreDansLaListe()
         {
             bool encoreLa=false;
             int c = 0;

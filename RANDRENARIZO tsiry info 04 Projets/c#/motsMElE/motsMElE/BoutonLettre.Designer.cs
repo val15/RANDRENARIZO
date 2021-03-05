@@ -28,27 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_bt = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // m_bt
-            // 
-            this.m_bt.Location = new System.Drawing.Point(0, 0);
-            this.m_bt.Name = "m_bt";
-            this.m_bt.Size = new System.Drawing.Size(25, 25);
-            this.m_bt.TabIndex = 0;
-            this.m_bt.Text = "button1";
-            this.m_bt.UseVisualStyleBackColor = true;
-            this.m_bt.Click += new System.EventHandler(this.m_bt_Click);
-            // 
-            // BoutonLettre
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.m_bt);
-            this.Name = "BoutonLettre";
-            this.Size = new System.Drawing.Size(30, 30);
-            this.ResumeLayout(false);
+      this.m_bt = new System.Windows.Forms.Button();
+      this.SuspendLayout();
+      // 
+      // m_bt
+      // 
+      this.m_bt.BackColor = System.Drawing.Color.Transparent;
+      this.m_bt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.m_bt.ForeColor = System.Drawing.SystemColors.ControlText;
+      this.m_bt.Location = new System.Drawing.Point(0, 0);
+      this.m_bt.Name = "m_bt";
+      this.m_bt.Size = new System.Drawing.Size(25, 25);
+      this.m_bt.TabIndex = 0;
+      this.m_bt.Text = "button1";
+      this.m_bt.UseVisualStyleBackColor = false;
+      this.m_bt.Click += new System.EventHandler(this.m_bt_Click);
+      // 
+      // BoutonLettre
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.Controls.Add(this.m_bt);
+      this.Name = "BoutonLettre";
+      this.Size = new System.Drawing.Size(30, 30);
+      this.ResumeLayout(false);
 
         }
 
