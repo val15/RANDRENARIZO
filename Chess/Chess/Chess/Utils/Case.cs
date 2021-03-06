@@ -57,12 +57,21 @@ namespace Chess.Utils
       var buttonSender = (Button)sender;
       var senderGetPawn = MainWindowParent.GetPawn(buttonSender.Name);
 
-      //
+     
 
-      if(senderGetPawn != null)//selection d'un pion
+      if(senderGetPawn != null)//selection d'un pion ou attaque sur in pion adverse
       {
         //case de depar
-       // MainWindowParent.ToPosition ="";
+        // MainWindowParent.ToPosition ="";
+
+        var currentPawn = MainWindowParent.GetPawn(MainWindowParent.FromPosition);
+        var opinonPawn = MainWindowParent.GetPawn(buttonSender.Name);
+        if(currentPawn != null && opinonPawn !=null)//attaque
+        {
+            moveTo(MainWindowParent.FromPosition, buttonSender.Name);
+            return;
+        }
+
         MainWindowParent.FromPosition = buttonSender.Name;
         senderGetPawn.ColorAvaleblesCases();
         return;

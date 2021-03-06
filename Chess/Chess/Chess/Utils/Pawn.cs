@@ -788,7 +788,18 @@ namespace Chess.Utils
     public void Move(Case newCase)//quan on déplace un pion, en fonction de sa position; 
     {
 
-      
+
+      //attaque
+      var deletedPawn = MainWindowParent.GetPawn(newCase.CaseName);
+      if(deletedPawn!=null)
+      {
+        //suppression
+        MainWindowParent.PawnList.Remove(deletedPawn);
+        if(deletedPawn.Colore == "White")
+          MainWindowParent.PawnListBlack.Remove(deletedPawn);
+        else
+          MainWindowParent.PawnListWhite.Remove(deletedPawn);
+      }
 
       //this.Location = newCase.CaseName;
 
@@ -810,7 +821,7 @@ namespace Chess.Utils
       //newCase.ButtonCase.Background = Brushes.Black;
 
 
-       //MainWindowParent.SetDefaultColoreAllCases();
+       
        //X = newCase.X;
        //Y = newCase.Y;
       _isFirstMove = false;
@@ -823,6 +834,7 @@ namespace Chess.Utils
       Debug.WriteLine("nove: new position = " + this.Location);
 
       MainWindowParent.FillAllPossibleTrips();
+      MainWindowParent.SetDefaultColoreAllCases();
 
 
 
