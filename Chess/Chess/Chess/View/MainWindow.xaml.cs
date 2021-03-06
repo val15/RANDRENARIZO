@@ -60,38 +60,38 @@ namespace Chess
           //SimplePawn
          if (y==2)
             PawnListWhite.Add(new Pawn("SimplePawn", location,X,Y, bt, "White",this));
-       /*   if (y == 7)
-            PawnListBlack.Add(new Pawn("SimplePawn", location, X, Y, bt, "Black", this));*/
+          if (y == 7)
+            PawnListBlack.Add(new Pawn("SimplePawn", location, X, Y, bt, "Black", this));
     
           //Rook (Tour)
-         if(y==1 && (X =="a" /*|| X == "h"*/))
+         if(y==1 && (X =="a" || X == "h"))
             PawnListWhite.Add(new Pawn("Rook", location, X, Y, bt, "White", this));
-    /*      if (y == 8 && (X == "a" || X == "h"))
-            PawnListBlack.Add(new Pawn("Rook", location, X, Y, bt, "Black", this));*/
+          if (y == 8 && (X == "a" || X == "h"))
+            PawnListBlack.Add(new Pawn("Rook", location, X, Y, bt, "Black", this));
          
           //Knight (chevalier)
          if (y == 1 && (X == "b" || X == "g"))
             PawnListWhite.Add(new Pawn("Knight", location, X, Y, bt, "White", this));
-     /*     if (y == 8 && (X == "b" || X == "g"))
-            PawnListBlack.Add(new Pawn("Knight", location, X, Y, bt, "Black", this));*/
+          if (y == 8 && (X == "b" || X == "g"))
+            PawnListBlack.Add(new Pawn("Knight", location, X, Y, bt, "Black", this));
 
          //Bishop (fou)
          if (y == 1 && (X == "c" || X == "f"))
             PawnListWhite.Add(new Pawn("Bishop", location, X, Y, bt, "White", this));
-   /*       if (y == 8 && (X == "c" || X == "f"))
-            PawnListBlack.Add(new Pawn("Bishop", location, X, Y, bt, "Black", this));*/
+         if (y == 8 && (X == "c" || X == "f"))
+            PawnListBlack.Add(new Pawn("Bishop", location, X, Y, bt, "Black", this));
    
           //Queen
           if (y == 1 && (X == "d"))
             PawnListWhite.Add(new Pawn("Queen", location, X, Y, bt, "White", this));
-     /*     if (y == 8 && (X == "d"))
-            PawnListBlack.Add(new Pawn("Queen", location, X, Y, bt, "Black", this));*/
-          
+          if (y == 8 && (X == "d"))
+            PawnListBlack.Add(new Pawn("Queen", location, X, Y, bt, "Black", this));
+         
           //King
           if (y == 1 && (X == "e"))
             PawnListWhite.Add(new Pawn("King", location, X, Y, bt, "White", this));
-   /*       if (y == 8 && (X == "e"))
-            PawnListBlack.Add(new Pawn("King", location, X, Y, bt, "Black", this));*/
+          if (y == 8 && (X == "e"))
+            PawnListBlack.Add(new Pawn("King", location, X, Y, bt, "Black", this));
 
          
         }
