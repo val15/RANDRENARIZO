@@ -32,88 +32,103 @@ namespace Chess
 
     public string FromPosition { get; set; }
     public string ToPosition { get; set; }
+
+    public string CurrentTurn { get; set; }
+
     public MainWindow()
     {
       InitializeComponent();
+      CurrentTurn = "White";
+      WhiteTurnButton.Visibility = Visibility.Visible;
+      BlackTurnButton.Visibility = Visibility.Hidden;
       FromPosition = "";
       ToPosition = "";
+      CaseList = null;
+      PawnList = null;
+      PawnListWhite = null;
+      PawnListBlack = null;
       CaseList = new List<Case>();
       PawnList = new List<Pawn>();
       PawnListWhite = new List<Pawn>();
       PawnListBlack = new List<Pawn>();
 
 
-      for (int x = 0; x <=7 ; x++)
+      for (int x = 0; x <= 7; x++)
       {
-        for (int y = 1; y <=8; y++)
+        for (int y = 1; y <= 8; y++)
         {
           var X = Convert.ToChar(97 + x).ToString();
           var Y = y.ToString();
-          var bt = (Button)this.FindName(X+Y);
+          var bt = (Button)this.FindName(X + Y);
           var location = Convert.ToChar(97 + x).ToString() + y.ToString();
 
           //initialisation des cases
-          CaseList.Add(new Case(Convert.ToChar(97+x).ToString(), y.ToString(), bt,this));
+          CaseList.Add(new Case(Convert.ToChar(97 + x).ToString(), y.ToString(), bt, this));
 
 
           //initialisation des pions 
           //SimplePawn
-         if (y==2)
-            PawnListWhite.Add(new Pawn("SimplePawn", location,X,Y, bt, "White",this));
+          if (y == 2)
+            PawnListWhite.Add(new Pawn("SimplePawn", location, X, Y, bt, "White", this));
           if (y == 7)
             PawnListBlack.Add(new Pawn("SimplePawn", location, X, Y, bt, "Black", this));
-    
+
           //Rook (Tour)
-         if(y==1 && (X =="a" || X == "h"))
+          if (y == 1 && (X == "a" || X == "h"))
             PawnListWhite.Add(new Pawn("Rook", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "a" || X == "h"))
             PawnListBlack.Add(new Pawn("Rook", location, X, Y, bt, "Black", this));
-         
+
           //Knight (chevalier)
-         if (y == 1 && (X == "b" || X == "g"))
+          if (y == 1 && (X == "b" || X == "g"))
             PawnListWhite.Add(new Pawn("Knight", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "b" || X == "g"))
             PawnListBlack.Add(new Pawn("Knight", location, X, Y, bt, "Black", this));
 
-         //Bishop (fou)
-         if (y == 1 && (X == "c" || X == "f"))
+          //Bishop (fou)
+          if (y == 1 && (X == "c" || X == "f"))
             PawnListWhite.Add(new Pawn("Bishop", location, X, Y, bt, "White", this));
-         if (y == 8 && (X == "c" || X == "f"))
+          if (y == 8 && (X == "c" || X == "f"))
             PawnListBlack.Add(new Pawn("Bishop", location, X, Y, bt, "Black", this));
-   
+
           //Queen
           if (y == 1 && (X == "d"))
             PawnListWhite.Add(new Pawn("Queen", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "d"))
             PawnListBlack.Add(new Pawn("Queen", location, X, Y, bt, "Black", this));
-         
+
           //King
           if (y == 1 && (X == "e"))
             PawnListWhite.Add(new Pawn("King", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "e"))
             PawnListBlack.Add(new Pawn("King", location, X, Y, bt, "Black", this));
 
-         
+
         }
       }
       PawnList.AddRange(PawnListWhite);
       PawnList.AddRange(PawnListBlack);
 
       FillAllPossibleTrips();
-      
-
-
-
-
-
-
-
-
-
-      //var bt = (Button) this.FindName("a8");
-      //bt.Click += button1_Click;
     }
 
+
+    public void SwithTurn()
+    {
+      if(CurrentTurn == "White")
+      {
+        CurrentTurn = "Black";
+        BlackTurnButton.Visibility = Visibility.Visible;
+        WhiteTurnButton.Visibility = Visibility.Hidden;
+      }
+      else
+      {
+        CurrentTurn = "White";
+        WhiteTurnButton.Visibility = Visibility.Visible;
+        BlackTurnButton.Visibility = Visibility.Hidden;
+      }
+        
+    }
     public void FillAllPossibleTrips()
     {
       foreach (var pawn in PawnList)
@@ -149,6 +164,27 @@ namespace Chess
 
       return result;
     }
+    public List<Pawn> GetOpignonPawnList(string colore)
+    {
+      if (colore == "Black")
+        return PawnListWhite;
+      else
+        return PawnListBlack;
+    }
+
+
+    public Pawn GetKing(string colore)
+    {
+      return PawnList.FirstOrDefault(x => x.Colore == colore && x.Name=="King");
+    }
+    public Pawn GetRightRook(string colore)
+    {
+      return PawnList.FirstOrDefault(x => x.Colore == colore && x.Name == "Rook" && x.X == "h");
+    }
+    public Pawn GetLeftRook(string colore)
+    {
+      return PawnList.FirstOrDefault(x => x.Colore == colore && x.Name == "Rook" && x.X == "a");
+    }
     public Case GetCase(string location)
     {
       return CaseList.FirstOrDefault(x => x.CaseName == location);
@@ -157,6 +193,35 @@ namespace Chess
     private void button1_Click(object sender, EventArgs e)
     {
       var buttonSender = (Button)sender;
+    }
+
+    private void WhiteGiveUp_Click(object sender, RoutedEventArgs e)
+    {
+      MessageBox.Show("BLACK WIN");
+      //System.Windows.Forms.Application.Restart();
+
+      System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+      Application.Current.Shutdown();
+    }
+
+    
+
+    private void BlackGiveUp_Click(object sender, RoutedEventArgs e)
+    {
+      MessageBox.Show("WHITE WIN");
+      //System.Windows.Forms.Application.Restart();
+
+      System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+      Application.Current.Shutdown();
+    }
+    
+    public void Win(string colore)
+    {
+      MessageBox.Show($"{colore} WIN");
+      //System.Windows.Forms.Application.Restart();
+
+      System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+      Application.Current.Shutdown();
     }
   }
 }

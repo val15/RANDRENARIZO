@@ -3,107 +3,127 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Chess"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="900" >
-  <Grid Height="800" Width="800" x:Name="ChessBoardGrid">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-    </Grid.ColumnDefinitions>
+        Title="MainWindow" Height="950" Width="950" >
+  <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="50"></RowDefinition>
+      <RowDefinition Height="800"></RowDefinition>
+      <RowDefinition Height="50"></RowDefinition>
     </Grid.RowDefinitions>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="7"  Name="a1" >
-     
-    </Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="6"  Name="a2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="5"  Name="a3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="4"  Name="a4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="3"  Name="a5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="2"  Name="a6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="1"  Name="a7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="0" Grid.Row="0"  Name="a8" ></Button>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="50"></ColumnDefinition>
+      <ColumnDefinition Width="800"></ColumnDefinition>
+      <ColumnDefinition Width="50"></ColumnDefinition>
+      
+    </Grid.ColumnDefinitions>
 
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="7"  Name="b1"></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="6"  Name="b2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="5"  Name="b3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="4"  Name="b4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="3"  Name="b5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="2"  Name="b6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="1"  Name="b7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="1" Grid.Row="0"  Name="b8" ></Button>
+    <Grid Grid.Row="1" Grid.Column="1" Height="800" Width="800" x:Name="ChessBoardGrid">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+      </Grid.RowDefinitions>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="7"  Name="a1" >
 
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="7"  Name="c1"></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="6"  Name="c2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="5"  Name="c3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="4"  Name="c4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="3"  Name="c5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="2"  Name="c6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="1"  Name="c7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="2" Grid.Row="0"  Name="c8" ></Button>
+      </Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="6"  Name="a2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="5"  Name="a3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="4"  Name="a4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="3"  Name="a5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="2"  Name="a6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="1"  Name="a7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="0"  Name="a8" ></Button>
 
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="7"  Name="d1"></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="6"  Name="d2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="5"  Name="d3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="4"  Name="d4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="3"  Name="d5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="2"  Name="d6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="1"  Name="d7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="3" Grid.Row="0"  Name="d8" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="7"  Name="b1"></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="6"  Name="b2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="5"  Name="b3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="4"  Name="b4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="3"  Name="b5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="2"  Name="b6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="1"  Name="b7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="1" Grid.Row="0"  Name="b8" ></Button>
 
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="7"  Name="e1"></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="6"  Name="e2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="5"  Name="e3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="4"  Name="e4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="3"  Name="e5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="2"  Name="e6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="1"  Name="e7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="4" Grid.Row="0"  Name="e8" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="7"  Name="c1"></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="6"  Name="c2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="5"  Name="c3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="4"  Name="c4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="3"  Name="c5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="2"  Name="c6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="1"  Name="c7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="2" Grid.Row="0"  Name="c8" ></Button>
 
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="7"  Name="f1"></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="6"  Name="f2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="5"  Name="f3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="4"  Name="f4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="3"  Name="f5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="2"  Name="f6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="1"  Name="f7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="5" Grid.Row="0"  Name="f8" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="7"  Name="d1"></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="6"  Name="d2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="5"  Name="d3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="4"  Name="d4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="3"  Name="d5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="2"  Name="d6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="1"  Name="d7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="3" Grid.Row="0"  Name="d8" ></Button>
 
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="7"  Name="g1"></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="6"  Name="g2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="5"  Name="g3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="4"  Name="g4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="3"  Name="g5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="2"  Name="g6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="1"  Name="g7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="6" Grid.Row="0"  Name="g8" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="7"  Name="e1"></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="6"  Name="e2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="5"  Name="e3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="4"  Name="e4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="3"  Name="e5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="2"  Name="e6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="1"  Name="e7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="4" Grid.Row="0"  Name="e8" ></Button>
 
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="7"  Name="h1"></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="6"  Name="h2" ></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="5"  Name="h3" ></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="4"  Name="h4" ></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="3"  Name="h5" ></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="2"  Name="h6" ></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="1"  Name="h7" ></Button>
-    <Button Height="100" Width="100" Grid.Column="7" Grid.Row="0"  Name="h8" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="7"  Name="f1"></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="6"  Name="f2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="5"  Name="f3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="4"  Name="f4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="3"  Name="f5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="2"  Name="f6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="1"  Name="f7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="5" Grid.Row="0"  Name="f8" ></Button>
+
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="7"  Name="g1"></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="6"  Name="g2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="5"  Name="g3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="4"  Name="g4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="3"  Name="g5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="2"  Name="g6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="1"  Name="g7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="6" Grid.Row="0"  Name="g8" ></Button>
+
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="7"  Name="h1"></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="6"  Name="h2" ></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="5"  Name="h3" ></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="4"  Name="h4" ></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="3"  Name="h5" ></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="2"  Name="h6" ></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="1"  Name="h7" ></Button>
+      <Button Height="100" Width="100" Grid.Column="7" Grid.Row="0"  Name="h8" ></Button>
 
 
 
 
 
+    </Grid>
+
+    <Button Grid.Row="0" Grid.Column="2" Width="25" Height="25" Background="IndianRed"  Content="{materialDesign:PackIcon Kind=TimerOutline}" Name="BlackTurnButton"></Button>
+    <Button Grid.Row="3" Grid.Column="2" Width="25" Height="25" Background="IndianRed" Content="{materialDesign:PackIcon Kind=TimerOutline}" Name="WhiteTurnButton"></Button>
+    <Button Grid.Row="0" Grid.Column="0" Content="{materialDesign:PackIcon Kind=EmoticonDead}" Width="25" Height="25" ToolTip="Give up" Click="BlackGiveUp_Click" ></Button>
+    <Button Grid.Row="3" Grid.Column="0" Content="{materialDesign:PackIcon Kind=EmoticonDeadOutline}" Width="25" Height="25" ToolTip="Give up" Click="WhiteGiveUp_Click"></Button>
   </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chess.View;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -33,13 +34,30 @@ namespace Chess.Utils
     private Image _image;
     private bool _isFirstMove;
 
+    //roc
+    public bool IsFirstMoveKing { get; set; }
+  
+    public bool IsLeftRookFirstMove { get; set; }
+    public bool IsRightRookFirstMove { get; set; }
+
     public Pawn(string name,string location,string x,string y , Button associateButton,string colore, MainWindow mainWindowParent)
     {
-      IsSelected = false;
 
-      _isFirstMove = true;
+     
+
       MainWindowParent = mainWindowParent;
       Name = name;
+     
+      if(Name=="SimplePawn")
+        _isFirstMove = true;
+      if (Name == "King")
+      {
+        IsFirstMoveKing = true;
+        IsLeftRookFirstMove = true;
+        IsRightRookFirstMove = true;
+      }
+        
+     
       Colore = colore;
       Location = location;
       X = x;
@@ -316,7 +334,7 @@ namespace Chess.Utils
 
 
       var xasciiCode = (int)Convert.ToChar(X);
-      for (int i = 1; i <= 97+8; i++)
+      for (int i = 1; i <= 97+8 && xasciiCode < 104; i++)
       {
         var tripsPosition = (Convert.ToChar(xasciiCode + i)).ToString() + Y;
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
@@ -493,7 +511,7 @@ namespace Chess.Utils
           break;
         }
       }
-      for (int i = 1; i <= 97 + 8; i++)
+      for (int i = 1; i <= 97 + 8 && xasciiCode < 104; i++)
       {
         var tripsPosition = (Convert.ToChar(xasciiCode + i)).ToString() + Y;
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
@@ -734,33 +752,116 @@ namespace Chess.Utils
           avalablesPositionList.Add(tripsPosition);
         }
       }
+
+      //Ajout du roc
+      //si le roi ne s'est pas encore deplacer
+      if(Name == "King")
+      {
+        if (IsFirstMoveKing)//si le roi n'a pas bouger
+        {
+          if (IsLeftRookFirstMove)//si le fou n'as pas bouger
+          {
+            var isFree = true;
+            for (int i = 101; i > 98; i--)//si il n'y a rein entre le roi et le fou
+            {
+              var location = Convert.ToChar(i - 1).ToString() + Y;
+              var pawnInposition = MainWindowParent.GetPawn(location);
+              if (pawnInposition != null)
+              {
+                isFree = false;
+                break;
+              }
+
+              //si en rocant, le rois ne passe pas par une case de déplacement possible de l'adversaire
+              //si la case n'est pas cible des pions adverses
+              var opignonPawnList = MainWindowParent.GetOpignonPawnList(this.Colore);
+              if (opignonPawnList != null)
+              {
+                foreach (var item in opignonPawnList)
+                {
+                  if (item.PossibleTrips.Contains(location))
+                  {
+                    isFree = false;
+                    break;
+                  }
+                }
+              }
+            }
+
+            //si le roi est sous la menache d'un echec
+
+
+
+            if (isFree && !isChess())
+            {
+              tripsPosition = Convert.ToChar(xasciiCode - 2).ToString() + (intY).ToString();
+              avalablesPositionList.Add(tripsPosition);
+            }
+          }
+
+          if (IsRightRookFirstMove)
+          {
+
+            //si il n'y a rien entre la tour et le roi
+            var isFree = true;
+            for (int i = 1; i < 3 ; i++)
+            {
+              var location = Convert.ToChar(xasciiCode + i).ToString() + Y;
+              var pawnInposition = MainWindowParent.GetPawn(location);
+              //si en rocant, le rois ne passe pas par une case de déplacement possible de l'adversaire
+              //si la case n'est pas cible des pions adverses
+
+              var opignonPawnList = MainWindowParent.GetOpignonPawnList(this.Colore);
+              foreach (var item in opignonPawnList)
+              {
+                if (item.PossibleTrips.Contains(location))
+                {
+                  isFree = false;
+                  break;
+                }
+              }
+              if (pawnInposition != null)
+              {
+                isFree = false;
+                break;
+              }
+                
+            }
+            if(isFree && !isChess())
+            {
+              tripsPosition = Convert.ToChar(xasciiCode + 2).ToString() + (intY).ToString();
+              avalablesPositionList.Add(tripsPosition);
+            }
+
+          }
+        
+        }
+      }
+     
+
+        
+
       PossibleTrips.AddRange (avalablesPositionList);
     }
 
-
-    private void buttonCase_Click(object sender, EventArgs e)
+    private bool isChess()
     {
-      // var buttonSender = (Button)sender;
-
-      // on reitialise toutes les case
-      MainWindowParent.SetDefaultColoreAllCases();
-      IsSelected =! IsSelected;
-      if(!IsSelected)
+      if(this.Name=="King")
       {
-        MainWindowParent.SelectedPawn = null;
-        return;
+        var opignonPawnList= MainWindowParent.GetOpignonPawnList(this.Colore);
+        foreach (var item in opignonPawnList)
+        {
+          if(item.Location == this.Location)
+          {
+            return true;
+          }
+        } 
       }
-      MainWindowParent.SelectedPawn = this;
-      foreach (var item in PossibleTrips)
-      {
-        var avalableButton = (Button)MainWindowParent.FindName(item);
-        avalableButton.Background = Brushes.Yellow;
-        
-      }
-
-      //colorer les PossibleTrips
+      return false;
     }
 
+
+   
     public void ColorAvaleblesCases()
     {
       // var buttonSender = (Button)sender;
@@ -788,6 +889,12 @@ namespace Chess.Utils
     public void Move(Case newCase)//quan on déplace un pion, en fonction de sa position; 
     {
 
+      
+
+
+      if (MainWindowParent.CurrentTurn != this.Colore)
+        return;
+
 
       //attaque
       var deletedPawn = MainWindowParent.GetPawn(newCase.CaseName);
@@ -799,6 +906,8 @@ namespace Chess.Utils
           MainWindowParent.PawnListBlack.Remove(deletedPawn);
         else
           MainWindowParent.PawnListWhite.Remove(deletedPawn);
+        if (deletedPawn.Name == "King")
+          MainWindowParent.Win(this.Colore);
       }
 
       //this.Location = newCase.CaseName;
@@ -818,32 +927,81 @@ namespace Chess.Utils
       //AssociateButton.Background = newCase.ButtonCase.Background;
       //AssociateButton.Content = _dockPanel;
       newCase.ButtonCase.Content = _dockPanel;
+      AssociateButton = newCase.ButtonCase;
       //newCase.ButtonCase.Background = Brushes.Black;
 
 
-       
-       //X = newCase.X;
-       //Y = newCase.Y;
+
+      //X = newCase.X;
+      //Y = newCase.Y;
       _isFirstMove = false;
       this.Location = newCase.CaseName;
       this.X = newCase.X;
       this.Y = newCase.Y;
 
-      //FillPossibleTrips();
+
+      
+      
+     
+       
 
       Debug.WriteLine("nove: new position = " + this.Location);
 
+
+
+      //Rank
+      if (this.Name == "SimplePawn" && (Y == "1" || Y == "8"))
+      {
+        var riseInRankWindow = new RiseInRankWindow(this);
+        riseInRankWindow.ShowDialog();
+      }
+
+      //Roc
+      if(this.Name =="King" && this.IsFirstMoveKing && this.IsLeftRookFirstMove && this.X=="c")
+      {
+        var rook = MainWindowParent.GetLeftRook(this.Colore);
+        rook.Move(MainWindowParent.GetCase("d" + Y));
+        MainWindowParent.SwithTurn();
+      }
+      if (this.Name == "King" && this.IsFirstMoveKing && this.IsRightRookFirstMove && this.X == "g")
+      {
+        var rook = MainWindowParent.GetRightRook(this.Colore);
+        rook.Move(MainWindowParent.GetCase("f" + Y));
+        MainWindowParent.SwithTurn();
+      }
+
+      if (this.Name == "King")
+        IsFirstMoveKing = false;
+
+
+      
+      //si le roi se deplace de deux case vers la gauche ou la droite
+      //et le fou se place à droite ou à gauche du roi
+
       MainWindowParent.FillAllPossibleTrips();
       MainWindowParent.SetDefaultColoreAllCases();
+      MainWindowParent.SwithTurn();
 
+    }
 
-
-      //MainWindowParent.SelectedPawn = null;
-
-      // AssociateButton.Click += buttonCase_Click;
-
-      //les PossibleTrips change en fonction du type du pion et de la couleur
-
+ 
+    public void SwithTo(string name)
+    {
+      this.Name = name;
+      _image = null;
+      _image = new Image();
+      _image.Height = 60;
+      _image.Width = 60;
+      _image.Source = new BitmapImage(new Uri(@"/Images/" + Name + ".png", UriKind.Relative));
+      var oldColor = _dockPanel.Background;
+      _dockPanel.Children.Clear();
+      _dockPanel = null;
+      _dockPanel = new DockPanel();
+      _dockPanel.Background = oldColor;
+      _dockPanel.Children.Add(_image);
+      //AssociateButton.Background = newCase.ButtonCase.Background;
+      //AssociateButton.Content = _dockPanel;
+      this.AssociateButton.Content = _dockPanel;
 
     }
 

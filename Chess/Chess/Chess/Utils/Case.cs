@@ -104,17 +104,46 @@ namespace Chess.Utils
     private void moveTo(string fromPosition, string toPosition)
     {
 
-      var t = 0;
 
       var fromPawn = MainWindowParent.GetPawn(fromPosition);
       var toCase = MainWindowParent.GetCase(toPosition);
 
+
+
+      //gestion du roc
       if (fromPawn.PossibleTrips.Contains(CaseName))
+      {
+        
+        if (fromPawn.Name == "Rook")
+        {
+          //pour le roc, il faut prend le roi et emplecher le roc déplacement
+          var associateKing = MainWindowParent.GetKing(fromPawn.Colore);
+          if (fromPawn.X == "a")
+            associateKing.IsLeftRookFirstMove = false;
+          if (fromPawn.X == "h")
+            associateKing.IsRightRookFirstMove = false;
+        }
+
         MainWindowParent.SelectedPawn.Move(toCase);
+      }
+
+     /* if(fromPawn.Name=="King" && toCase.X == "c")
+      {
+        MainWindowParent.SelectedPawn.Move(toCase, "LeftRook");
+      }
+      if (fromPawn.Name == "King" && toCase.X == "g")
+      {
+        MainWindowParent.SelectedPawn.Move(toCase, "RightRook");
+      }*/
+
 
 
       MainWindowParent.FromPosition = "";
       MainWindowParent.ToPosition = "";
+
+
+
+
       /*
 
       var buttonSender = (Button)sender;
