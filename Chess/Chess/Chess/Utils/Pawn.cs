@@ -23,6 +23,7 @@ namespace Chess.Utils
 
     public string Y { get; set; }//1-8
     public List<string> PossibleTrips { get; set; } //Les déplacement possible: liste des positions possible
+    public List<int> PossibleTripsScore { get; set; }
 
     public string Image { get; set; }
     public string Colore { get; set; }
@@ -33,6 +34,8 @@ namespace Chess.Utils
     private DockPanel _dockPanel;
     private Image _image;
     private bool _isFirstMove;
+
+    public int Value { get; set; }
 
     //roc
     public bool IsFirstMoveKing { get; set; }
@@ -47,8 +50,15 @@ namespace Chess.Utils
 
       MainWindowParent = mainWindowParent;
       Name = name;
-     
-      if(Name=="SimplePawn")
+
+      SetValue();
+
+
+
+
+
+
+      if (Name=="SimplePawn")
         _isFirstMove = true;
       if (Name == "King")
       {
@@ -77,6 +87,7 @@ namespace Chess.Utils
         AssociateButton.Content = _dockPanel;
 
       PossibleTrips = new List<string>();
+      PossibleTripsScore = new List<int>();
      // fillPossibleTrips();
 
 
@@ -95,6 +106,31 @@ namespace Chess.Utils
 
     }
 
+    public void SetValue()
+    {
+      switch (Name)
+      {
+        case "SimplePawn":
+          Value = 1;
+          break;
+        case "Queen":
+          Value = 9;
+          break;
+        case "Rook":
+          Value = 5;
+          break;
+        case "Bishop":
+          Value = 3;
+          break;
+        case "Knight":
+          Value = 5;
+          break;
+        case "King":
+          Value = 1000;
+          break;
+      }
+    }
+
     public void FillPossibleTrips()
     {
       PossibleTrips.Clear();
@@ -110,6 +146,36 @@ namespace Chess.Utils
         fillPossibleTripsQueen();//King
       if (this.Name == "King")
         fillPossibleTripsKing();
+
+      //EvaluateScorePossibleTrips();
+    }
+
+    public void EvaluateScorePossibleTrips()//liste des position possibles avec leurs score respective
+    {
+      PossibleTripsScore.Clear();
+      foreach (var position in PossibleTrips)
+      {
+        var score = 0;
+        var pawn = MainWindowParent.GetPawn(position);
+        if (pawn == null)
+        {
+          score = 0;
+        }
+        else
+        {
+          if (pawn.Colore != this.Colore)
+          {
+            score += pawn.Value;
+          }
+            
+        }
+        var possibleCase= MainWindowParent.GetCase(position);
+
+        if(possibleCase!=null)
+          possibleCase.Score = score;
+
+        PossibleTripsScore.Add(score);
+      }
     }
 
     private void fillPossibleTripsSimplePawn(string colore)
@@ -118,7 +184,7 @@ namespace Chess.Utils
       if(Colore == "White")
       {
         toAdd = +1;
-        
+
       }
       else
       {
@@ -177,110 +243,141 @@ namespace Chess.Utils
 
       var tripsPosition = Convert.ToChar(xasciiCode - 1).ToString() + (intY + 2).ToString();
       var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+        
+
+
        tripsPosition = Convert.ToChar(xasciiCode + 1).ToString() + (intY + 2).ToString();
        pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+
+
       tripsPosition = Convert.ToChar(xasciiCode + 2).ToString() + (intY -1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+
+
       tripsPosition = Convert.ToChar(xasciiCode + 2).ToString() + (intY + 1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
       tripsPosition = Convert.ToChar(xasciiCode - 1).ToString() + (intY -2 ).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
       tripsPosition = Convert.ToChar(xasciiCode + 1).ToString() + (intY - 2).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
       tripsPosition = Convert.ToChar(xasciiCode - 2).ToString() + (intY - 1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
       tripsPosition = Convert.ToChar(xasciiCode - 2).ToString() + (intY + 1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
@@ -297,7 +394,9 @@ namespace Chess.Utils
       {
         var tripsPosition = (X) + i.ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-        if(pawnInTrips== null)
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
+        if (pawnInTrips== null)
         {
           avalablesPositionList.Add(tripsPosition);
           continue;
@@ -316,6 +415,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (X) + i.ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -338,6 +439,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (Convert.ToChar(xasciiCode + i)).ToString() + Y;
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -357,6 +460,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (Convert.ToChar(i)).ToString() + Y;
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -381,11 +486,13 @@ namespace Chess.Utils
       var avalablesPositionList = new List<string>();
       var xasciiCode = (int)Convert.ToChar(X);
       var intY = Int32.Parse(Y);
-
-      for (int i = 1, j = intY ; i <= 97 + 8 ||  j <= 8; i++,j++)
+      
+      for (int i = xasciiCode+1, j = intY ; i < 97 + 8 &&  j < 8; i++,j++)
       {
-        var tripsPosition = Convert.ToChar(xasciiCode + i).ToString() + (j+1).ToString();
+        var tripsPosition = Convert.ToChar(i).ToString() + (j+1).ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -401,10 +508,12 @@ namespace Chess.Utils
           break;
         }
       }
-      for (int i = xasciiCode - 1, j = intY; i >= 97 || j >= 1 ; i--, j--)
+      for (int i = xasciiCode, j = intY; i > 97 && j > 1 ; i--, j--)
       {
-        var tripsPosition = (Convert.ToChar(i)).ToString() + (j - 1).ToString();
+        var tripsPosition = (Convert.ToChar(i-1)).ToString() + (j - 1).ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -420,11 +529,13 @@ namespace Chess.Utils
           break;
         }
       }
-
-      for (int i = xasciiCode - 1, j = intY; i >= 97 || j <= 8  ; i--, j++)
+      
+     for (int i = xasciiCode - 1, j = intY; i >= 97 && j <= 8  ; i--, j++)
       {
         var tripsPosition = (Convert.ToChar(i)).ToString() + (j + 1).ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -440,11 +551,13 @@ namespace Chess.Utils
           break;
         }
       }
-
-      for (int i = 1, j = intY; i <= 97 || j >= 8; i++, j--)
+     
+      for (int i = xasciiCode, j = intY; i < 97+7 && j > 1; i++, j--)
       {
-        var tripsPosition = Convert.ToChar(xasciiCode + i).ToString() + (j - 1).ToString();
+        var tripsPosition = Convert.ToChar(i+1).ToString() + (j - 1).ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if(MainWindowParent.GetCase(tripsPosition)==null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -461,8 +574,8 @@ namespace Chess.Utils
         }
       }
 
-
-
+      
+      
       PossibleTrips.AddRange(avalablesPositionList);
     }
 
@@ -477,6 +590,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (X) + i.ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -496,6 +611,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (X) + i.ToString();
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -515,6 +632,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (Convert.ToChar(xasciiCode + i)).ToString() + Y;
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -534,82 +653,8 @@ namespace Chess.Utils
       {
         var tripsPosition = (Convert.ToChar(i)).ToString() + Y;
         var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-        if (pawnInTrips == null)
-        {
-          avalablesPositionList.Add(tripsPosition);
-          continue;
-        }
-        if (pawnInTrips.Colore == this.Colore)//pion alier
-        {
+        if (MainWindowParent.GetCase(tripsPosition) == null)
           break;
-        }
-        else
-        {
-          avalablesPositionList.Add(tripsPosition);
-          break;
-        }
-      }
-      for (int i = 1, j = intY; i <= 97 + 8 || j <= 8; i++, j++)
-      {
-        var tripsPosition = Convert.ToChar(xasciiCode + i).ToString() + (j + 1).ToString();
-        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-        if (pawnInTrips == null)
-        {
-          avalablesPositionList.Add(tripsPosition);
-          continue;
-        }
-        if (pawnInTrips.Colore == this.Colore)//pion alier
-        {
-          break;
-        }
-        else
-        {
-          avalablesPositionList.Add(tripsPosition);
-          break;
-        }
-      }
-      for (int i = xasciiCode - 1, j = intY; i >= 97 || j >= 1; i--, j--)
-      {
-        var tripsPosition = (Convert.ToChar(i)).ToString() + (j - 1).ToString();
-        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-        if (pawnInTrips == null)
-        {
-          avalablesPositionList.Add(tripsPosition);
-          continue;
-        }
-        if (pawnInTrips.Colore == this.Colore)//pion alier
-        {
-          break;
-        }
-        else
-        {
-          avalablesPositionList.Add(tripsPosition);
-          break;
-        }
-      }
-      for (int i = xasciiCode - 1, j = intY; i >= 97 || j <= 8; i--, j++)
-      {
-        var tripsPosition = (Convert.ToChar(i)).ToString() + (j + 1).ToString();
-        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-        if (pawnInTrips == null)
-        {
-          avalablesPositionList.Add(tripsPosition);
-          continue;
-        }
-        if (pawnInTrips.Colore == this.Colore)//pion alier
-        {
-          break;
-        }
-        else
-        {
-          avalablesPositionList.Add(tripsPosition);
-          break;
-        }
-      }
-      for (int i = 1, j = intY; i <= 97 || j >= 8; i++, j--)
-      {
-        var tripsPosition = Convert.ToChar(xasciiCode + i).ToString() + (j - 1).ToString();
-        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
@@ -626,6 +671,94 @@ namespace Chess.Utils
         }
       }
 
+
+
+      for (int i = xasciiCode + 1, j = intY; i < 97 + 8 && j < 8; i++, j++)
+      {
+        var tripsPosition = Convert.ToChar(i).ToString() + (j + 1).ToString();
+        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
+        if (pawnInTrips == null)
+        {
+          avalablesPositionList.Add(tripsPosition);
+          continue;
+        }
+        if (pawnInTrips.Colore == this.Colore)//pion alier
+        {
+          break;
+        }
+        else
+        {
+          avalablesPositionList.Add(tripsPosition);
+          break;
+        }
+      }
+      for (int i = xasciiCode, j = intY; i > 97 && j > 1; i--, j--)
+      {
+        var tripsPosition = (Convert.ToChar(i - 1)).ToString() + (j - 1).ToString();
+        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
+        if (pawnInTrips == null)
+        {
+          avalablesPositionList.Add(tripsPosition);
+          continue;
+        }
+        if (pawnInTrips.Colore == this.Colore)//pion alier
+        {
+          break;
+        }
+        else
+        {
+          avalablesPositionList.Add(tripsPosition);
+          break;
+        }
+      }
+
+      for (int i = xasciiCode - 1, j = intY; i >= 97 && j <= 8; i--, j++)
+      {
+        var tripsPosition = (Convert.ToChar(i)).ToString() + (j + 1).ToString();
+        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
+        if (pawnInTrips == null)
+        {
+          avalablesPositionList.Add(tripsPosition);
+          continue;
+        }
+        if (pawnInTrips.Colore == this.Colore)//pion alier
+        {
+          break;
+        }
+        else
+        {
+          avalablesPositionList.Add(tripsPosition);
+          break;
+        }
+      }
+
+      for (int i = xasciiCode, j = intY; i < 97 + 7 && j > 1; i++, j--)
+      {
+        var tripsPosition = Convert.ToChar(i + 1).ToString() + (j - 1).ToString();
+        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (MainWindowParent.GetCase(tripsPosition) == null)
+          break;
+        if (pawnInTrips == null)
+        {
+          avalablesPositionList.Add(tripsPosition);
+          continue;
+        }
+        if (pawnInTrips.Colore == this.Colore)//pion alier
+        {
+          break;
+        }
+        else
+        {
+          avalablesPositionList.Add(tripsPosition);
+          break;
+        }
+      }
 
 
 
@@ -641,31 +774,39 @@ namespace Chess.Utils
 
      
         var tripsPosition = (X) + (intY + 1).ToString();
-        var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+      var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+      if (MainWindowParent.GetCase(tripsPosition) != null)
+      {
         if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
         else
         {
-          if(pawnInTrips.Colore != this.Colore)//pion alier
+          if (pawnInTrips.Colore != this.Colore)//pion alier
           {
             avalablesPositionList.Add(tripsPosition);
           }
         }
+      }
+      
+        
         
 
        tripsPosition = (X) + (intY - 1).ToString();
        pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
       
@@ -673,83 +814,106 @@ namespace Chess.Utils
 
       
       tripsPosition = (Convert.ToChar(xasciiCode + 1)).ToString() + Y;
-      pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+
       tripsPosition = (Convert.ToChar(xasciiCode - 1)).ToString() + Y;
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
 
       tripsPosition = Convert.ToChar(xasciiCode + 1).ToString() + (intY + 1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+
       tripsPosition = Convert.ToChar(xasciiCode - 1).ToString() + (intY + 1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+
+
       tripsPosition = Convert.ToChar(xasciiCode + 1).ToString() + (intY - 1).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
         }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
+        }
       }
+
       tripsPosition = Convert.ToChar(xasciiCode - 1).ToString() + (intY - 1 ).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-      if (pawnInTrips == null)
+      if (MainWindowParent.GetCase(tripsPosition) != null)
       {
-        avalablesPositionList.Add(tripsPosition);
-      }
-      else
-      {
-        if (pawnInTrips.Colore != this.Colore)//pion alier
+        if (pawnInTrips == null)
         {
           avalablesPositionList.Add(tripsPosition);
+        }
+        else
+        {
+          if (pawnInTrips.Colore != this.Colore)//pion alier
+          {
+            avalablesPositionList.Add(tripsPosition);
+          }
         }
       }
 
@@ -837,10 +1001,6 @@ namespace Chess.Utils
         
         }
       }
-     
-
-        
-
       PossibleTrips.AddRange (avalablesPositionList);
     }
 
@@ -877,9 +1037,16 @@ namespace Chess.Utils
       MainWindowParent.SelectedPawn = this;
       foreach (var item in PossibleTrips)
       {
+        var avaleblesCases = MainWindowParent.GetCase(item);
         var avalableButton = (Button)MainWindowParent.FindName(item);
         if (avalableButton != null)
+        {
           avalableButton.Background = Brushes.Yellow;
+          avalableButton.ToolTip = avaleblesCases.Score.ToString();
+        }
+        
+
+
 
       }
 
@@ -897,18 +1064,7 @@ namespace Chess.Utils
 
 
       //attaque
-      var deletedPawn = MainWindowParent.GetPawn(newCase.CaseName);
-      if(deletedPawn!=null)
-      {
-        //suppression
-        MainWindowParent.PawnList.Remove(deletedPawn);
-        if(deletedPawn.Colore == "White")
-          MainWindowParent.PawnListBlack.Remove(deletedPawn);
-        else
-          MainWindowParent.PawnListWhite.Remove(deletedPawn);
-        if (deletedPawn.Name == "King")
-          MainWindowParent.Win(this.Colore);
-      }
+      
 
       //this.Location = newCase.CaseName;
 
@@ -930,7 +1086,20 @@ namespace Chess.Utils
       AssociateButton = newCase.ButtonCase;
       //newCase.ButtonCase.Background = Brushes.Black;
 
-
+      var deletedPawn = MainWindowParent.GetPawn(newCase.CaseName);
+      if (deletedPawn != null)
+      {
+        //suppression
+        MainWindowParent.PawnList.Remove(deletedPawn);
+        MainWindowParent.PawnListBlack = MainWindowParent.PawnList.Where(x => x.Colore == "Black").ToList();
+        MainWindowParent.PawnListWhite = MainWindowParent.PawnList.Where(x => x.Colore == "White").ToList();
+        /*if(deletedPawn.Colore == "White")
+          MainWindowParent.PawnListBlack.Remove(deletedPawn);
+        else
+          MainWindowParent.PawnListWhite.Remove(deletedPawn);*/
+        if (deletedPawn.Name == "King")
+          MainWindowParent.Win(this.Colore);
+      }
 
       //X = newCase.X;
       //Y = newCase.Y;
@@ -988,6 +1157,7 @@ namespace Chess.Utils
     public void SwithTo(string name)
     {
       this.Name = name;
+      SetValue();
       _image = null;
       _image = new Image();
       _image.Height = 60;

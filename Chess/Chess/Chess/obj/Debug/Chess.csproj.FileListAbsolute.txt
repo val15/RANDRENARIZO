@@ -93,3 +93,4 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csproj.CoreCompileInputs
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csprojAssemblyReference.cache

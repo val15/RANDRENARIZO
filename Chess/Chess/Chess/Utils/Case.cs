@@ -17,10 +17,14 @@ namespace Chess.Utils
     public Button ButtonCase { get; set; }
     public string CaseName { get; set; }
 
-   
+    public int Score { get; set; }
+
+
+
 
     public Case(string x,string y, Button buttonCase, MainWindow mainWindowParent)
     {
+      Score = 0;
       MainWindowParent = mainWindowParent;
       X = x;
       Y = y;
@@ -68,11 +72,12 @@ namespace Chess.Utils
         var opinonPawn = MainWindowParent.GetPawn(buttonSender.Name);
         if(currentPawn != null && opinonPawn !=null)//attaque
         {
-            moveTo(MainWindowParent.FromPosition, buttonSender.Name);
+          MainWindowParent.MoveTo(MainWindowParent.FromPosition, buttonSender.Name);
             return;
         }
 
         MainWindowParent.FromPosition = buttonSender.Name;
+        senderGetPawn.EvaluateScorePossibleTrips();
         senderGetPawn.ColorAvaleblesCases();
         return;
       }
@@ -84,7 +89,7 @@ namespace Chess.Utils
 
       if(!String.IsNullOrEmpty(MainWindowParent.FromPosition) && !String.IsNullOrEmpty(MainWindowParent.ToPosition))
       {
-        moveTo(MainWindowParent.FromPosition, MainWindowParent.ToPosition);
+        MainWindowParent.MoveTo(MainWindowParent.FromPosition, MainWindowParent.ToPosition);
       }
 
       
@@ -100,8 +105,8 @@ namespace Chess.Utils
       //movement
       //selection = vide
     }
-
-    private void moveTo(string fromPosition, string toPosition)
+/*
+    public void moveTo(string fromPosition, string toPosition)
     {
 
 
@@ -127,55 +132,42 @@ namespace Chess.Utils
         MainWindowParent.SelectedPawn.Move(toCase);
       }
 
-     /* if(fromPawn.Name=="King" && toCase.X == "c")
-      {
-        MainWindowParent.SelectedPawn.Move(toCase, "LeftRook");
-      }
-      if (fromPawn.Name == "King" && toCase.X == "g")
-      {
-        MainWindowParent.SelectedPawn.Move(toCase, "RightRook");
-      }*/
-
 
 
       MainWindowParent.FromPosition = "";
       MainWindowParent.ToPosition = "";
+    }
+*/
+    public void Evaluate(string startPosition)
+    {
+      //la note est écaluer en fonction du piece présente
+      var whiteScore = 0;
+      var blackScore = 0;
 
-
-
-
-      /*
-
-      var buttonSender = (Button)sender;
-
-
-      var s = MainWindowParent.GetPawn(buttonSender.Name);
-
-
-
-      if (s == null)//si on selectionne une case vide
+      var pawn = MainWindowParent.GetPawn(this.CaseName);
+      if (pawn == null)
       {
-        MainWindowParent.SetDefaultColoreAllCases();
-
-        if (MainWindowParent.SelectedPawn == null)
-          return;
-
-        //MainWindowParent.SelectedPawn = s;
-        if (MainWindowParent.SelectedPawn.PossibleTrips.Contains(CaseName))
-        {
-          MainWindowParent.SelectedPawn.Move(this);
-        }
-        //return;
+        whiteScore = blackScore = 0;
       }
       else
       {
-
-        MainWindowParent.SelectedPawn = s;
-        MainWindowParent.SelectedPawn.ColorAvaleblesCases();
+        if (pawn.Colore == "White")
+          whiteScore = pawn.Value;
+        else
+          blackScore = pawn.Value;
       }
-      */
+
+     
+
+
+      //si je suis blanc et que je suis cible de noir
+      //ma note descent
+     //if()
+      
+      
 
 
     }
+
   }
 }

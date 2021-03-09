@@ -41,9 +41,7 @@
         <RowDefinition Height="*"></RowDefinition>
         <RowDefinition Height="*"></RowDefinition>
       </Grid.RowDefinitions>
-      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="7"  Name="a1" >
-
-      </Button>
+      <Button Height="100" Width="100" Grid.Column="0" Grid.Row="7"  Name="a1" ></Button>
       <Button Height="100" Width="100" Grid.Column="0" Grid.Row="6"  Name="a2" ></Button>
       <Button Height="100" Width="100" Grid.Column="0" Grid.Row="5"  Name="a3" ></Button>
       <Button Height="100" Width="100" Grid.Column="0" Grid.Row="4"  Name="a4" ></Button>
@@ -123,7 +121,15 @@
 
     <Button Grid.Row="0" Grid.Column="2" Width="25" Height="25" Background="IndianRed"  Content="{materialDesign:PackIcon Kind=TimerOutline}" Name="BlackTurnButton"></Button>
     <Button Grid.Row="3" Grid.Column="2" Width="25" Height="25" Background="IndianRed" Content="{materialDesign:PackIcon Kind=TimerOutline}" Name="WhiteTurnButton"></Button>
-    <Button Grid.Row="0" Grid.Column="0" Content="{materialDesign:PackIcon Kind=EmoticonDead}" Width="25" Height="25" ToolTip="Give up" Click="BlackGiveUp_Click" ></Button>
-    <Button Grid.Row="3" Grid.Column="0" Content="{materialDesign:PackIcon Kind=EmoticonDeadOutline}" Width="25" Height="25" ToolTip="Give up" Click="WhiteGiveUp_Click"></Button>
+    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" >
+      <Button  Content="{materialDesign:PackIcon Kind=Robot}" Width="25" Height="25" ToolTip="search" Click="RunEngineForBlack_Click" ></Button>
+      <Button  Content="{materialDesign:PackIcon Kind=EmoticonDead}" Width="25" Height="25" ToolTip="Give up" Click="BlackGiveUp_Click" ></Button>
+
+    </StackPanel>
+      <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
+      <Button  Content="{materialDesign:PackIcon Kind=RobotOutline}" Width="25" Height="25" ToolTip="search" Click="RunEngineForWhite_Click"></Button>
+      <Button  Content="{materialDesign:PackIcon Kind=EmoticonDeadOutline}" Width="25" Height="25" ToolTip="Give up" Click="WhiteGiveUp_Click"></Button>
+    </StackPanel>
+      
   </Grid>
 </Window>

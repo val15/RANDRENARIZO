@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Chess
 {
@@ -39,6 +41,7 @@ namespace Chess
     {
       InitializeComponent();
       CurrentTurn = "White";
+      //CurrentTurn = "Black";
       WhiteTurnButton.Visibility = Visibility.Visible;
       BlackTurnButton.Visibility = Visibility.Hidden;
       FromPosition = "";
@@ -72,37 +75,37 @@ namespace Chess
             PawnListWhite.Add(new Pawn("SimplePawn", location, X, Y, bt, "White", this));
           if (y == 7)
             PawnListBlack.Add(new Pawn("SimplePawn", location, X, Y, bt, "Black", this));
-
+        
           //Rook (Tour)
           if (y == 1 && (X == "a" || X == "h"))
             PawnListWhite.Add(new Pawn("Rook", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "a" || X == "h"))
             PawnListBlack.Add(new Pawn("Rook", location, X, Y, bt, "Black", this));
-
+         
           //Knight (chevalier)
           if (y == 1 && (X == "b" || X == "g"))
             PawnListWhite.Add(new Pawn("Knight", location, X, Y, bt, "White", this));
-          if (y == 8 && (X == "b" || X == "g"))
+         if (y == 8 && (X == "b" || X == "g"))
             PawnListBlack.Add(new Pawn("Knight", location, X, Y, bt, "Black", this));
-
+      
           //Bishop (fou)
           if (y == 1 && (X == "c" || X == "f"))
             PawnListWhite.Add(new Pawn("Bishop", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "c" || X == "f"))
             PawnListBlack.Add(new Pawn("Bishop", location, X, Y, bt, "Black", this));
-
+       
           //Queen
           if (y == 1 && (X == "d"))
             PawnListWhite.Add(new Pawn("Queen", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "d"))
             PawnListBlack.Add(new Pawn("Queen", location, X, Y, bt, "Black", this));
-
+       
           //King
           if (y == 1 && (X == "e"))
             PawnListWhite.Add(new Pawn("King", location, X, Y, bt, "White", this));
           if (y == 8 && (X == "e"))
             PawnListBlack.Add(new Pawn("King", location, X, Y, bt, "Black", this));
-
+     
 
         }
       }
@@ -120,6 +123,7 @@ namespace Chess
         CurrentTurn = "Black";
         BlackTurnButton.Visibility = Visibility.Visible;
         WhiteTurnButton.Visibility = Visibility.Hidden;
+        //searchAndExecuteBestMove(PawnListBlack);
       }
       else
       {
@@ -222,6 +226,129 @@ namespace Chess
 
       System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
       Application.Current.Shutdown();
+    }
+
+    public void MoveTo(string fromPosition, string toPosition)
+    {
+
+
+      var fromPawn = this.GetPawn(fromPosition);
+      var toCase = this.GetCase(toPosition);
+
+
+
+      //gestion du roc
+      if (fromPawn.PossibleTrips.Contains(toPosition))
+      {
+
+        if (fromPawn.Name == "Rook")
+        {
+          //pour le roc, il faut prend le roi et emplecher le roc déplacement
+          var associateKing = this.GetKing(fromPawn.Colore);
+         
+            if (fromPawn.X == "a")
+              associateKing.IsLeftRookFirstMove = false;
+            if (fromPawn.X == "h")
+              associateKing.IsRightRookFirstMove = false;
+          
+         
+        }
+
+        //if (this.SelectedPawn == null)
+        //this.SelectedPawn = fromPawn;
+        fromPawn.Move(toCase);
+      }
+
+
+
+      this.FromPosition = "";
+      this.ToPosition = "";
+    }
+
+    private void searchAndExecuteBestMove(List<Pawn> pawnList)
+    {
+      //pour tous le pion de la list
+      //on avalue les scrore pour chque déplacement
+      //Pawn selectedPawn = new Pawn();
+
+      dynamic bestPawn = null;
+      var allMaxScore = 0;
+      var allBestPosition = "";
+      var pawnListInOrder = pawnList.OrderBy(x => x.PossibleTrips.Count);
+
+      foreach (var pawn in pawnListInOrder)
+      {
+        var maxScore = 0;
+        var maxPosition = "";
+        pawn.EvaluateScorePossibleTrips();
+        var position = "";
+        var score = 0;
+
+        for (int i = 0; i < pawn.PossibleTrips.Count; i++)
+        {
+          position = pawn.PossibleTrips[i];
+          score = pawn.PossibleTripsScore[i];
+          if (score >= maxScore)
+          {
+            maxScore = score;
+            maxPosition = position;
+          }
+        }
+        var n_ = pawn.Name;
+        var t_ = maxPosition;
+        var s_ = maxScore;
+
+        if (maxScore >= allMaxScore)
+        {
+          allMaxScore = maxScore;
+          bestPawn = pawn;
+          allBestPosition = maxPosition;
+        }
+
+      }
+      //le pion à deplacer est celui qui a le milleur score
+      //et il sera déplacer vers la position du milleur score
+      var t_allMaxScore = allMaxScore;
+      var T_allBestPosition = allBestPosition;
+
+      //ajout d'un hazar
+      if(allMaxScore == 0)//si tout les score sont à 0
+      {
+        var ls = pawnList.Where(x => x.PossibleTrips.Count > 0).ToList();
+        Random rnd = new Random();
+        int index = rnd.Next(0,ls.Count);
+        bestPawn = ls.ElementAt(index);
+
+       // bestPawn = ls[Random.Range(0, ls.Count)];
+      }
+
+
+      MoveTo(((Pawn)bestPawn).Location, allBestPosition);
+    }
+
+
+    private async void RunEngineForWhite_Click(object sender, RoutedEventArgs e)
+    {
+
+
+      // tbkLabel.Text = "two seconds delay";
+
+      //searchAndExecuteBestMove(PawnListWhite);
+
+
+      while (true)
+      {
+        await Task.Delay(200);
+        searchAndExecuteBestMove(PawnListWhite);
+        await Task.Delay(200);
+        searchAndExecuteBestMove(PawnListBlack);
+      }
+      
+    }
+
+    private void RunEngineForBlack_Click(object sender, RoutedEventArgs e)
+    {
+      searchAndExecuteBestMove(PawnListBlack);
     }
   }
 }
