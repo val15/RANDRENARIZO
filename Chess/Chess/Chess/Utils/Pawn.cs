@@ -42,6 +42,16 @@ namespace Chess.Utils
   
     public bool IsLeftRookFirstMove { get; set; }
     public bool IsRightRookFirstMove { get; set; }
+    public string MinPosition { get; set; }
+    public string MaxPosition { get; set; }
+    public string BestPositionAfterEmul { get; set; }
+
+    public int MinScore { get; set; }
+    public int MaxScore { get; set; }
+    public Pawn()
+    {
+
+    }
 
     public Pawn(string name,string location,string x,string y , Button associateButton,string colore, MainWindow mainWindowParent)
     {
@@ -111,19 +121,19 @@ namespace Chess.Utils
       switch (Name)
       {
         case "SimplePawn":
-          Value = 1;
+          Value = 10;
           break;
         case "Queen":
-          Value = 9;
+          Value = 90;
           break;
         case "Rook":
-          Value = 5;
+          Value = 50;
           break;
         case "Bishop":
-          Value = 3;
+          Value = 30;
           break;
         case "Knight":
-          Value = 5;
+          Value = 60;
           break;
         case "King":
           Value = 1000;
@@ -150,6 +160,36 @@ namespace Chess.Utils
       //EvaluateScorePossibleTrips();
     }
 
+
+    public int EvaluateScore()
+    {
+      var score = 0;
+      var pawn = MainWindowParent.GetPawn(this.Location);
+      if (pawn == null)
+      {
+        score = 0;
+      }
+      else
+      {
+
+
+        if (pawn.Colore != this.Colore)
+        {
+          score += pawn.Value;
+        }
+
+      }
+     /* var opignonList = MainWindowParent.GetOpignonPawnList(this.Colore);
+      foreach (var opignonPawn in opignonList)
+      {
+        if (opignonPawn.PossibleTrips.Contains(this.Location))
+        {
+          score += -1;
+        }
+      }*/
+      return score;
+    }
+
     public void EvaluateScorePossibleTrips()//liste des position possibles avec leurs score respective
     {
       PossibleTripsScore.Clear();
@@ -169,14 +209,88 @@ namespace Chess.Utils
           }
             
         }
-        var possibleCase= MainWindowParent.GetCase(position);
+        var opignonList = MainWindowParent.GetOpignonPawnList(this.Colore);
+        foreach (var opignonPawn in opignonList)
+        {
+          if( opignonPawn.PossibleTrips.Contains(position))
+          {
+            score += -1;
+          }
+        }
 
+       /* if(this.Name=="King")
+        {
+          if(opignonList.PossibleTrips.Contains(this.Location))
+
+          foreach (var opignonPawn in opignonList)
+          {
+            if (!opignonPawn.PossibleTrips.Contains(position))
+            {
+              score += 50;
+            }
+          }
+        }*/
+       
+          
+        
+
+        var possibleCase= MainWindowParent.GetCase(position);
         if(possibleCase!=null)
           possibleCase.Score = score;
 
         PossibleTripsScore.Add(score);
       }
     }
+
+    public void EmulateAllPossibleTips()
+    {
+      /*List<Pawn> lst = new List<Pawn>();
+      lst.AddRange(MainWindowParent.PawnList);*/
+      var tupleList = new List<(string, int, string, int,string)>();
+      List<string> lst =  new List<string>();
+      lst.AddRange(this.PossibleTrips);
+      //this.PossibleTrips();
+
+      for (int i = 0; i < lst.Count; i++)
+      {
+        var d = lst[i];
+
+
+       /* if ( d== "d7")
+        {
+          var t = lst[i];
+        }*/
+          
+
+        tupleList.Add(MainWindowParent.Emulate(this.Location, lst[i], MainWindowParent.PawnList));
+      }
+      
+      if(tupleList.Count> 0)
+      {
+        var minItem = tupleList.OrderBy(x => x.Item2).First();
+        var maxItem = tupleList.OrderByDescending(x => x.Item4).First();
+        //var minPo
+
+
+        MinPosition = minItem.Item1;
+        MaxPosition = maxItem.Item3;
+        MinScore = minItem.Item2;
+        MaxScore = maxItem.Item4;
+        BestPositionAfterEmul = maxItem.Item5;
+      }
+      
+    }
+
+
+   /* private AlphaBeta()
+    {
+      foreach (var pawn in PossibleTrips)
+      {
+
+      }
+    }*/
+
+
 
     private void fillPossibleTripsSimplePawn(string colore)
     {
@@ -192,7 +306,11 @@ namespace Chess.Utils
       }
 
       var xasciiCode = (int)Convert.ToChar(X);
-      var intY = Int32.Parse(Y);
+      var intY = 0;
+      //Int32.Parse(Y);
+      bool success = Int32.TryParse(Y, out intY);
+      if (!success)
+        return;
 
       var tripsPosition = X + (intY +(toAdd)).ToString();
       var pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
@@ -1130,13 +1248,17 @@ namespace Chess.Utils
       {
         var rook = MainWindowParent.GetLeftRook(this.Colore);
         rook.Move(MainWindowParent.GetCase("d" + Y));
-        MainWindowParent.SwithTurn();
+        MainWindowParent.SwithTurnAsync();
       }
       if (this.Name == "King" && this.IsFirstMoveKing && this.IsRightRookFirstMove && this.X == "g")
       {
         var rook = MainWindowParent.GetRightRook(this.Colore);
-        rook.Move(MainWindowParent.GetCase("f" + Y));
-        MainWindowParent.SwithTurn();
+        if(rook!=null)
+        {
+          rook.Move(MainWindowParent.GetCase("f" + Y));
+          MainWindowParent.SwithTurnAsync();
+        }
+        
       }
 
       if (this.Name == "King")
@@ -1148,8 +1270,11 @@ namespace Chess.Utils
       //et le fou se place à droite ou à gauche du roi
 
       MainWindowParent.FillAllPossibleTrips();
+      this.MaxScore = 0;
+      this.EvaluateScorePossibleTrips();
+
       MainWindowParent.SetDefaultColoreAllCases();
-      MainWindowParent.SwithTurn();
+      MainWindowParent.SwithTurnAsync();
 
     }
 
