@@ -54,6 +54,11 @@ namespace Chess.Utils
       if ((xasciiCode % 2) == 0 && (yint % 2) == 1)
         ButtonCase.Background = Brushes.Red;
     }
+    public void SetOldPositionColore()
+    {
+      ButtonCase.Background = Brushes.Pink;
+     
+    }
 
     private void buttonCase_Click(object sender, EventArgs e)
     {

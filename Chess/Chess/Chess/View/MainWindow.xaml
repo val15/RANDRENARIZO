@@ -19,7 +19,18 @@
       <ColumnDefinition Width="50"></ColumnDefinition>
       <ColumnDefinition Width="825"></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <Label Name="lbBestNexPosition" Grid.Row="0" Grid.Column="3"></Label>
+    
+    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+      <Button Name="ChoseWhiteForCoputerButon"  Content="{materialDesign:PackIcon Kind=RobotOutline}"  Click="ChoseWhiteForCoputerButon_Click" ></Button>
+      <Button Name="ChoseBlackForCoputerButon" Content="{materialDesign:PackIcon Kind=Robot}"   Click="ChoseBlackForCoputerButon_Click" ></Button>
+      <Button Content="SAVE" Name="saveButton"  Click="saveButton_Click" ></Button>
+      <Button Content="LOAD" Name="loadButton"  Click="loadButton_Click" ></Button>
+      <Button Content="White" Name="WhiteFirstButon"  Click="WhiteFirstButon_Click" ></Button>
+      <Button Content="Black" Name="BlackFirstButon"  Click="BlackFirstButon_Click" ></Button>
+      
+    </StackPanel>
+    
+    <Label Name="lbInfo" Grid.Row="0" Grid.Column="3"></Label>
     <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" >
       <TextBlock  Name="DebugTextBlock" ></TextBlock>
     </ScrollViewer>
@@ -143,12 +154,12 @@
     <Button Grid.Row="0" Grid.Column="2" Width="25" Height="25" Background="IndianRed"  Content="{materialDesign:PackIcon Kind=TimerOutline}" Name="BlackTurnButton"></Button>
     <Button Grid.Row="3" Grid.Column="2" Width="25" Height="25" Background="IndianRed" Content="{materialDesign:PackIcon Kind=TimerOutline}" Name="WhiteTurnButton"></Button>
     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" >
-      <Button  Content="{materialDesign:PackIcon Kind=Robot}" Width="25" Height="25" ToolTip="search" Click="RunEngineForBlack_Click" ></Button>
+      <Button x:Name="BlackRunEngineButton"  Content="{materialDesign:PackIcon Kind=Robot}" Width="25" Height="25" ToolTip="search" Click="RunEngineForBlack_Click" ></Button>
       <Button  Content="{materialDesign:PackIcon Kind=EmoticonDead}" Width="25" Height="25" ToolTip="Give up" Click="BlackGiveUp_Click" ></Button>
 
     </StackPanel>
     <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
-      <Button  Content="{materialDesign:PackIcon Kind=RobotOutline}" Width="25" Height="25" ToolTip="search" Click="RunEngineForWhite_Click"></Button>
+      <Button x:Name="WhiteRunEngineButton" Content="{materialDesign:PackIcon Kind=RobotOutline}" Width="25" Height="25" ToolTip="search" Click="RunEngineForWhite_Click"></Button>
       <Button  Content="{materialDesign:PackIcon Kind=EmoticonDeadOutline}" Width="25" Height="25" ToolTip="Give up" Click="WhiteGiveUp_Click"></Button>
     </StackPanel>
 

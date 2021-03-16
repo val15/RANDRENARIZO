@@ -52,14 +52,23 @@ namespace Chess.Utils
     {
 
     }
+    public void Clean()
+    {
+      _dockPanel = new DockPanel();
+     /* _dockPanel.Background = Brushes.DarkCyan;
+      if (Colore == "White")
+        _dockPanel.Background = Brushes.White;*/
+      AssociateButton.Content = _dockPanel;
+    }
 
-    public Pawn(string name,string location,string x,string y , Button associateButton,string colore, MainWindow mainWindowParent)
+    public Pawn(string name,string location, Button associateButton,string colore, MainWindow mainWindowParent)
     {
 
      
 
       MainWindowParent = mainWindowParent;
       Name = name;
+
 
       SetValue();
 
@@ -80,19 +89,20 @@ namespace Chess.Utils
      
       Colore = colore;
       Location = location;
-      X = x;
-      Y = y;
+      X = Location[0].ToString();
+      Y = Location[1].ToString();
       AssociateButton = associateButton;
       _dockPanel = new DockPanel();
       _image = new Image();
       _image.Height = 60;
       _image.Width = 60;
+      /*
       _dockPanel.Background = Brushes.DarkCyan;
       if (Colore== "White")
-        _dockPanel.Background = Brushes.White;
+        _dockPanel.Background = Brushes.White;*/
 
 
-      _image.Source = new BitmapImage(new Uri(@"/Images/"+Name+".png", UriKind.Relative));
+      _image.Source = new BitmapImage(new Uri(@"/Images/"+Name+ Colore + ".png", UriKind.Relative));
         _dockPanel.Children.Add(_image);
         AssociateButton.Content = _dockPanel;
 
@@ -333,13 +343,15 @@ namespace Chess.Utils
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
       if (pawnInTrips != null)
       {
-        PossibleTrips.Add(tripsPosition);
+        if(pawnInTrips.Colore != this.Colore)
+          PossibleTrips.Add(tripsPosition);
       }
       tripsPosition = Convert.ToChar(xasciiCode + 1).ToString() + (intY + toAdd).ToString();
       pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
       if (pawnInTrips != null)
       {
-        PossibleTrips.Add(tripsPosition);
+        if (pawnInTrips.Colore != this.Colore)
+          PossibleTrips.Add(tripsPosition);
       }
 
 
@@ -1119,6 +1131,10 @@ namespace Chess.Utils
         
         }
       }
+      var t = "m";
+      if (avalablesPositionList.Contains("e"))
+        t = "OK";
+
       PossibleTrips.AddRange (avalablesPositionList);
     }
 
@@ -1181,8 +1197,10 @@ namespace Chess.Utils
         return;
 
 
+      var oldLocation = this.Location;
+
       //attaque
-      
+
 
       //this.Location = newCase.CaseName;
 
@@ -1191,12 +1209,12 @@ namespace Chess.Utils
       _image = new Image();
       _image.Height = 60;
       _image.Width = 60;
-      _image.Source = new BitmapImage(new Uri(@"/Images/" + Name + ".png", UriKind.Relative));
+      _image.Source = new BitmapImage(new Uri(@"/Images/" + Name + Colore+".png", UriKind.Relative));
       var oldColor = _dockPanel.Background;
       _dockPanel.Children.Clear();
       _dockPanel = null;
       _dockPanel = new DockPanel();
-      _dockPanel.Background = oldColor;
+      //_dockPanel.Background = oldColor;
       _dockPanel.Children.Add(_image);
       //AssociateButton.Background = newCase.ButtonCase.Background;
       //AssociateButton.Content = _dockPanel;
@@ -1209,6 +1227,10 @@ namespace Chess.Utils
       {
         //suppression
         MainWindowParent.PawnList.Remove(deletedPawn);
+        MainWindowParent.PawnListBlack = null;
+        MainWindowParent.PawnListBlack = new List<Pawn>();
+        MainWindowParent.PawnListWhite = null;
+        MainWindowParent.PawnListWhite = new List<Pawn>();
         MainWindowParent.PawnListBlack = MainWindowParent.PawnList.Where(x => x.Colore == "Black").ToList();
         MainWindowParent.PawnListWhite = MainWindowParent.PawnList.Where(x => x.Colore == "White").ToList();
         /*if(deletedPawn.Colore == "White")
@@ -1239,8 +1261,12 @@ namespace Chess.Utils
       //Rank
       if (this.Name == "SimplePawn" && (Y == "1" || Y == "8"))
       {
-        var riseInRankWindow = new RiseInRankWindow(this);
-        riseInRankWindow.ShowDialog();
+        //var riseInRankWindow = new RiseInRankWindow(this);
+        // riseInRankWindow.ShowDialog();
+
+        //AUTOMATIC SWITH
+        this.SwithTo("Queen");
+
       }
 
       //Roc
@@ -1264,8 +1290,11 @@ namespace Chess.Utils
       if (this.Name == "King")
         IsFirstMoveKing = false;
 
+      //on recalcure la valeurs du pion en fonction de sa nouvelle position
+      SetValue();
 
-      
+
+
       //si le roi se deplace de deux case vers la gauche ou la droite
       //et le fou se place à droite ou à gauche du roi
 
@@ -1274,9 +1303,14 @@ namespace Chess.Utils
       this.EvaluateScorePossibleTrips();
 
       MainWindowParent.SetDefaultColoreAllCases();
+      //MainWindowParent.SetDefaultColoreAllCases();
+      MainWindowParent.SetOldPositionColore(oldLocation);
+
       MainWindowParent.SwithTurnAsync();
 
     }
+
+
 
  
     public void SwithTo(string name)
@@ -1287,12 +1321,12 @@ namespace Chess.Utils
       _image = new Image();
       _image.Height = 60;
       _image.Width = 60;
-      _image.Source = new BitmapImage(new Uri(@"/Images/" + Name + ".png", UriKind.Relative));
+      _image.Source = new BitmapImage(new Uri(@"/Images/" + Name + Colore+".png", UriKind.Relative));
       var oldColor = _dockPanel.Background;
       _dockPanel.Children.Clear();
       _dockPanel = null;
       _dockPanel = new DockPanel();
-      _dockPanel.Background = oldColor;
+      //_dockPanel.Background = oldColor;
       _dockPanel.Children.Add(_image);
       //AssociateButton.Background = newCase.ButtonCase.Background;
       //AssociateButton.Content = _dockPanel;
