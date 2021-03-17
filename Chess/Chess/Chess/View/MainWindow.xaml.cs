@@ -39,8 +39,8 @@ namespace Chess
     public string CurrentTurn { get; set; }
 
     private int deepStep = 0;
-    private int deepBlackLevel = 5;
-    private int deepWhiteLevel = 5;
+    private int deepBlackLevel = 11;//5;//5;//4;
+    private int deepWhiteLevel = 15;//1;//2;
    // private int levele = 0;
 
     public List<Node> Tree { get; set; }
@@ -342,10 +342,7 @@ namespace Chess
       selectedPawn.FillPossibleTrips();
       selectedPawn.EvaluateScorePossibleTrips();
       
-      if (selectedPawn.Location == "d7")
-      {
-        var lst = selectedPawn.PossibleTrips;
-      }
+     
 
       //on regarde les scores de la nouvelle position
       var maxScore = 0;
@@ -511,7 +508,7 @@ namespace Chess
     }
 
 
-    private void GenereTree(string colore)
+    private void GenereTree(string colore,int deepLevel)
     {
       Tree = null;
       Tree = new List<Node>();
@@ -537,7 +534,7 @@ namespace Chess
 
       
           
-        pawn.EvaluateScorePossibleTrips();
+        //pawn.EvaluateScorePossibleTrips();
 
 
 
@@ -545,7 +542,7 @@ namespace Chess
         {
           //deep++;
 
-          GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.PossibleTripsScore[i], PawnList, colore, newNode, pawn);
+          GenerateThread(pawn.Location, pawn.PossibleTrips[i], PawnList, colore, newNode, pawn, deepLevel);
           deepStep = 0;
         }
        
@@ -564,7 +561,7 @@ namespace Chess
         pawn.X = pawn.Location[0].ToString();
         pawn.Y = pawn.Location[1].ToString();
         pawn.FillPossibleTrips();
-        pawn.EvaluateScorePossibleTrips();
+       // pawn.EvaluateScorePossibleTrips();
 
       }
 
@@ -601,9 +598,7 @@ namespace Chess
       if (movingPawn.Colore == colore)
         return  blackScore - whiteScore;
       else
-        return whiteScore -blackScore ;
-
-
+        return whiteScore - blackScore ;
     }
 
 
@@ -677,7 +672,7 @@ namespace Chess
       }
 
     }
-    private void GenerateThread(string initialPosition, string evaluatePosition, int score, List<Pawn> actualPawnList,string actualColore, Node parentNode,Pawn associatePawn)
+    private void GenerateThread(string initialPosition, string evaluatePosition, List<Pawn> actualPawnList,string actualColore, Node parentNode,Pawn associatePawn,int deepLevel)
     {
 
       List<Pawn> depPawnsList = new List<Pawn>();
@@ -698,7 +693,7 @@ namespace Chess
 
     
       selectedPawn.FillPossibleTrips();
-      selectedPawn.EvaluateScorePossibleTrips();
+      //selectedPawn.EvaluateScorePossibleTrips();
 
       Node newNode = new Node();
       newNode.Location = evaluatePosition;
@@ -707,11 +702,13 @@ namespace Chess
       newNode.Parent = parentNode;
     //  newNode.Parent = parentNode;
       newNode.Level = parentNode.Level + 1;
-      if(CurrentTurn=="Black")
-        newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
-      else
-        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
       newNode.AssociatePawn = associatePawn;
+      if (CurrentTurn == "White")
+        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
+      else
+        newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
+
+      ;
 
       /*if(newNode.Location=="e8")
       {
@@ -740,19 +737,19 @@ namespace Chess
 
 
 
-      var deepLevel = 0;
-      if(CurrentTurn=="Black")
-        deepLevel = deepBlackLevel;
-      else
-        deepLevel = deepWhiteLevel;
-
+      //var deepLevel = 0;
+      /*if(actualColore == "White")
+        deepLevel = deepWhiteLevel ;
+      if(actualColore == "Black")
+        deepLevel = deepBlackLevel;*/
+      deepStep++;
       if (deepStep < deepLevel)
       {
         foreach (var pawn in opignionPawnList)
         {
-          deepStep++;
+          
           //var deep = 0;
-          pawn.EvaluateScorePossibleTrips();
+          //pawn.EvaluateScorePossibleTrips();
 
 
         /* var opignionColore = "";
@@ -776,8 +773,8 @@ namespace Chess
                 var nb = c;
               }
             }*/
-            var c = opignionPawnList.First().Colore;
-            GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.PossibleTripsScore[i], depPawnsList, c, newNode, pawn);
+           // var c = opignionPawnList.First().Colore;
+            GenerateThread(pawn.Location, pawn.PossibleTrips[i], depPawnsList, pawn.Colore, newNode, pawn,deepLevel);
             //deepStep = 0;
           }
         }
@@ -864,30 +861,35 @@ namespace Chess
     }
     private Node GetBestPositionAndMoveFor(string colore)
     {
-      var pawnOld = GetPawn("d8");
-      GenereTree(colore);
+      Tree = null;
+      Tree = new List<Node>();
+      if (colore=="White")
+        GenereTree(colore, deepWhiteLevel);
+      if (colore == "Black")
+        GenereTree(colore, deepBlackLevel);
       var bestNode = GetBestNodePostion();
-      var pawn = GetPawn("d8");
       MoveTo(bestNode.Location, bestNode.BestChildPosition);
       return bestNode;
     }
     private async void RunEngineForWhite_Click(object sender, RoutedEventArgs e)
     {
-      
-       CurrentTurn = "White";
+
+      /* CurrentTurn = "White";
       var bestNode = GetBestPositionAndMoveFor("White");
-       
+       */
 
       /*if (bestNode.Colore == CurrentTurn)//bug, on load
       {
         Load();
         GetBestPositionAndMoveFor(CurrentTurn);
       }*/
-     // _computerColore = "White";
+      // _computerColore = "White";
 
-      Save();
+      // Save();
 
-      /*while (true)
+      _computerColore = "";
+
+      while (true)
       {
 
         await Task.Delay(1);
@@ -907,7 +909,7 @@ namespace Chess
 
 
 
-      }*/
+      }
 
     }
 
@@ -976,20 +978,21 @@ namespace Chess
 
     private async void RunEngineForBlack_Click(object sender, RoutedEventArgs e)
     {
-       CurrentTurn = "Black";
-     var bestNode =GetBestPositionAndMoveFor("Black");
-       
+      /*  CurrentTurn = "Black";
+      var bestNode =GetBestPositionAndMoveFor("Black");
+        */
 
-     /* if (bestNode.Colore == CurrentTurn)//bug, on load
-      {
-        Load();
-        GetBestPositionAndMoveFor(CurrentTurn);
-      }*/
-    //  _computerColore = "Black";
+      /* if (bestNode.Colore == CurrentTurn)//bug, on load
+       {
+         Load();
+         GetBestPositionAndMoveFor(CurrentTurn);
+       }*/
+      //  _computerColore = "Black";
 
-      Save();
+      // Save();
+      _computerColore = "";
 
-      /* while (true)
+       while (true)
        {
         
         await Task.Delay(1);
@@ -1006,7 +1009,7 @@ namespace Chess
        
         Save();
 
-      }*/
+      }
 
 
 
@@ -1027,8 +1030,15 @@ namespace Chess
      //  _computerColore = "Black";
       WhiteRunEngineButton.IsEnabled = true;
       BlackRunEngineButton.IsEnabled = true;
-      var bestNode = GetBestPositionAndMoveFor("White");
-      Save();
+
+      if (_computerColore == "Black")
+        return;
+      if(!String.IsNullOrEmpty(_computerColore))
+      {
+        var bestNode = GetBestPositionAndMoveFor(_computerColore);
+        Save();
+      }
+      
     }
 
     private void BlackFirstButon_Click(object sender, RoutedEventArgs e)
@@ -1041,8 +1051,13 @@ namespace Chess
       WhiteRunEngineButton.IsEnabled = true;
       BlackRunEngineButton.IsEnabled = true;
 
-      var bestNode = GetBestPositionAndMoveFor("Black");
-      Save();
+      if (_computerColore == "White")
+        return;
+      if (!String.IsNullOrEmpty(_computerColore))
+      {
+        var bestNode = GetBestPositionAndMoveFor(_computerColore);
+        Save();
+      }
 
 
     }

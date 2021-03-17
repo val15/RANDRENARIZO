@@ -330,12 +330,19 @@ namespace Chess.Utils
       }
       if (_isFirstMove)
       {
-        tripsPosition = X + (intY + (toAdd)+ (toAdd)).ToString();
-        pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
-        if (pawnInTrips == null)
+         tripsPosition = X + (intY + (toAdd)).ToString();
+         pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+        if(pawnInTrips==null)
         {
-          PossibleTrips.Add(tripsPosition);
+          tripsPosition = X + (intY + (toAdd) + (toAdd)).ToString();
+          pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
+          if (pawnInTrips == null)
+          {
+            PossibleTrips.Add(tripsPosition);
+          }
         }
+
+        
       }
 
       //pour les attaques des pions
@@ -1291,7 +1298,7 @@ namespace Chess.Utils
         IsFirstMoveKing = false;
 
       //on recalcure la valeurs du pion en fonction de sa nouvelle position
-      SetValue();
+     // SetValue();
 
 
 
