@@ -39,8 +39,9 @@ namespace Chess
     public string CurrentTurn { get; set; }
 
     private int deepStep = 0;
-    private int deepBlackLevel = 11;//5;//5;//4;
-    private int deepWhiteLevel = 15;//1;//2;
+    private int cumputerLevel = 7;
+    private int deepBlackLevel = 1;//5;//5;//4;
+    private int deepWhiteLevel = 1;//1;//2;
    // private int levele = 0;
 
     public List<Node> Tree { get; set; }
@@ -135,9 +136,9 @@ namespace Chess
 
       // PawnListWhite.Add(new Pawn("SimplePawn", "c4", "c", "4", (Button)this.FindName("c4"), "White", this));
       //PawnListWhite.Add(new Pawn("King", "e1", "e", "1", (Button)this.FindName("e1"), "White", this));
-     // PawnListBlack.Add(new Pawn("Queen", "d8", "d", "8", (Button)this.FindName("d8"), "Black", this));
+      // PawnListBlack.Add(new Pawn("Queen", "d8", "d", "8", (Button)this.FindName("d8"), "Black", this));
       //PawnListWhite.Add(new Pawn("Queen", "e2", "e", "2", (Button)this.FindName("e2"), "White", this));
-//      PawnListBlack.Add(new Pawn("King", "e8", "e", "8", (Button)this.FindName("e8"), "Black", this));
+      //      PawnListBlack.Add(new Pawn("King", "e8", "e", "8", (Button)this.FindName("e8"), "Black", this));
 
       //PawnListBlack.Add(new Pawn("Knight", "b8", "b", "8", (Button)this.FindName("b8"), "Black", this));
 
@@ -151,11 +152,20 @@ namespace Chess
       PawnListBlack.Add(new Pawn("King", "e8", "e", "8", (Button)this.FindName("e8"), "Black", this));
       PawnListBlack.Add(new Pawn("Bishop", "f8", "f", "8", (Button)this.FindName("e8"), "Black", this));*/
 
+      /* if(deepWhiteLevel> deepBlackLevel)
+       {
+         PawnList.AddRange(PawnListWhite);
+         PawnList.AddRange(PawnListBlack);
+       }
+       else
+       {
+         PawnList.AddRange(PawnListBlack);
+         PawnList.AddRange(PawnListWhite);
 
-      PawnList.AddRange(PawnListBlack);
-      PawnList.AddRange(PawnListWhite);
+       }*/
 
-      FillAllPossibleTrips();
+      
+
     }
 
 
@@ -192,6 +202,43 @@ namespace Chess
       }
 
       Save();
+      Load();
+    /*  var listBlack = new List<Pawn>();
+      var listWhite= new List<Pawn>();
+      listBlack.AddRange(PawnListBlack);
+      listWhite.AddRange(PawnListWhite);
+
+      //on recherge
+      CleanPawnList();
+      foreach (var item in listBlack)
+      {
+        //var bt = (Button)this.FindName(item.Location);
+        var newPawn = new Pawn(item.Name, item.Location, item.AssociateButton, item.Colore, this);
+        newPawn.IsFirstMove = item.IsFirstMove;
+        newPawn.IsFirstMoveKing= item.IsFirstMoveKing;
+        newPawn.IsLeftRookFirstMove = item.IsLeftRookFirstMove;
+        newPawn.IsRightRookFirstMove = item.IsRightRookFirstMove;
+        PawnListBlack.Add(newPawn);
+      }
+      foreach (var item in listWhite)
+      {
+        //var bt = (Button)this.FindName(item.Location);
+        var newPawn = new Pawn(item.Name, item.Location, item.AssociateButton, item.Colore, this);
+        newPawn.IsFirstMove = item.IsFirstMove;
+        newPawn.IsFirstMoveKing = item.IsFirstMoveKing;
+        newPawn.IsLeftRookFirstMove = item.IsLeftRookFirstMove;
+        newPawn.IsRightRookFirstMove = item.IsRightRookFirstMove;
+        PawnListWhite.Add(newPawn);
+      }
+
+
+
+      //PawnListBlack.AddRange()
+      PawnList.AddRange(listBlack);
+      PawnList.AddRange(listWhite);
+      FillAllPossibleTrips();*/
+
+
 
 
 
@@ -703,10 +750,10 @@ namespace Chess
     //  newNode.Parent = parentNode;
       newNode.Level = parentNode.Level + 1;
       newNode.AssociatePawn = associatePawn;
-      if (CurrentTurn == "White")
-        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
-      else
+     if (_computerColore == "Black")
         newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
+      if (_computerColore == "White")
+        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
 
       ;
 
@@ -743,7 +790,7 @@ namespace Chess
       if(actualColore == "Black")
         deepLevel = deepBlackLevel;*/
       deepStep++;
-      if (deepStep < deepLevel)
+      if (deepStep <= deepLevel)
       {
         foreach (var pawn in opignionPawnList)
         {
@@ -1024,12 +1071,17 @@ namespace Chess
     private void WhiteFirstButon_Click(object sender, RoutedEventArgs e)
     {
       CurrentTurn = "White";
+
+    
       //GetBestPositionAndMoveFor("Black");
       WhiteTurnButton.Visibility = Visibility.Visible;
       BlackTurnButton.Visibility = Visibility.Hidden; 
      //  _computerColore = "Black";
       WhiteRunEngineButton.IsEnabled = true;
       BlackRunEngineButton.IsEnabled = true;
+      PawnList.AddRange(PawnListBlack);
+      PawnList.AddRange(PawnListWhite);
+      FillAllPossibleTrips();
 
       if (_computerColore == "Black")
         return;
@@ -1037,6 +1089,7 @@ namespace Chess
       {
         var bestNode = GetBestPositionAndMoveFor(_computerColore);
         Save();
+       Load();
       }
       
     }
@@ -1051,12 +1104,18 @@ namespace Chess
       WhiteRunEngineButton.IsEnabled = true;
       BlackRunEngineButton.IsEnabled = true;
 
+      
+      PawnList.AddRange(PawnListWhite);
+      PawnList.AddRange(PawnListBlack);
+      FillAllPossibleTrips();
+
       if (_computerColore == "White")
         return;
       if (!String.IsNullOrEmpty(_computerColore))
       {
         var bestNode = GetBestPositionAndMoveFor(_computerColore);
         Save();
+        Load();
       }
 
 
@@ -1077,7 +1136,7 @@ namespace Chess
 
         foreach (var pawn in PawnListWhite)
         {
-          writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore}");
+          writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}");
         }
       }
       using (var writer = new StreamWriter("./BLACKList.txt"))
@@ -1085,7 +1144,7 @@ namespace Chess
 
         foreach (var pawn in PawnListBlack)
         {
-          writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore}");
+          writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}");
         }
       }
     }
@@ -1118,7 +1177,13 @@ namespace Chess
 
           var datas = line.Split(';');
           var bt = (Button)this.FindName(datas[1]);
-          PawnListWhite.Add(new Pawn(datas[0], datas[1], bt, datas[2], this));
+          var newPawn = new Pawn(datas[0], datas[1], bt, datas[2], this);
+          //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+          newPawn.IsFirstMove = bool.Parse(datas[3]);
+          newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
+          newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
+          newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
+          PawnListWhite.Add(newPawn);
 
         }
       }
@@ -1134,13 +1199,31 @@ namespace Chess
 
           var datas = line.Split(';');
           var bt = (Button)this.FindName(datas[1]);
-          PawnListBlack.Add(new Pawn(datas[0], datas[1], bt, datas[2], this));
+          var newPawn = new Pawn(datas[0], datas[1], bt, datas[2], this);
+          //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+          newPawn.IsFirstMove = bool.Parse(datas[3]);
+          newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
+          newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
+          newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
+          PawnListBlack.Add(newPawn);
 
         }
       }
 
-      PawnList.AddRange(PawnListBlack);
-      PawnList.AddRange(PawnListWhite);
+      if(_computerColore=="White")
+      {
+        PawnList.AddRange(PawnListWhite);
+        PawnList.AddRange(PawnListBlack);
+      }
+      if (_computerColore == "Black")
+      {
+        PawnList.AddRange(PawnListBlack);
+        PawnList.AddRange(PawnListWhite);
+        
+      }
+
+
+
 
       FillAllPossibleTrips();
     }
@@ -1154,6 +1237,7 @@ namespace Chess
     {
       _computerColore = "White";
       ChoseBlackForCoputerButon.IsEnabled = false;
+      deepWhiteLevel = cumputerLevel;//5;//5;//4;
 
     }
 
@@ -1161,6 +1245,7 @@ namespace Chess
     {
       _computerColore = "Black";
       ChoseWhiteForCoputerButon.IsEnabled = false;
+      deepBlackLevel = cumputerLevel;//5;//5;//4;
     }
   }
 }

@@ -33,7 +33,7 @@ namespace Chess.Utils
 
     private DockPanel _dockPanel;
     private Image _image;
-    private bool _isFirstMove;
+    public bool IsFirstMove{ get; set; }
 
     public int Value { get; set; }
 
@@ -78,7 +78,7 @@ namespace Chess.Utils
 
 
       if (Name=="SimplePawn")
-        _isFirstMove = true;
+        IsFirstMove = true;
       if (Name == "King")
       {
         IsFirstMoveKing = true;
@@ -134,7 +134,7 @@ namespace Chess.Utils
           Value = 10;
           break;
         case "Queen":
-          Value = 90;
+          Value = 100;
           break;
         case "Rook":
           Value = 50;
@@ -328,7 +328,7 @@ namespace Chess.Utils
       {
         PossibleTrips.Add(tripsPosition);
       }
-      if (_isFirstMove)
+      if (IsFirstMove)
       {
          tripsPosition = X + (intY + (toAdd)).ToString();
          pawnInTrips = MainWindowParent.GetPawn(tripsPosition);
@@ -1053,10 +1053,10 @@ namespace Chess.Utils
           }
         }
       }
-
+      var opignonPawnList = MainWindowParent.GetOpignonPawnList(this.Colore);
       //Ajout du roc
       //si le roi ne s'est pas encore deplacer
-      if(Name == "King")
+      if (Name == "King")
       {
         if (IsFirstMoveKing)//si le roi n'a pas bouger
         {
@@ -1075,7 +1075,7 @@ namespace Chess.Utils
 
               //si en rocant, le rois ne passe pas par une case de déplacement possible de l'adversaire
               //si la case n'est pas cible des pions adverses
-              var opignonPawnList = MainWindowParent.GetOpignonPawnList(this.Colore);
+              
               if (opignonPawnList != null)
               {
                 foreach (var item in opignonPawnList)
@@ -1112,7 +1112,7 @@ namespace Chess.Utils
               //si en rocant, le rois ne passe pas par une case de déplacement possible de l'adversaire
               //si la case n'est pas cible des pions adverses
 
-              var opignonPawnList = MainWindowParent.GetOpignonPawnList(this.Colore);
+
               foreach (var item in opignonPawnList)
               {
                 if (item.PossibleTrips.Contains(location))
@@ -1138,11 +1138,28 @@ namespace Chess.Utils
         
         }
       }
-      var t = "m";
-      if (avalablesPositionList.Contains("e"))
-        t = "OK";
 
-      PossibleTrips.AddRange (avalablesPositionList);
+      var opignonPawnPosibleTips = new List<string>();  
+      foreach (var opignonPawn in opignonPawnList)
+      {
+        if(opignonPawn.Name!="King")
+        {
+          opignonPawn.FillPossibleTrips();
+          opignonPawnPosibleTips.AddRange(opignonPawn.PossibleTrips);
+        }
+
+      }
+
+      for (int i = 0; i < avalablesPositionList.Count; i++)
+      {
+        var avalablePosition = avalablesPositionList[i];
+        if (opignonPawnPosibleTips.Contains(avalablePosition))
+          avalablesPositionList.Remove(avalablePosition);
+      }
+
+   
+
+      PossibleTrips.AddRange(avalablesPositionList);
     }
 
     private bool isChess()
@@ -1250,7 +1267,7 @@ namespace Chess.Utils
 
       //X = newCase.X;
       //Y = newCase.Y;
-      _isFirstMove = false;
+      IsFirstMove = false;
       this.Location = newCase.CaseName;
       this.X = newCase.X;
       this.Y = newCase.Y;
