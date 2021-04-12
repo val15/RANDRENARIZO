@@ -1,0 +1,1 @@
+D:\tsiry\RANDRENARIZO\Chess\52342-1317367-jeu-d-echecs-en-c (1)\EchecsSimpleFischer\obj\x86\Debug\simpleFischer.csprojAssemblyReference.cache

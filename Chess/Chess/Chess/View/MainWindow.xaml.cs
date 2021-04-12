@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.Windows.Threading;
 using System.IO;
+using System.ComponentModel;
+using Chess.View;
 
 namespace Chess
 {
@@ -28,6 +30,7 @@ namespace Chess
 
     public List<Case> CaseList { get; set; }
     public List<Pawn> PawnList { get; set; }
+   // public List<Pawn> TempsPawnList { get; set; }
     public List<Pawn> PawnListWhite { get; set; }
     public List<Pawn> PawnListBlack { get; set; }
 
@@ -36,10 +39,42 @@ namespace Chess
     public string FromPosition { get; set; }
     public string ToPosition { get; set; }
 
-    public string CurrentTurn { get; set; }
+    private string _currentTurn;
 
-    private int deepStep = 0;
-    private int cumputerLevel = 7;
+    public string CurrentTurn
+    {
+      get => _currentTurn;
+      set
+      {
+        lbBlackScore.Content = GetScore("Black");
+        lbWhiteScore.Content = GetScore("White");
+        //DoSomething();
+        _currentTurn = value;
+        if (CurrentTurn == "Black")
+        {
+          BlackTurnButton.Visibility = Visibility.Visible;
+          WhiteTurnButton.Visibility = Visibility.Hidden;
+          if (_whiteTimer!=null)
+            _whiteTimer.Stop();
+          startOrContinuBlackTimer();
+        }
+          
+        if (CurrentTurn == "White")
+        {
+          BlackTurnButton.Visibility = Visibility.Hidden;
+          WhiteTurnButton.Visibility = Visibility.Visible;
+          if (_blackTimer != null)
+            _blackTimer.Stop();
+          startOrContinuWhiteTimer();
+        }
+          
+      }
+    }
+
+    
+
+    //private int deepStep = 0;
+    private int cumputerLevel = 3;//max 21
     private int deepBlackLevel = 1;//5;//5;//4;
     private int deepWhiteLevel = 1;//1;//2;
    // private int levele = 0;
@@ -49,9 +84,20 @@ namespace Chess
     private string _computerColore;
     private int blackTurnNumber = 0;
     private int whiteTurnNumber = 0;
+
+    //Timers
+    private DispatcherTimer _cpuTimer;
+    private DispatcherTimer _blackTimer;
+    private DispatcherTimer _whiteTimer;
+    private DateTime _cpuStartTime;
+    private DateTime _blackCountTime;
+    private DateTime _whiteCountTime;
     public MainWindow()
     {
       InitializeComponent();
+      _blackCountTime = new DateTime();
+      _whiteCountTime = new DateTime();
+
       WhiteRunEngineButton.IsEnabled = false;
       BlackRunEngineButton.IsEnabled = false;
       /* CurrentTurn = "White";
@@ -165,7 +211,76 @@ namespace Chess
        }*/
 
       
+      
+      PawnList.AddRange(PawnListBlack);
+      PawnList.AddRange(PawnListWhite);
 
+
+
+    }
+
+    private void ThreadCountCPUReflectionTime()
+    {
+      _cpuTimer = null;
+      this.Dispatcher.BeginInvoke(new Action(() =>
+      {
+        _cpuTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 50), DispatcherPriority.Background,
+                cpuTimer_Tick, Dispatcher.CurrentDispatcher); _cpuTimer.IsEnabled = true;
+        _cpuStartTime = DateTime.Now;
+        //lbCPUReflectionTime.Content = "Hello Geeks !";
+
+      }));
+
+    }
+    private void cpuTimer_Tick(object sender, EventArgs e)
+    {
+      lbCPUReflectionTime.Content = Convert.ToString(DateTime.Now - _cpuStartTime);
+    }
+
+    private void startOrContinuBlackTimer()
+    {
+      Thread threadTimer = new Thread(ThreadStartOrContinuBlackTimer);
+      threadTimer.Start();
+    }
+
+    private void startOrContinuWhiteTimer()
+    {
+      Thread threadTimer = new Thread(ThreadStartOrContinuWhiteTimer);
+      threadTimer.Start();
+    }
+
+    private void ThreadStartOrContinuBlackTimer()
+    {
+
+      _blackTimer = null;
+      this.Dispatcher.BeginInvoke(new Action(() =>
+      {
+        _blackTimer = new DispatcherTimer(new TimeSpan(0, 0, 0,1), DispatcherPriority.Background,
+                blackTimer_Tick, Dispatcher.CurrentDispatcher); _blackTimer.IsEnabled = true;
+      }));
+
+    }
+    private void blackTimer_Tick(object sender, EventArgs e)
+    {
+      _blackCountTime = _blackCountTime.AddSeconds(1);
+      lbBlackTime.Content = String.Format("{0:HH:mm:ss}", _blackCountTime);
+    }
+
+    private void ThreadStartOrContinuWhiteTimer()
+    {
+
+      _whiteTimer = null;
+      this.Dispatcher.BeginInvoke(new Action(() =>
+      {
+        _whiteTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 1), DispatcherPriority.Background,
+                whiteTimer_Tick, Dispatcher.CurrentDispatcher); _whiteTimer.IsEnabled = true;
+      }));
+
+    }
+    private void whiteTimer_Tick(object sender, EventArgs e)
+    {
+      _whiteCountTime = _whiteCountTime.AddSeconds(1);
+      lbWhiteTime.Content = String.Format("{0:HH:mm:ss}", _whiteCountTime);
     }
 
 
@@ -175,11 +290,10 @@ namespace Chess
       {
         whiteTurnNumber++;
         CurrentTurn = "Black";
-        BlackTurnButton.Visibility = Visibility.Visible;
-        WhiteTurnButton.Visibility = Visibility.Hidden;
+        
         if(_computerColore == CurrentTurn)
         {
-          await Task.Delay(100);
+          //await Task.Delay(100);
           GetBestPositionAndMoveFor(CurrentTurn);
         }
         
@@ -190,12 +304,10 @@ namespace Chess
       {
         blackTurnNumber++;
         CurrentTurn = "White";
-        WhiteTurnButton.Visibility = Visibility.Visible;
-        BlackTurnButton.Visibility = Visibility.Hidden;
         //searchAndExecuteBestMove(PawnListBlack);
         if (_computerColore == CurrentTurn)
         {
-          await Task.Delay(100);
+          //await Task.Delay(100);
           GetBestPositionAndMoveFor(CurrentTurn);
         }
       
@@ -265,10 +377,18 @@ namespace Chess
       oldCase.SetOldPositionColore();
      
     }
-    public Pawn GetPawn(string location)
+    public Pawn GetPawn(string location,bool isFromTemps=false)
     {
-      var result = PawnList.FirstOrDefault(x => x.Location == location);
-      return result;
+
+      /*if(isFromTemps)
+       */
+     /* if (TempsPawnList != null)
+        return TempsPawnList.FirstOrDefault(x => x.Location == location);
+      else
+        return null;///PawnList.FirstOrDefault(x => x.Location == location);
+      /* else*/
+         return PawnList.FirstOrDefault(x => x.Location == location);
+
     }
 
     public List<Pawn> GetOpignonPawnList(string colore)
@@ -561,17 +681,41 @@ namespace Chess
       Tree = new List<Node>();
       //Tree.Clear();
       DebugTextBlock.Text = "";
-      var computerPawnList = PawnList.Where(x => x.Colore == colore);
+      var computerPawnList = PawnList.Where(x => x.Colore == colore).ToList();
+      /*var king = computerPawnList.FirstOrDefault(x => x.Name == "King");
+      if (king.FindIsMaced())//si le roi est menacer
+      {
+
+        //soit on attaque ce qui menace
 
 
+
+        computerPawnList.Clear();
+        //soit on bouge le roi
+        computerPawnList.Add(king);
+        //soit on on protege le roi
+
+        
+      }*/
+
+
+
+
+
+
+      
       foreach (var pawn in computerPawnList)
       {
         //var deep = 0;
 
 
-        Node newNode = new Node();
+        Node newNode = new Node(PawnList);
         newNode.Location = pawn.Location;
         newNode.OldPositionName = "";
+       /* if (_computerColore == "Black")
+          newNode.Weight = evaluateScoreForBlack(colore, computerPawnList, pawn);
+        if (_computerColore == "White")
+          newNode.Weight = evaluateScoreForWhite(colore, computerPawnList, pawn);*/
         newNode.Weight = -10000000;
         newNode.Level = 0;
         newNode.Colore = colore;
@@ -579,18 +723,28 @@ namespace Chess
 
         Tree.Add(newNode);
 
-      
-          
+
+
         //pawn.EvaluateScorePossibleTrips();
 
+        if (pawn.Name == "King")
+        { 
 
+          var t_p = pawn;
+          var t_king = pawn.PossibleTrips;
+        }
 
+        
+        
         for (int i = 0; i < pawn.PossibleTrips.Count; i++)
         {
           //deep++;
-
-          GenerateThread(pawn.Location, pawn.PossibleTrips[i], PawnList, colore, newNode, pawn, deepLevel);
-          deepStep = 0;
+          GenerateThread(pawn.Location, pawn.PossibleTrips[i], colore, newNode, pawn, deepLevel);
+          //deepStep = 0;
+          foreach (var item in PawnList)
+          {
+            item.EmulateAllPossibleTips();
+          }
         }
        
 
@@ -599,6 +753,10 @@ namespace Chess
 
 
         MinMax();
+
+
+
+
 
       foreach (var pawn in PawnList)
       {
@@ -612,16 +770,39 @@ namespace Chess
 
       }
 
-      foreach (var node in Tree/*.Where(x=>x.Colore=="White" && x.AssociatePawn.Name == "Queen")*/.OrderBy(x=>x.Level))
-      {
-        /*if(node.Location=="f1")
-        {*/
-        Debug.WriteLine(node.Location);
-        DebugTextBlock.Text += "postition : " + node.Location + "   score : " + node.Weight.ToString() + "  level : "  + node.Level +
-           "    number of child : " + node.ChildList.Count() + "    OldPosition : " + node.OldPositionName + "   parent : "+node.Parent?.Location+"   Colore : " + node.Colore  + "    Pawn : " + node.AssociatePawn?.Name + "   BSP : " + node?.BestChildPosition +"\n";
+      //foreach (var node in Tree.Where(x => x.Level >= 3 && (x.AssociatePawn.Name == "Rook"  || x.AssociatePawn.Name == "King") && (x.Location == "e1" )))
+      //foreach (var node in Tree.Where(x => (x.AssociatePawn.Name == "King" && x.Location == "e1" && x.Level == 3) || (x.AssociatePawn.Name == "King" && x.Level ==1) || (x.AssociatePawn?.Name == "Rook" && x.Location == "e1" && x.Level == 2 && x.Parent.Location == "d2")).OrderBy(x => x.Level))
+      //foreach (var node in Tree.Where(x => (x.AssociatePawn.Name == "Rook"  && x.Level == 2 && x.Location == "e1" /*&& x.ChildList.Count>0*/) || (x.AssociatePawn.Name == "King" && x.Level == 3 && x.Location == "e1" && x.Parent.Location =="e1")).OrderBy(x=>x.Level))// || (x.AssociatePawn?.Name == "Rook" && x.Location == "e1" && x.Level == 2 && x.Parent.Location == "d2")).OrderBy(x => x.Level))
+      /* {
 
-        //}
-      }
+         Debug.WriteLine(node.Location);
+         DebugTextBlock.Text += "postition : " + node.Location + "   score : " + node.Weight.ToString() + "  level : "  + node.Level +
+            "    number of child : " + node.ChildList.Count() + "    OldPosition : " + node.OldPositionName + "   parent :"+node.Parent?.AssociatePawn.Name +" "+ node.Parent?.AssociatePawn.Location+ " " + node.Parent?.AssociatePawn.Colore + "    Colore : " + node.Colore  + "    Pawn : " + node.AssociatePawn?.Name + "   BSP : " + node?.BestChildPosition +"\n";
+
+         //}
+       }*/
+      /* foreach (var node in Tree.Where(x => x.AssociatePawn.Name=="Rook" && x.Level==2 && x.Location == "e1" && x.Parent.Location == "d2" && x.Parent.AssociatePawn.Name == "King"))
+       {
+         DebugTextBlock.Text += "postition : " + node.Location + "   score : " + node.Weight.ToString() + "  level : " + node.Level +
+            "    number of child : " + node.ChildList.Count() + "    OldPosition : " + node.OldPositionName + "   parent :" + node.Parent?.AssociatePawn.Name + " " + node.Parent?.AssociatePawn.Location + " " + node.Parent?.AssociatePawn.Colore + "    Colore : " + node.Colore + "    Pawn : " + node.AssociatePawn?.Name + "   BSP : " + node?.BestChildPosition + "\n";
+
+         foreach (var item in node.ChildList)
+         {
+           DebugTextBlock.Text += "postition : " + item.Location + "   score : " + item.Weight.ToString() + "  level : " + item.Level +
+           "    number of child : " + item.ChildList.Count() + "    OldPosition : " + item.OldPositionName + "   parent :" + item.Parent?.AssociatePawn.Name + " " + item.Parent?.AssociatePawn.Location + " " + item.Parent?.AssociatePawn.Colore + "    Colore : " + item.Colore + "    Pawn : " + item.AssociatePawn?.Name + "   BSP : " + item?.BestChildPosition + "\n";
+
+         }*/
+
+     /* foreach (var node in Tree)
+      {
+        DebugTextBlock.Text += "postition : " + node.Location +"    Pawn : " + node.AssociatePawn?.Name + "   score : " + node.Weight + "  level : " + node.Level +
+           "    number of child : " + node.ChildList.Count() + "    OldPosition : " + node.OldPositionName + "   parent :" + node.Parent?.AssociatePawn.Name + " " + node.Parent?.AssociatePawn.Location + " " + node.Parent?.AssociatePawn.Colore + "    Colore : " + node.Colore + "   BSP : " 
+           + node?.BestChildPosition+"    NUmberPawn : "+ node.GetCurrentLocalPawnList().Count +" "+node.GetCurrentLocalPawnListAllier().Count + "\n";
+
+
+      }*/
+
+
     }
 
     private int evaluateScoreForBlack(string colore, List<Pawn> actualPawnList,Pawn movingPawn)
@@ -640,8 +821,16 @@ namespace Chess
         }
                 
       }
-      /*var tblackScore = blackScore;
-      var twhiteScore = whiteScore;*/
+
+
+     /* var kingAlier = actualPawnList.FirstOrDefault(x => x.Colore == "Black" && x.Name == "King");
+      if (kingAlier != null)
+      {
+        if (kingAlier.FindIsMaced(actualPawnList))
+          return -9999999;
+      }
+   */
+
       if (movingPawn.Colore == colore)
         return  blackScore - whiteScore;
       else
@@ -666,6 +855,22 @@ namespace Chess
         }
 
       }
+     
+
+     
+    /*   var kingAlier = actualPawnList.FirstOrDefault(x => x.Colore == "White" && x.Name=="King");
+        if(kingAlier!=null)
+        {
+          if (kingAlier.FindIsMaced(actualPawnList))
+            return -9999999;
+        }
+        
+      */
+      
+
+
+
+
 
       if (movingPawn.Colore == colore)
         return whiteScore - blackScore;
@@ -684,13 +889,41 @@ namespace Chess
         var parent = Tree[i].Parent;
         if (parent == null)
           continue;
-        /*if (parent.Weight <= node.Weight)
-        {
-          parent.Weight = node.Weight;
-          parent.BestChildPosition = node.Location;
-        }*/
         parent.ChildList.Add(node);
-        if((node.Level%2) != 0)//Max
+       /* //if(node.Lz)
+        if(node.Level == 3)//max
+        {
+          if (parent.Weight < node.Weight)
+          {
+            parent.Weight = node.Weight - 1;
+
+          }
+        }
+        if (node.Level == 2)//max
+        {
+          if (node.Weight > parent.Weight)
+          {
+            parent.Weight = node.Weight - 1;
+ 
+
+          }
+        }
+        if (node.Level == 1)//max
+        {
+          if (node.Weight > parent.Weight)
+          {
+            parent.Weight = node.Weight - 1;
+
+
+          }
+        }
+        if (parent.Level == 0)
+          parent.BestChildPosition = node.Location;
+
+
+        */
+        
+        if ((node.Level%2) != 0)//Max
         {
           //on remonte le max
           if (parent.Weight < node.Weight)
@@ -705,33 +938,68 @@ namespace Chess
         }
         else //Min
         {
-          //on remonte le min
+          
           if (parent.Weight > node.Weight)
           {
-            parent.Weight = node.Weight-1;
-            
+            parent.Weight = node.Weight-1; 
           }
             
         }
+
+        /*if(node.Level == 2)
+        {
+          if (node.Weight < parent.Weight)
+          {
+            parent.Weight = node.Weight - 1;
+          }
+          //parent.Weight = node.Weight - 1;
+        }*/
+       
+
+
+
 
 
 
       }
 
     }
-    private void GenerateThread(string initialPosition, string evaluatePosition, List<Pawn> actualPawnList,string actualColore, Node parentNode,Pawn associatePawn,int deepLevel)
+    private void GenerateThread(string initialPosition, string evaluatePosition,string actualColore, Node parentNode,Pawn associatePawn,int deepLevel)
     {
 
       List<Pawn> depPawnsList = new List<Pawn>();
-      depPawnsList.AddRange(actualPawnList);
+      depPawnsList.AddRange(parentNode.GetCurrentLocalPawnList());
       Pawn selectedPawn = new Pawn();
       selectedPawn = pawnGetPawnsInList(depPawnsList, initialPosition);
+      if(selectedPawn == null)
+      {
+        //return
+        var tN = selectedPawn;
+      }
       var destinationPawn = pawnGetPawnsInList(depPawnsList, evaluatePosition);
       if (destinationPawn != null)
       {
+        if( destinationPawn.Colore=="White" && destinationPawn.Name == "King")
+        {
+          var tdk = destinationPawn;
+        }
+
+        if(selectedPawn.Colore == "Black" && destinationPawn.Colore=="White")
+        {
+          var dezer = depPawnsList.Count;
+          var tdzere = destinationPawn;
+        }
+
         depPawnsList.Remove(destinationPawn);
-        
+        if (selectedPawn.Colore == "Black" && destinationPawn.Colore == "White")
+        {
+          var dezer = depPawnsList.Count;
+          var tdzere = destinationPawn;
+        }
+
       }
+
+     
 
      
       selectedPawn.Location = evaluatePosition;
@@ -742,20 +1010,66 @@ namespace Chess
       selectedPawn.FillPossibleTrips();
       //selectedPawn.EvaluateScorePossibleTrips();
 
-      Node newNode = new Node();
+      Node newNode = new Node(depPawnsList);
       newNode.Location = evaluatePosition;
       newNode.OldPositionName = initialPosition;
       newNode.Colore = actualColore;
-      newNode.Parent = parentNode;
+      /*Node tempParent = new Node();
+      tempParent.AssociatePawn = parentNode.AssociatePawn;*/
+      
+      //parentNode.Location = initialPosition;
+      
+      
     //  newNode.Parent = parentNode;
+    
       newNode.Level = parentNode.Level + 1;
-      newNode.AssociatePawn = associatePawn;
-     if (_computerColore == "Black")
-        newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
-      if (_computerColore == "White")
-        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
+      //associatePawn.Location = evaluatePosition;
+      Pawn tempsPawn = new Pawn();
+      tempsPawn.Name = associatePawn.Name;
+      tempsPawn.Location = associatePawn.Location;
+      tempsPawn.Colore = associatePawn.Colore;
+      newNode.AssociatePawn = tempsPawn;
+      /*Node tempsParentNode = new Node();
+      tempsParentNode.AssociatePawn = parentNode.AssociatePawn;
+      tempsParentNode.Location = parentNode.Location;*/
+      //tempsParentNode.AssociatePawn = tempsParentNode.AssociatePawn;
+      newNode.Parent = parentNode;
 
-      ;
+      /*if (newNode.Level == 3 && newNode.Colore =="White")
+      {
+        var tdk = parentNode.GetCurrentLocalPawnListAllier().Count;
+      }
+
+
+      if (newNode.AssociatePawn.Name == "Rook" && newNode.Location == "e1")
+      {
+        var tdeze = parentNode;
+      }*/
+
+     /* if (parentNode.Location == "e1" )
+      {
+        var tdeze = parentNode;
+        var name = parentNode.AssociatePawn.Name;
+      }*/
+
+      if (newNode.Parent.AssociatePawn.Name == "Rook" && newNode.Parent.Location == "e1")
+      {
+        var tdeze = parentNode;
+      }
+
+      if (_computerColore == "Black")
+        newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
+     if (_computerColore == "White")
+        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
+   /*   DebugTextBlock2.Text = "";
+     if (newNode.Colore == "Black" && newNode.AssociatePawn.Name == "Rook" && newNode.Level ==2)
+      {
+        DebugTextBlock2.Text += newNode.AssociatePawn.Name + "   "+"    " + newNode.Level+"   "  
+          + newNode.Weight + "    " + selectedPawn.Location+"\n";
+
+      }*/
+      
+
 
       /*if(newNode.Location=="e8")
       {
@@ -773,14 +1087,34 @@ namespace Chess
       // if (opignionKing == null)
       //   return;
 
+      var originalPawnList = new List<Pawn>();
+      originalPawnList.AddRange(PawnList);
+
       var opignionPawnList = new List<Pawn>();
       foreach (var item in depPawnsList)
       {
         if (item.Colore != actualColore)
+        {
+
+          //A VERIFIER
+         // PawnList = depPawnsList;
+          item.FillPossibleTrips();
           opignionPawnList.Add(item);
+          if(item.Name == "King" && newNode.Level == 2 && item.Location == "d2" && newNode.AssociatePawn.Name == "Rook" )
+          {
+            var t = item.PossibleTrips;
+          }
+        }
+          
       }
 
-    
+      /*PawnList = null;
+      PawnList = new List<Pawn>();
+      PawnList.AddRange(originalPawnList);*/
+
+
+
+
 
 
 
@@ -789,9 +1123,18 @@ namespace Chess
         deepLevel = deepWhiteLevel ;
       if(actualColore == "Black")
         deepLevel = deepBlackLevel;*/
-      deepStep++;
-      if (deepStep <= deepLevel)
+
+
+      /* if (deepStep > deepLevel)
+         deepStep = 0;*/
+      // deepStep++;
+      if (parentNode.Level < cumputerLevel-1)
       {
+
+        if (newNode.AssociatePawn.Name == "Rook" && newNode.Location == "e1" && newNode.Level == 2 && newNode.Parent.AssociatePawn.Name == "King" && newNode.Parent.AssociatePawn.Location =="d2")
+        {
+          var tdeze = opignionPawnList;
+        }
         foreach (var pawn in opignionPawnList)
         {
           
@@ -811,17 +1154,22 @@ namespace Chess
           for (int i = 0; i < pawn.PossibleTrips.Count; i++)
           {
             //deep++;
-           /* if(pawn.Name=="King")
-            {
-              var c = opignionPawnList.First().Colore;
-              //if(c!="White")
-              if (c != "Black")
-              {
-                var nb = c;
-              }
-            }*/
-           // var c = opignionPawnList.First().Colore;
-            GenerateThread(pawn.Location, pawn.PossibleTrips[i], depPawnsList, pawn.Colore, newNode, pawn,deepLevel);
+            /* if(pawn.Name=="King")
+             {
+               var c = opignionPawnList.First().Colore;
+               //if(c!="White")
+               if (c != "Black")
+               {
+                 var nb = c;
+               }
+             }*/
+            // var c = opignionPawnList.First().Colore;
+
+             if (newNode.AssociatePawn.Name == "King" && newNode.Location == "e1")
+      {
+        var tdeze = parentNode;
+      }
+            GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, newNode, pawn,deepLevel);
             //deepStep = 0;
           }
         }
@@ -861,9 +1209,15 @@ namespace Chess
 
     private Node GetBestNodePostion()
     {
+      /*DebugTextBlock2.Text = "";
+      foreach (var item in Tree.Where(x => x.Level == 1))
+      {
+        DebugTextBlock2.Text += item.AssociatePawn.Name + "  " + item.Weight + "\n";
+      }*/
+
       var maxWeight = Tree.Where(x => x.Level == 0).OrderByDescending(x => x.Weight).First().Weight;
       var bestNodeList = Tree.Where(x => x.Level == 0 && x.Weight == maxWeight);
-      Node bestNode = new Node();
+      Node bestNode = new Node(new List<Pawn>());
       if(bestNodeList.Count()==1)
       {
         bestNode = bestNodeList.First();
@@ -878,10 +1232,10 @@ namespace Chess
         bestNode = bestNodeList.ElementAt(index);
         
       }
-      var blackScore = GetScore("Black");
-      var whiteScore = GetScore("White");
-      lbInfo.Content = "Best node for "+ bestNode.Colore +" : " + bestNode.AssociatePawn.Name + "  " + bestNode.Weight +"Position : "+ bestNode.Location+ " to " + bestNode.BestChildPosition
-        +"    Black score : "+ blackScore+" ("+blackTurnNumber+" turn) "+"    White score : "+ whiteScore+" ("+ whiteTurnNumber + " turn)";
+      //var blackScore = GetScore("Black");
+      //var whiteScore = GetScore("White");
+      lbInfo.Content = "Best node for "+ bestNode.Colore +" : " + bestNode.AssociatePawn.Name + "  " + bestNode.Weight +"Position : "+ bestNode.Location+ " to " + bestNode.BestChildPosition;
+      //  +"    Black score : "+ blackScore+" ("+blackTurnNumber+" turn) "+"    White score : "+ whiteScore+" ("+ whiteTurnNumber + " turn)";
       return bestNode;
 
     }
@@ -906,18 +1260,93 @@ namespace Chess
       return result;
       
     }
+
+    private void simulProgression()
+    {
+      //pbCalculationProgress.Value = 0;
+
+      BackgroundWorker worker = new BackgroundWorker();
+      worker.WorkerReportsProgress = true;
+      worker.DoWork += worker_DoWork;
+      worker.ProgressChanged += worker_ProgressChanged;
+      worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+      worker.RunWorkerAsync(10000);
+    }
+    void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+    {
+      //pbCalculationProgress.Value = e.ProgressPercentage;
+     /* if (e.UserState != null)
+        lbResults.Items.Add(e.UserState);*/
+    }
+
+    void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    {
+      MessageBox.Show("Numbers between 0 and 10000 divisible by 7: " + e.Result);
+    }
+
+
+    void worker_DoWork(object sender, DoWorkEventArgs e)
+    {
+      int max = (int)e.Argument;
+      int result = 0;
+      for (int i = 0; i < max; i++)
+      {
+        int progressPercentage = Convert.ToInt32(((double)i / max) * 100);
+        if (i % 42 == 0)
+        {
+          result++;
+          (sender as BackgroundWorker).ReportProgress(progressPercentage, i);
+        }
+        else
+          (sender as BackgroundWorker).ReportProgress(progressPercentage);
+        System.Threading.Thread.Sleep(1);
+
+      }
+      e.Result = result;
+    }
+
+
     private Node GetBestPositionAndMoveFor(string colore)
     {
-      Tree = null;
-      Tree = new List<Node>();
-      if (colore=="White")
-        GenereTree(colore, deepWhiteLevel);
-      if (colore == "Black")
-        GenereTree(colore, deepBlackLevel);
-      var bestNode = GetBestNodePostion();
-      MoveTo(bestNode.Location, bestNode.BestChildPosition);
-      return bestNode;
+      Thread threadTimer = new Thread(ThreadCountCPUReflectionTime);
+      threadTimer.Start();
+
+      //simulProgression();
+      Thread sherchThread = new Thread(()=> ThreadGetBestMove(colore));
+
+      sherchThread.Start();
+      
+      return null;
     }
+
+    private void ThreadGetBestMove(string color)
+    {
+
+      Thread.Sleep(TimeSpan.FromSeconds(5));
+
+      this.Dispatcher.BeginInvoke(new Action(() =>
+      {
+
+        Tree = null;
+        Tree = new List<Node>();
+
+        //var t_cc = _computerColore;
+       // _computerColore = "White";
+        if (CurrentTurn == "White")
+          GenereTree(color, deepWhiteLevel);
+        if (CurrentTurn == "Black")
+          GenereTree(color, deepBlackLevel);
+        var bestNode = GetBestNodePostion();
+        MoveTo(bestNode.Location, bestNode.BestChildPosition);
+        _cpuTimer.Stop();
+
+
+
+      }));
+
+    }
+
+
     private async void RunEngineForWhite_Click(object sender, RoutedEventArgs e)
     {
 
@@ -1068,6 +1497,7 @@ namespace Chess
       
     }
 
+    
     private void WhiteFirstButon_Click(object sender, RoutedEventArgs e)
     {
       CurrentTurn = "White";
@@ -1131,7 +1561,14 @@ namespace Chess
 
     public void Save()
     {
-      using (var writer = new StreamWriter("./WHITEList.txt"))
+      var whiteListFile = "./WHITEList.txt";
+      var blackListFile = "./BLACKList.txt";
+      var whiteListOldFile = "./WHITEListOld.txt";
+      var blackListOldFile = "./BLACKListOld.txt";
+      //implemenation de preview
+      File.Copy(whiteListFile, whiteListOldFile, true);
+      File.Copy(blackListFile, blackListOldFile, true);
+      using (var writer = new StreamWriter(whiteListFile))
       {
 
         foreach (var pawn in PawnListWhite)
@@ -1139,7 +1576,7 @@ namespace Chess
           writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}");
         }
       }
-      using (var writer = new StreamWriter("./BLACKList.txt"))
+      using (var writer = new StreamWriter(blackListFile))
       {
 
         foreach (var pawn in PawnListBlack)
@@ -1147,6 +1584,7 @@ namespace Chess
           writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}");
         }
       }
+      
     }
 
 
@@ -1158,15 +1596,24 @@ namespace Chess
       }
     
 
-      PawnListWhite.Clear();
+     /* PawnListWhite.Clear();
       PawnListBlack.Clear();
-      PawnList.Clear();
+      PawnList.Clear();*/
+      PawnListWhite = null;
+      PawnListBlack = null;
+      PawnList = null;
+      PawnListWhite = new List<Pawn>();
+      PawnListBlack = new List<Pawn>();
+      PawnList = new List<Pawn>();
     }
 
-    private void Load()
+    private void Load(string old="")
     {
+      if(Tree!= null)
+        Tree.Clear();
+      Tree = null;
       CleanPawnList();
-      var readText = File.ReadAllText("./WHITEList.txt");
+      var readText = File.ReadAllText("./WHITEList"+old+".txt");
 
       using (StringReader sr = new StringReader(readText))
       {
@@ -1188,7 +1635,7 @@ namespace Chess
         }
       }
 
-      readText = File.ReadAllText("./BLACKList.txt");
+      readText = File.ReadAllText("./BLACKList"+old+".txt");
 
       using (StringReader sr = new StringReader(readText))
       {
@@ -1210,7 +1657,7 @@ namespace Chess
         }
       }
 
-      if(_computerColore=="White")
+       if(_computerColore=="White")
       {
         PawnList.AddRange(PawnListWhite);
         PawnList.AddRange(PawnListBlack);
@@ -1221,6 +1668,8 @@ namespace Chess
         PawnList.AddRange(PawnListWhite);
         
       }
+     /* PawnList.AddRange(PawnListWhite);
+      PawnList.AddRange(PawnListBlack);*/
 
 
 
@@ -1246,6 +1695,28 @@ namespace Chess
       _computerColore = "Black";
       ChoseWhiteForCoputerButon.IsEnabled = false;
       deepBlackLevel = cumputerLevel;//5;//5;//4;
+    }
+
+    private void PreviousButon_Click(object sender, RoutedEventArgs e)
+    {
+      Load("Old");
+      if (CurrentTurn == "Black")
+        CurrentTurn = "White";
+      if (CurrentTurn == "White")
+        CurrentTurn = "Black";
+    }
+
+    private void GrapheButon_Click(object sender, RoutedEventArgs e)
+    {
+
+      /*if (Tree == null)
+        return;*/
+      Load("Old");
+      _computerColore = "White";
+      GenereTree("White", cumputerLevel);
+
+      var treeGrapheForm = new TreeGrapheForm(Tree);
+      treeGrapheForm.Show();
     }
   }
 }

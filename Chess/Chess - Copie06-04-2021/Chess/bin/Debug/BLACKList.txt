@@ -1,0 +1,2 @@
+Rook;h7;Black;False;False;False;False
+Bishop;d3;Black;False;False;False;False

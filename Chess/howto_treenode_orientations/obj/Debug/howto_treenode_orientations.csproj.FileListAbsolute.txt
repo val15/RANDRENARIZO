@@ -1,0 +1,10 @@
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\bin\Debug\howto_treenode_orientations.exe
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\bin\Debug\howto_treenode_orientations.pdb
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.csprojAssemblyReference.cache
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.Form1.resources
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.NodeTextDialog.resources
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.Properties.Resources.resources
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.csproj.GenerateResource.cache
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.csproj.CoreCompileInputs.cache
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.exe
+D:\tsiry\RANDRENARIZO\Chess\howto_treenode_orientations\obj\Debug\howto_treenode_orientations.pdb
