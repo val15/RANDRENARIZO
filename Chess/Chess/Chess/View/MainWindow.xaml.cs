@@ -752,7 +752,7 @@ namespace Chess
             item.EmulateAllPossibleTips();
           }
         }
-
+        //Chaque pion a son arbre(Tree)
         AllCumputerPawnTreeList.Add(Tree);
 
 
@@ -892,6 +892,8 @@ namespace Chess
 
     private void MinMax()
     {
+
+      //pour chaque arbre, on amplique le MinMax
       foreach (var tree in AllCumputerPawnTreeList)
       {
         for (int i = tree.Count - 1; i >= 0; i--)
@@ -1203,6 +1205,7 @@ namespace Chess
 
       var bestNodeList = new List<Node>();
 
+      //on prend les milleurs arbre
       foreach (var tree   in AllCumputerPawnTreeList)
       {
         bestNodeList.Add(tree.First());
@@ -1214,6 +1217,7 @@ namespace Chess
       {
         DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
       }
+      
       if (bestMaxWeithNodeList.Count() == 1)
       {
         var node = bestMaxWeithNodeList.First(); ;
@@ -1222,7 +1226,7 @@ namespace Chess
         return node;
       }
        
-
+      //si il y a plusieur meilleurs arbre
       //On Simule les noeuds qui on les milleurs score
       AllCumputerPawnTreeList = null;
       AllCumputerPawnTreeList = new List<List<Node>>();
@@ -1282,8 +1286,9 @@ namespace Chess
           $" {node.Location} to {node.BestChildPosition}\n";
         return node;
       }
-      DebugTextBlock.Text += $"NO BEST NOND";
+      DebugTextBlock.Text += $"NO BEST FOND\n";
 
+      //quand il n'y a pas de milleurs apres une seconde simulation
       //on prend au hazard
 
       Random rnd = new Random();
