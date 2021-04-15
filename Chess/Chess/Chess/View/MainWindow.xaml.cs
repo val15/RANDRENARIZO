@@ -1242,7 +1242,7 @@ namespace Chess
         for (int i = 0; i < pawn.PossibleTrips.Count; i++)
         {
           //deep++;
-          GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, node, pawn, 3);
+          GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, node, pawn, cumputerLevel);
           //deepStep = 0;
           foreach (var item in PawnList)
           {
