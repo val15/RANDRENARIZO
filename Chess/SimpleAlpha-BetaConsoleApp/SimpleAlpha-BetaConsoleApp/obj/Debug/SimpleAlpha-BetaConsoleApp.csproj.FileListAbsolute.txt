@@ -1,0 +1,7 @@
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\bin\Debug\SimpleAlpha-BetaConsoleApp.exe.config
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\bin\Debug\SimpleAlpha-BetaConsoleApp.exe
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\bin\Debug\SimpleAlpha-BetaConsoleApp.pdb
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\obj\Debug\SimpleAlpha-BetaConsoleApp.csprojAssemblyReference.cache
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\obj\Debug\SimpleAlpha-BetaConsoleApp.csproj.CoreCompileInputs.cache
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\obj\Debug\SimpleAlpha-BetaConsoleApp.exe
+D:\tsiry\RANDRENARIZO\Chess\SimpleAlpha-BetaConsoleApp\SimpleAlpha-BetaConsoleApp\obj\Debug\SimpleAlpha-BetaConsoleApp.pdb

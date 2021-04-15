@@ -34,8 +34,11 @@ namespace Chess.Utils
     {
       return _currentLocalPawnList.Where(x=>x.Colore == Colore).ToList();
     }
+    public Node()
+    {
+    }
 
-    public Node(List<Pawn> currentLocalPawnList)
+      public Node(List<Pawn> currentLocalPawnList)
     {
       ChildList = new List<Node>();
       BestChildPosition = "";

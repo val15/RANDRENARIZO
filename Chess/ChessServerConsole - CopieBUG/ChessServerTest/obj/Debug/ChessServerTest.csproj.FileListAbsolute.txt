@@ -1,0 +1,17 @@
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\ChessServerTest.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\ChessServerTest.pdb
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\ChessServerConsole.exe
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\ChessServerConsole.pdb
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\ChessServerConsole.exe.config
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.csprojAssemblyReference.cache
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.csproj.CoreCompileInputs.cache
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.csproj.CopyComplete
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.dll
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.pdb

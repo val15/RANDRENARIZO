@@ -68,6 +68,7 @@ namespace Chess.Utils
     public int MaxScore { get; set; }
 
     public bool IsMaced { get; set; }
+    public long ID { get; set; }
     public Pawn()
     {
 
@@ -84,7 +85,7 @@ namespace Chess.Utils
     public Pawn(string name,string location, Button associateButton,string colore, MainWindow mainWindowParent)
     {
 
-     
+      ID = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
       MainWindowParent = mainWindowParent;
       Name = name;

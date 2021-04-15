@@ -19,6 +19,8 @@ using System.Windows.Threading;
 using System.IO;
 using System.ComponentModel;
 using Chess.View;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Chess
 {
@@ -80,6 +82,7 @@ namespace Chess
    // private int levele = 0;
 
     public List<Node> Tree { get; set; }
+    public List<List<Node>> AllCumputerPawnTreeList { get; set; }
 
     private string _computerColore;
     private int blackTurnNumber = 0;
@@ -119,7 +122,8 @@ namespace Chess
       PawnListWhite = new List<Pawn>();
       PawnListBlack = new List<Pawn>();
 
-      Tree = new List<Node>();
+      //Tree = new List<Node>();
+      AllCumputerPawnTreeList = new List<List<Node>>();
 
 
 
@@ -677,8 +681,8 @@ namespace Chess
 
     private void GenereTree(string colore,int deepLevel)
     {
-      Tree = null;
-      Tree = new List<Node>();
+      //Tree = null;
+     // Tree = new List<Node>();
       //Tree.Clear();
       DebugTextBlock.Text = "";
       var computerPawnList = PawnList.Where(x => x.Colore == colore).ToList();
@@ -707,6 +711,8 @@ namespace Chess
       foreach (var pawn in computerPawnList)
       {
         //var deep = 0;
+        Tree = null;
+         Tree = new List<Node>();
 
 
         Node newNode = new Node(PawnList);
@@ -746,7 +752,10 @@ namespace Chess
             item.EmulateAllPossibleTips();
           }
         }
-       
+
+        AllCumputerPawnTreeList.Add(Tree);
+
+
 
 
       }
@@ -883,85 +892,40 @@ namespace Chess
 
     private void MinMax()
     {
-      for (int i = Tree.Count - 1; i >= 0; i--)
+      foreach (var tree in AllCumputerPawnTreeList)
       {
-        var node = Tree[i];
-        var parent = Tree[i].Parent;
-        if (parent == null)
-          continue;
-        parent.ChildList.Add(node);
-       /* //if(node.Lz)
-        if(node.Level == 3)//max
+        for (int i = tree.Count - 1; i >= 0; i--)
         {
-          if (parent.Weight < node.Weight)
-          {
-            parent.Weight = node.Weight - 1;
+          var node = tree[i];
+          var parent = tree[i].Parent;
+          if (parent == null)
+            continue;
+          parent.ChildList.Add(node);
 
+
+          if ((node.Level % 2) != 0)//Max
+          {
+            //on remonte le max
+            if (parent.Weight < node.Weight)
+            {
+              parent.Weight = node.Weight - 1;
+              if (parent.Level == 0)
+                parent.BestChildPosition = node.Location;
+
+            }
+          }
+          else //Min
+          {
+
+            if (parent.Weight > node.Weight)
+            {
+              parent.Weight = node.Weight - 1;
+            }
           }
         }
-        if (node.Level == 2)//max
-        {
-          if (node.Weight > parent.Weight)
-          {
-            parent.Weight = node.Weight - 1;
- 
-
-          }
-        }
-        if (node.Level == 1)//max
-        {
-          if (node.Weight > parent.Weight)
-          {
-            parent.Weight = node.Weight - 1;
-
-
-          }
-        }
-        if (parent.Level == 0)
-          parent.BestChildPosition = node.Location;
-
-
-        */
-        
-        if ((node.Level%2) != 0)//Max
-        {
-          //on remonte le max
-          if (parent.Weight < node.Weight)
-          {
-            parent.Weight = node.Weight-1;
-            if (parent.Level == 0)
-              parent.BestChildPosition = node.Location;
-
-          }
-            
-
-        }
-        else //Min
-        {
-          
-          if (parent.Weight > node.Weight)
-          {
-            parent.Weight = node.Weight-1; 
-          }
-            
-        }
-
-        /*if(node.Level == 2)
-        {
-          if (node.Weight < parent.Weight)
-          {
-            parent.Weight = node.Weight - 1;
-          }
-          //parent.Weight = node.Weight - 1;
-        }*/
-       
-
-
-
-
-
-
       }
+
+      
 
     }
     private void GenerateThread(string initialPosition, string evaluatePosition,string actualColore, Node parentNode,Pawn associatePawn,int deepLevel)
@@ -1209,12 +1173,8 @@ namespace Chess
 
     private Node GetBestNodePostion()
     {
-      /*DebugTextBlock2.Text = "";
-      foreach (var item in Tree.Where(x => x.Level == 1))
-      {
-        DebugTextBlock2.Text += item.AssociatePawn.Name + "  " + item.Weight + "\n";
-      }*/
 
+      /*
       var maxWeight = Tree.Where(x => x.Level == 0).OrderByDescending(x => x.Weight).First().Weight;
       var bestNodeList = Tree.Where(x => x.Level == 0 && x.Weight == maxWeight);
       Node bestNode = new Node(new List<Pawn>());
@@ -1236,9 +1196,114 @@ namespace Chess
       //var whiteScore = GetScore("White");
       lbInfo.Content = "Best node for "+ bestNode.Colore +" : " + bestNode.AssociatePawn.Name + "  " + bestNode.Weight +"Position : "+ bestNode.Location+ " to " + bestNode.BestChildPosition;
       //  +"    Black score : "+ blackScore+" ("+blackTurnNumber+" turn) "+"    White score : "+ whiteScore+" ("+ whiteTurnNumber + " turn)";
-      return bestNode;
+      return bestNode;*/
+      DebugTextBlock.Text = "";
+      //  bestNode = new Node();
+
+
+      var bestNodeList = new List<Node>();
+
+      foreach (var tree   in AllCumputerPawnTreeList)
+      {
+        bestNodeList.Add(tree.First());
+      }
+      var maxWeiht = bestNodeList.OrderByDescending(x => x.Weight).First().Weight;
+
+      var bestMaxWeithNodeList = bestNodeList.Where(x => x.Weight == maxWeiht);
+      foreach (var node in bestMaxWeithNodeList)
+      {
+        DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
+      }
+      if (bestMaxWeithNodeList.Count() == 1)
+      {
+        var node = bestMaxWeithNodeList.First(); ;
+        DebugTextBlock.Text += $"BEST : {node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition}" +
+         $" {node.Location} to {node.BestChildPosition}\n";
+        return node;
+      }
+       
+
+      //On Simule les noeuds qui on les milleurs score
+      AllCumputerPawnTreeList = null;
+      AllCumputerPawnTreeList = new List<List<Node>>();
+
+
+      foreach (var node in bestMaxWeithNodeList)
+      {
+        Tree = null;
+        Tree = new List<Node>();
+        var pawn = node.AssociatePawn;
+
+
+        for (int i = 0; i < pawn.PossibleTrips.Count; i++)
+        {
+          //deep++;
+          GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, node, pawn, 3);
+          //deepStep = 0;
+          foreach (var item in PawnList)
+          {
+            item.EmulateAllPossibleTips();
+          }
+        }
+        //tC = Tree.Count;
+        AllCumputerPawnTreeList.Add(Tree);
+      }
+
+
+      var tl = bestMaxWeithNodeList.Count();
+      MinMax();
+      foreach (var tree in AllCumputerPawnTreeList)
+      {
+        var node = tree.First();
+        DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
+
+      }
+
+      var bestNodeListSecond = new List<Node>();
+
+      foreach (var tree in AllCumputerPawnTreeList)
+      {
+        bestNodeListSecond.Add(tree.First());
+      }
+       var maxWeihtSecond = bestNodeListSecond.OrderByDescending(x => x.Weight).First().Weight;
+
+      var bestMaxWeithNodeListSecond = bestNodeListSecond.Where(x => x.Weight == maxWeihtSecond);
+
+
+      var dzeere = bestMaxWeithNodeListSecond.Count();
+      if (bestMaxWeithNodeListSecond.Count() == 1)
+      {
+        var nodeSeconde = bestMaxWeithNodeListSecond.First();
+        //var t = nodeSeconde.AssociatePawn;
+        //var tl0 = bestMaxWeithNodeList.Count();
+        var node = bestMaxWeithNodeList.FirstOrDefault(x => x.AssociatePawn.Name == nodeSeconde.AssociatePawn.Name);
+
+        DebugTextBlock.Text += $"BEST : {node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition}" +
+          $" {node.Location} to {node.BestChildPosition}\n";
+        return node;
+      }
+      DebugTextBlock.Text += $"NO BEST NOND";
+
+      //on prend au hazard
+
+      Random rnd = new Random();
+      int index = rnd.Next(0, bestMaxWeithNodeListSecond.Count());
+      var nodeSecondeRandom = bestMaxWeithNodeListSecond.ElementAt(index);
+      var nodeRandom = bestMaxWeithNodeList.FirstOrDefault(x => x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name);
+
+
+      DebugTextBlock.Text += $"RANDOM : {nodeRandom.Level} {nodeRandom.AssociatePawn.Name} {nodeRandom.Weight} {nodeRandom.BestChildPosition}" +
+          $" {nodeRandom.Location} to {nodeRandom.BestChildPosition}\n";
+
+      
+      
+
+
+      return nodeRandom;
 
     }
+
+
 
     private int GetScore(string colore)
     {
@@ -1313,6 +1378,7 @@ namespace Chess
 
       //simulProgression();
       Thread sherchThread = new Thread(()=> ThreadGetBestMove(colore));
+      //Thread sherchThread = new Thread(() => ThreadGetBestMoveFromServer(colore));
 
       sherchThread.Start();
       
@@ -1329,9 +1395,8 @@ namespace Chess
 
         Tree = null;
         Tree = new List<Node>();
-
-        //var t_cc = _computerColore;
-       // _computerColore = "White";
+        AllCumputerPawnTreeList = null;
+        AllCumputerPawnTreeList = new List<List<Node>>();
         if (CurrentTurn == "White")
           GenereTree(color, deepWhiteLevel);
         if (CurrentTurn == "Black")
@@ -1346,6 +1411,109 @@ namespace Chess
 
     }
 
+
+    public static string StartClient(string message)
+    {
+      byte[] bytes = new byte[1024];
+
+      try
+      {
+        // Connect to a Remote server  
+        // Get Host IP Address that is used to establish a connection  
+        // In this case, we get one IP address of localhost that is IP : 127.0.0.1  
+        // If a host has multiple addresses, you will get a list of addresses  
+        IPHostEntry host = Dns.GetHostEntry("localhost");
+        IPAddress ipAddress = host.AddressList[0];
+        IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+
+        // Create a TCP/IP  socket.    
+        Socket sender = new Socket(ipAddress.AddressFamily,
+            SocketType.Stream, ProtocolType.Tcp);
+
+        // Connect the socket to the remote endpoint. Catch any errors.    
+        try
+        {
+          // Connect to Remote EndPoint  
+          sender.Connect(remoteEP);
+
+          Console.WriteLine("Socket connected to {0}",
+              sender.RemoteEndPoint.ToString());
+
+          // Encode the data string into a byte array.    
+          byte[] msg = Encoding.ASCII.GetBytes(message + "<EOF>");
+
+          // Send the data through the socket.    
+          int bytesSent = sender.Send(msg);
+
+          // Receive the response from the remote device.    
+          int bytesRec = sender.Receive(bytes);
+          Console.WriteLine("Echoed test = {0}",
+              Encoding.ASCII.GetString(bytes, 0, bytesRec));
+          var result= Encoding.ASCII.GetString(bytes, 0, bytesRec);
+
+          // Release the socket.    
+          sender.Shutdown(SocketShutdown.Both);
+          sender.Close();
+          return result;
+
+        }
+        catch (ArgumentNullException ane)
+        {
+          Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+          return  ane.ToString();
+        }
+        catch (SocketException se)
+        {
+          Console.WriteLine("SocketException : {0}", se.ToString());
+          return se.ToString();
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine("Unexpected exception : {0}", e.ToString());
+          return e.ToString();
+        }
+
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e.ToString());
+        return e.ToString();
+      }
+    }
+    private void ThreadGetBestMoveFromServer(string color)
+    {
+      Thread.Sleep(TimeSpan.FromSeconds(5));
+      var pawnStringList = new List<string>();
+
+      foreach (var pawn in PawnList)
+      {
+        pawnStringList.Add(($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}"));
+
+      }
+
+      var message = String.Join(".", pawnStringList);
+
+      this.Dispatcher.BeginInvoke(new Action(() =>
+      {
+        var answer = StartClient(color + "." + cumputerLevel.ToString() + "." + message);
+        //return answer;
+        var answerList = answer.Split(';');
+        var location = answerList[0];
+        var bestPosition = answerList[1];
+
+
+        MoveTo(location, bestPosition);
+        _cpuTimer.Stop();
+
+
+
+
+      }));
+
+
+     
+
+    }
 
     private async void RunEngineForWhite_Click(object sender, RoutedEventArgs e)
     {
