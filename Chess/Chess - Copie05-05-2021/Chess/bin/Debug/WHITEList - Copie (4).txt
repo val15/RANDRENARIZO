@@ -1,0 +1,16 @@
+Rook;a1;White
+SimplePawn;a2;White
+Knight;b1;White
+SimplePawn;b4;White
+Bishop;c1;White
+SimplePawn;c2;White
+Queen;d1;White
+SimplePawn;d2;White
+King;e1;White
+SimplePawn;e2;White
+Bishop;f1;White
+SimplePawn;f2;White
+Knight;g1;White
+SimplePawn;g2;White
+Rook;h1;White
+SimplePawn;h2;White
