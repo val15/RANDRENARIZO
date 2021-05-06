@@ -64,7 +64,6 @@ D:\inProgress\RANDRENARIZOprjs\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.cs
 D:\inProgress\RANDRENARIZOprjs\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csproj.CoreCompileInputs.cache
 D:\inProgress\RANDRENARIZOprjs\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.exe
 D:\inProgress\RANDRENARIZOprjs\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.pdb
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csprojAssemblyReference.cache
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\View\MainWindow.g.cs
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\View\RiseInRankWindow.g.cs
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\App.g.cs
@@ -110,3 +109,4 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.application
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Debug\Chess.csprojAssemblyReference.cache

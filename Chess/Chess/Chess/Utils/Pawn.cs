@@ -164,7 +164,7 @@ namespace Chess.Utils
           Value = 30;
           break;
         case "Knight":
-          Value = 60;
+          Value = 30;
           break;
         case "King":
           Value = 1000;

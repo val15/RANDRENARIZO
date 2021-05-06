@@ -1301,7 +1301,7 @@ namespace Chess
       Random rnd = new Random();
       int index = rnd.Next(0, bestMaxWeithNodeListSecond.Count());
       var nodeSecondeRandom = bestMaxWeithNodeListSecond.ElementAt(index);
-      var nodeRandomList = bestMaxWeithNodeList.Where(x => x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name).ToList();
+      var nodeRandomList = bestMaxWeithNodeList.Where(x => (x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name) && (x.AssociatePawn.Name != "King" && x.AssociatePawn.Name != "Queen")).ToList();
       Random rand = new Random();
       var randomIndex = rand.Next(0, nodeRandomList.Count);
 
