@@ -55,10 +55,37 @@
       
     </StackPanel>
     <StackPanel Orientation="Vertical"  Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
-      <Label Name="lbInfo" Height="25"></Label>
-      <ScrollViewer Height="800">
+      <StackPanel Orientation="Horizontal">
+        <Button Height="90" Width="90" Name="SimplePawnWhiteDeadButton"  ></Button>
+        <Label Height="50" Width="50" Name="SimplePawnWhiteDeadNumberLabel"  ></Label>
+        <Button Height="90" Width="90" Name="BishopWhiteDeadButton"  ></Button>
+        <Label Height="50" Width="50" Name="BishopWhiteDeadNumberLabel"  ></Label>
+        <Button Height="90" Width="90" Name="KnightWhiteDeadButton"  ></Button>
+        <Label Height="50" Width="50" Name="KnightWhiteDeadNumberLabel"  ></Label>
+        <Button Height="90" Width="90" Name="RookWhiteDeadButton"  ></Button>
+        <Label Height="50" Width="50" Name="RookWhiteDeadNumberLabel"  ></Label>
+        <Button Height="90" Width="90" Name="QueenWhiteDeadButton"  ></Button>
+        <Label Height="50" Width="50" Name="QueenWhiteDeadNumberLabel"  ></Label>
+      </StackPanel>
+      <Label Name="lbInfo" Height="50"></Label>
+      <ScrollViewer Height="533">
         <TextBlock  Name="DebugTextBlock" ></TextBlock>
       </ScrollViewer>
+      <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+          <Button Height="90" Width="90" Name="SimplePawnBlackDeadButton"  ></Button>
+          <Label Height="50" Width="50" Name="SimplePawnBlackDeadNumberLabel"  ></Label>
+          <Button Height="90" Width="90" Name="BishopBlackDeadButton"  ></Button>
+          <Label Height="50" Width="50" Name="BishopBlackDeadNumberLabel"  ></Label>
+          <Button Height="90" Width="90" Name="KnightBlackDeadButton"  ></Button>
+          <Label Height="50" Width="50" Name="KnightBlackDeadNumberLabel"  ></Label>
+          <Button Height="90" Width="90" Name="RookBlackDeadButton"  ></Button>
+          <Label Height="50" Width="50" Name="RookBlackDeadNumberLabel"  ></Label>
+          <Button Height="90" Width="90" Name="QueenBlackDeadButton"  ></Button>
+          <Label Height="50" Width="50" Name="QueenBlackDeadNumberLabel"  ></Label>
+        </StackPanel>
+      </StackPanel>
+      
       <!--<ScrollViewer Height="400">
         <TextBlock  Name="DebugTextBlock2" ></TextBlock>
       </ScrollViewer>-->

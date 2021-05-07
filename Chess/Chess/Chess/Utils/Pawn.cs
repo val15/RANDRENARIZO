@@ -1324,6 +1324,7 @@ namespace Chess.Utils
           MainWindowParent.PawnListWhite.Remove(deletedPawn);*/
         if (deletedPawn.Name == "King")
           MainWindowParent.Win(this.Colore);
+        MainWindowParent.AddDeadList(deletedPawn.Name+ deletedPawn.Colore);
       }
 
       //X = newCase.X;
@@ -1358,8 +1359,12 @@ namespace Chess.Utils
       if(this.Name =="King" && this.IsFirstMoveKing && this.IsLeftRookFirstMove && this.X=="c")
       {
         var rook = MainWindowParent.GetLeftRook(this.Colore);
-        rook.Move(MainWindowParent.GetCase("d" + Y));
-        MainWindowParent.SwithTurnAsync();
+        if(rook!=null)
+        {
+          rook.Move(MainWindowParent.GetCase("d" + Y));
+          MainWindowParent.SwithTurnAsync();
+        }
+        
       }
       if (this.Name == "King" && this.IsFirstMoveKing && this.IsRightRookFirstMove && this.X == "g")
       {

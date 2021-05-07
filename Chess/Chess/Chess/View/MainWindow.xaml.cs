@@ -30,6 +30,12 @@ namespace Chess
   public partial class MainWindow : Window
   {
 
+   
+   
+
+
+
+
     public List<Case> CaseList { get; set; }
     public List<Pawn> PawnList { get; set; }
    // public List<Pawn> TempsPawnList { get; set; }
@@ -95,9 +101,23 @@ namespace Chess
     private DateTime _cpuStartTime;
     private DateTime _blackCountTime;
     private DateTime _whiteCountTime;
+
+    //pour les cimetiaire
+    private int _simplePawnBlackDeadNumber;
+    private int _simplePawnWhiteDeadNumber;
+    private int _bishopBlackDeadNumber;
+    private int _bishopWhiteDeadNumber;
+    private int _knighBlackDeadNumber;
+    private int _knighWhiteDeadNumber;
+    private int _rookBlackDeadNumber;
+    private int _rookWhiteDeadNumber;
+    private int _queenPawnBlackDeadNumber;
+    private int _queenPawnWhiteDeadNumber;
+
     public MainWindow()
     {
       InitializeComponent();
+      
       _blackCountTime = new DateTime();
       _whiteCountTime = new DateTime();
 
@@ -219,6 +239,234 @@ namespace Chess
       PawnList.AddRange(PawnListBlack);
       PawnList.AddRange(PawnListWhite);
 
+
+
+    }
+
+    /*tsiry;07-05-2021
+     * implémentation du cimetière
+     * */
+
+    public void AddDeadList(string deadPawn)
+    {
+      
+      fillGraveyard(deadPawn);
+    }
+    private void fillGraveyard(string deadPawn)
+    {
+      try
+      {
+     
+
+        //BLACK
+        if (deadPawn.Contains("Black"))
+        {
+
+          if (deadPawn.Contains("SimplePawn"))
+          {
+            //SimplePawnBlack
+            _simplePawnBlackDeadNumber++;
+            if (_simplePawnBlackDeadNumber > 1)
+              SimplePawnBlackDeadNumberLabel.Content = "* " + _simplePawnWhiteDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "SimplePawnBlack.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              SimplePawnBlackDeadButton.Content = dockPanel;
+            }
+          }
+          if (deadPawn.Contains("Bishop"))
+          {
+            //BishopBlack
+            _bishopBlackDeadNumber++;
+            if (_bishopBlackDeadNumber > 1)
+              BishopBlackDeadNumberLabel.Content = "* " + _bishopBlackDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "BishopBlack.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              BishopBlackDeadButton.Content = dockPanel;
+            }
+          }
+
+          if (deadPawn.Contains("Knight"))
+          {
+            //KnightBlack
+            _knighBlackDeadNumber++;
+            if (_knighBlackDeadNumber > 1)
+              KnightBlackDeadNumberLabel.Content = "* " + _knighBlackDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "KnightBlack.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              KnightBlackDeadButton.Content = dockPanel;
+            }
+          }
+
+          if (deadPawn.Contains("Rook"))
+          {
+            //RookBlack
+            _rookBlackDeadNumber++;
+            if (_rookBlackDeadNumber > 1)
+              RookBlackDeadNumberLabel.Content = "* " + _rookBlackDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "RookBlack.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              RookBlackDeadButton.Content = dockPanel;
+            }
+          }
+
+          if (deadPawn.Contains("Queen"))
+          {
+            //QueenBlack
+            _queenPawnBlackDeadNumber++;
+            if (_queenPawnBlackDeadNumber > 1)
+              QueenBlackDeadNumberLabel.Content = "* " + _queenPawnBlackDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "QueenBlack.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              QueenBlackDeadButton.Content = dockPanel;
+            }
+          }
+
+        }
+
+       /* dockPanel = null;
+        image = null;
+        dockPanel = new DockPanel();
+        image = new Image();
+        image.Height = 60;
+        image.Width = 60;*/
+
+        //WHITE
+        if (deadPawn.Contains("White"))
+        {
+          if (deadPawn.Contains("SimplePawn"))
+          {
+            //SimplePawnWhite
+            _simplePawnWhiteDeadNumber++;
+            if (_simplePawnWhiteDeadNumber > 1)
+              SimplePawnWhiteDeadNumberLabel.Content = "* " + _simplePawnWhiteDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "SimplePawnWhite.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              SimplePawnWhiteDeadButton.Content = dockPanel;
+            }
+
+            
+          }
+
+
+          if (deadPawn.Contains("Bishop"))
+          {
+            //BishopWhite
+            _bishopWhiteDeadNumber++;
+            if (_bishopWhiteDeadNumber > 1)
+              BishopWhiteDeadNumberLabel.Content = "* " + _bishopWhiteDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "BishopWhite.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              BishopWhiteDeadButton.Content = dockPanel;
+            }
+
+
+          }
+
+          if (deadPawn.Contains("Knight"))
+          {
+            //KnightWhite
+            _knighWhiteDeadNumber++;
+            if (_knighWhiteDeadNumber > 1)
+              KnightWhiteDeadNumberLabel.Content = "* " + _knighWhiteDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "KnightWhite.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              KnightWhiteDeadButton.Content = dockPanel;
+            }
+          }
+
+          if (deadPawn.Contains("Rook"))
+          {
+            //RookWhite
+            _rookWhiteDeadNumber++;
+            if (_rookWhiteDeadNumber > 1)
+              RookWhiteDeadNumberLabel.Content = "* " + _rookWhiteDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "RookWhite.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              RookWhiteDeadButton.Content = dockPanel;
+            }
+          }
+
+          if (deadPawn.Contains("Queen"))
+          {
+            //QueenWhite
+            _queenPawnWhiteDeadNumber++;
+            if (_queenPawnWhiteDeadNumber > 1)
+              QueenWhiteDeadNumberLabel.Content = "* " + _queenPawnWhiteDeadNumber.ToString();
+            else
+            {
+              var dockPanel = new DockPanel();
+              var image = new Image();
+              image.Height = 60;
+              image.Width = 60;
+              image.Source = new BitmapImage(new Uri(@"/Images/" + "QueenWhite.png", UriKind.Relative));
+              dockPanel.Children.Add(image);
+              QueenWhiteDeadButton.Content = dockPanel;
+            }
+
+
+          }
+
+        }
+      }
+      catch (Exception ex)
+      {
+        WriteInLog(ex.ToString());
+      }
+      
 
 
     }
@@ -358,8 +606,8 @@ namespace Chess
 
 
 
-    }
-    public void FillAllPossibleTrips()
+  }
+  public void FillAllPossibleTrips()
     {
       foreach (var pawn in PawnList)
       {
@@ -1261,7 +1509,7 @@ namespace Chess
       }
 
 
-      var tl = bestMaxWeithNodeList.Count();
+      //var tl = bestMaxWeithNodeList.Count();
       MinMax();
       foreach (var tree in AllCumputerPawnTreeList)
       {
@@ -1301,7 +1549,7 @@ namespace Chess
       Random rnd = new Random();
       int index = rnd.Next(0, bestMaxWeithNodeListSecond.Count());
       var nodeSecondeRandom = bestMaxWeithNodeListSecond.ElementAt(index);
-      var nodeRandomList = bestMaxWeithNodeList.Where(x => (x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name) && (x.AssociatePawn.Name != "King" && x.AssociatePawn.Name != "Queen")).ToList();
+      var nodeRandomList = bestMaxWeithNodeList.Where(x => (x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name) && x.AssociatePawn.Name != "King").ToList();
       Random rand = new Random();
       var randomIndex = rand.Next(0, nodeRandomList.Count);
 
@@ -1903,6 +2151,15 @@ namespace Chess
 
       var treeGrapheForm = new TreeGrapheForm(Tree);
       treeGrapheForm.Show();
+    }
+
+    public void WriteInLog(string logMessage)
+    {
+      var whiteListFile = "./LOG.txt";
+      using (var writer = new StreamWriter(whiteListFile))
+      {
+        writer.WriteLine($"{logMessage}");
+      }
     }
   }
 }
