@@ -14,7 +14,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NdgYUEli5zKeN4Ip9j0gB5uZLwO12Wjyc9ruqx62nvc=</dsig:DigestValue>
+        <dsig:DigestValue>4jF208piOjHca3sCA+twK/wn3Flq11/uOKvy/AO1SZw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

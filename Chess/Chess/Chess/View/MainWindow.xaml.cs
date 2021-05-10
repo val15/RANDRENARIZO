@@ -38,7 +38,9 @@ namespace Chess
 
     public List<Case> CaseList { get; set; }
     public List<Pawn> PawnList { get; set; }
-   // public List<Pawn> TempsPawnList { get; set; }
+    private List<string> _deadList;
+    private bool _graveyardIsLoaded;
+    // public List<Pawn> TempsPawnList { get; set; }
     public List<Pawn> PawnListWhite { get; set; }
     public List<Pawn> PawnListBlack { get; set; }
 
@@ -117,7 +119,9 @@ namespace Chess
     public MainWindow()
     {
       InitializeComponent();
-      
+
+      _deadList = new List<string>();
+      _graveyardIsLoaded = false;
       _blackCountTime = new DateTime();
       _whiteCountTime = new DateTime();
 
@@ -251,6 +255,9 @@ namespace Chess
     {
       
       fillGraveyard(deadPawn);
+      //SaveGraveyardList for Load
+      _deadList.Add(deadPawn);
+
     }
     private void fillGraveyard(string deadPawn)
     {
@@ -1081,16 +1088,6 @@ namespace Chess
         }
                 
       }
-
-
-     /* var kingAlier = actualPawnList.FirstOrDefault(x => x.Colore == "Black" && x.Name == "King");
-      if (kingAlier != null)
-      {
-        if (kingAlier.FindIsMaced(actualPawnList))
-          return -9999999;
-      }
-   */
-
       if (movingPawn.Colore == colore)
         return  blackScore - whiteScore;
       else
@@ -1119,23 +1116,6 @@ namespace Chess
         }
 
       }
-     
-
-     
-    /*   var kingAlier = actualPawnList.FirstOrDefault(x => x.Colore == "White" && x.Name=="King");
-        if(kingAlier!=null)
-        {
-          if (kingAlier.FindIsMaced(actualPawnList))
-            return -9999999;
-        }
-        
-      */
-      
-
-
-
-
-
       if (movingPawn.Colore == colore)
         return whiteScore - blackScore;
       else
@@ -1273,10 +1253,7 @@ namespace Chess
         var name = parentNode.AssociatePawn.Name;
       }*/
 
-      if (newNode.Parent.AssociatePawn.Name == "Rook" && newNode.Parent.Location == "e1")
-      {
-        var tdeze = parentNode;
-      }
+      
 
       if (_computerColore == "Black")
         newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
@@ -1321,7 +1298,7 @@ namespace Chess
          // PawnList = depPawnsList;
           item.FillPossibleTrips();
           opignionPawnList.Add(item);
-          if(item.Name == "King" && newNode.Level == 2 && item.Location == "d2" && newNode.AssociatePawn.Name == "Rook" )
+          if(item.Name == "Rook" && newNode.Level == 2 && item.Location == "d2" && newNode.AssociatePawn.Name == "Rook" )
           {
             var t = item.PossibleTrips;
           }
@@ -1467,7 +1444,7 @@ namespace Chess
       }
       var maxWeiht = bestNodeList.OrderByDescending(x => x.Weight).First().Weight;
 
-      var bestMaxWeithNodeList = bestNodeList.Where(x => x.Weight == maxWeiht);
+      var bestMaxWeithNodeList = bestNodeList.Where(x => x.Weight == maxWeiht).ToList();
       foreach (var node in bestMaxWeithNodeList)
       {
         DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
@@ -1549,7 +1526,8 @@ namespace Chess
       Random rnd = new Random();
       int index = rnd.Next(0, bestMaxWeithNodeListSecond.Count());
       var nodeSecondeRandom = bestMaxWeithNodeListSecond.ElementAt(index);
-      var nodeRandomList = bestMaxWeithNodeList.Where(x => (x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name) && x.AssociatePawn.Name != "King").ToList();
+      //bestMaxWeithNodeList.RemoveAll(x => x.AssociatePawn.Name == "King" || x.AssociatePawn.Name == "Queen");
+      var nodeRandomList = bestMaxWeithNodeList.Where(x => (x.AssociatePawn.Name == nodeSecondeRandom.AssociatePawn.Name)).ToList();
       Random rand = new Random();
       var randomIndex = rand.Next(0, nodeRandomList.Count);
 
@@ -2018,7 +1996,20 @@ namespace Chess
           writer.WriteLine($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}");
         }
       }
-      
+
+      //sauvegarde du cemetiaire
+
+      var deadListFile = "./Graveyard.txt";
+      using (var writer = new StreamWriter(deadListFile))
+      {
+
+        foreach (var item in _deadList)
+        {
+          writer.WriteLine($"{item}");
+        }
+      }
+
+
     }
 
 
@@ -2028,11 +2019,24 @@ namespace Chess
       {
         pawn.Clean();
       }
-    
 
-     /* PawnListWhite.Clear();
-      PawnListBlack.Clear();
-      PawnList.Clear();*/
+      foreach (var pawn in PawnListWhite)
+      {
+        pawn.Clean();
+      }
+
+      foreach (var pawn in PawnListBlack)
+      {
+        pawn.Clean();
+      }
+
+      /* PawnListWhite = new List<Pawn>();
+       PawnListBlack = new List<Pawn>();*/
+
+
+      /* PawnListWhite.Clear();
+       PawnListBlack.Clear();
+       PawnList.Clear();*/
       PawnListWhite = null;
       PawnListBlack = null;
       PawnList = null;
@@ -2047,6 +2051,8 @@ namespace Chess
         Tree.Clear();
       Tree = null;
       CleanPawnList();
+
+
       var readText = File.ReadAllText("./WHITEList"+old+".txt");
 
       using (StringReader sr = new StringReader(readText))
@@ -2091,29 +2097,75 @@ namespace Chess
         }
       }
 
-       if(_computerColore=="White")
-      {
-        PawnList.AddRange(PawnListWhite);
-        PawnList.AddRange(PawnListBlack);
-      }
-      if (_computerColore == "Black")
-      {
-        PawnList.AddRange(PawnListBlack);
-        PawnList.AddRange(PawnListWhite);
-        
-      }
-     /* PawnList.AddRange(PawnListWhite);
+      /*if(_computerColore=="White")
+     {
+       PawnList.AddRange(PawnListWhite);
+       PawnList.AddRange(PawnListBlack);
+     }
+     if (_computerColore == "Black")
+     {
+       PawnList.AddRange(PawnListBlack);
+       PawnList.AddRange(PawnListWhite);
+
+     }*/
+      /*PawnList.AddRange(PawnListWhite);
       PawnList.AddRange(PawnListBlack);*/
+      /*if (_currentTurn == "White")
+      {
+        PawnList.AddRange(PawnListWhite);
+        PawnList.AddRange(PawnListBlack);
+      }
+      if (_currentTurn == "Black")
+      {
+        PawnList.AddRange(PawnListBlack);
+        PawnList.AddRange(PawnListWhite);
+
+        }*/
+      PawnList.AddRange(PawnListBlack);
+      PawnList.AddRange(PawnListWhite);
 
 
-
+      PawnList=PawnList.OrderByDescending(x => x.Value).ToList();
+      //PawnList
 
       FillAllPossibleTrips();
+
+      
+
+    }
+    /*tsiry;10-05-2021
+     * lecture du cemetiére
+     * */
+
+    public void LoadGraveyardFile()
+    {
+      //lecture du cimetiére
+      if (!_graveyardIsLoaded)
+      {
+        var readText = File.ReadAllText("./Graveyard.txt");
+
+        using (StringReader sr = new StringReader(readText))
+        {
+          string line;
+          while ((line = sr.ReadLine()) != null)
+          {
+            //Debug.WriteLine(line);
+
+            fillGraveyard(line);
+
+          }
+        }
+      }
+       
+      _graveyardIsLoaded = true;
+
+
     }
 
     private void loadButton_Click(object sender, RoutedEventArgs e)
     {
       Load();
+      
     }
 
     private void ChoseWhiteForCoputerButon_Click(object sender, RoutedEventArgs e)
@@ -2138,6 +2190,7 @@ namespace Chess
         CurrentTurn = "White";
       if (CurrentTurn == "White")
         CurrentTurn = "Black";
+      LoadGraveyardFile();
     }
 
     private void GrapheButon_Click(object sender, RoutedEventArgs e)
@@ -2145,10 +2198,10 @@ namespace Chess
 
       /*if (Tree == null)
         return;*/
-      Load("Old");
-      _computerColore = "White";
-      GenereTree("White", cumputerLevel);
-
+      //Load("Old");
+      _computerColore = "Black";
+      GenereTree("Black", cumputerLevel);
+      var t_t = AllCumputerPawnTreeList;
       var treeGrapheForm = new TreeGrapheForm(Tree);
       treeGrapheForm.Show();
     }
