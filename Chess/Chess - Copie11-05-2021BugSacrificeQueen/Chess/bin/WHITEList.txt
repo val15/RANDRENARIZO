@@ -1,0 +1,5 @@
+Rook;b3;White
+Bishop;a7;White
+King;g1;White
+Knight;f7;White
+Rook;e1;White
