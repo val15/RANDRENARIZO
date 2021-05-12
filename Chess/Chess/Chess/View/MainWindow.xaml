@@ -66,6 +66,7 @@
         <Label Height="50" Width="50" Name="RookWhiteDeadNumberLabel"  ></Label>
         <Button Height="90" Width="90" Name="QueenWhiteDeadButton"  ></Button>
         <Label Height="50" Width="50" Name="QueenWhiteDeadNumberLabel"  ></Label>
+        <Label Height="100" Width="100" Name="BlackPointLabel" FontSize="50"  ></Label>
       </StackPanel>
       <Label Name="lbInfo" Height="50"></Label>
       <ScrollViewer Height="533">
@@ -83,6 +84,7 @@
           <Label Height="50" Width="50" Name="RookBlackDeadNumberLabel"  ></Label>
           <Button Height="90" Width="90" Name="QueenBlackDeadButton"  ></Button>
           <Label Height="50" Width="50" Name="QueenBlackDeadNumberLabel"  ></Label>
+          <Label Height="100" Width="100" Name="WhitePointLabel" FontSize="50"  ></Label>
         </StackPanel>
       </StackPanel>
       

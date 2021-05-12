@@ -21,6 +21,11 @@ using System.ComponentModel;
 using Chess.View;
 using System.Net;
 using System.Net.Sockets;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using Notifications.Wpf;
 
 namespace Chess
 {
@@ -40,6 +45,11 @@ namespace Chess
     public List<Pawn> PawnList { get; set; }
     private List<string> _deadList;
     private bool _graveyardIsLoaded;
+    private int _blackPoint =0;
+    private int _whitePoint =0;
+
+    Notifier Notifier { get; set; }
+    NotificationManager NotificationManagerWindows { get; set; }
     // public List<Pawn> TempsPawnList { get; set; }
     public List<Pawn> PawnListWhite { get; set; }
     public List<Pawn> PawnListBlack { get; set; }
@@ -119,6 +129,76 @@ namespace Chess
     public MainWindow()
     {
       InitializeComponent();
+
+      //pour les notification
+      Notifier = new Notifier(cfg =>
+      {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 10,
+            offsetY: 10);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+      });
+      //NotificationManagerWindows
+      NotificationManagerWindows = new NotificationManager();
+      
+
+
+
+      //Creations des fichier
+
+      var whiteListFile = "./WHITEList.txt";
+      var blackListFile = "./BLACKList.txt";
+      var whiteListOldFile = "./WHITEListOld.txt";
+      var blackListOldFile = "./BLACKListOld.txt";
+      var deadListFile = "./Graveyard.txt";
+
+      if (!File.Exists(whiteListFile))
+      {
+        using (var streamWriter = new StreamWriter(whiteListFile))
+        {
+
+        }
+      }
+
+      if (!File.Exists(blackListFile))
+      {
+        using (var streamWriter = new StreamWriter(blackListFile))
+        {
+
+        }
+      }
+
+      if (!File.Exists(whiteListOldFile))
+      {
+        using (var streamWriter = new StreamWriter(whiteListOldFile))
+        {
+
+        }
+      }
+
+      if (!File.Exists(blackListOldFile))
+      {
+        using (var streamWriter = new StreamWriter(blackListOldFile))
+        {
+
+        }
+      }
+
+      if (!File.Exists(deadListFile))
+      {
+        using (var streamWriter = new StreamWriter(deadListFile))
+        {
+
+        }
+      }
+
 
       _deadList = new List<string>();
       _graveyardIsLoaded = false;
@@ -258,6 +338,85 @@ namespace Chess
       //SaveGraveyardList for Load
       _deadList.Add(deadPawn);
 
+      //calcule des point
+      calculatePoint();
+    }
+    private void calculatePoint()
+    {
+      var whiteDeadList = _deadList.Where(x=> x.Contains("White"));
+      var point = 0;
+      foreach (var pawnString in whiteDeadList)
+      {
+        var pawnName = pawnString.Replace("White", "");
+        
+        switch (pawnName)
+        {
+          case "SimplePawn":
+            point += 1;
+            break;
+          case "Knight":
+            point += 3;
+            break;
+          case "Bishop":
+            point += 3;
+            break;
+          case "Rook":
+            point += 5;
+            break;
+          case "Queen":
+            point += 9;
+            break;
+        }
+      }
+
+      _blackPoint = point;
+
+      var blackDeadList = _deadList.Where(x => x.Contains("Black"));
+      point = 0;
+      foreach (var pawnString in blackDeadList)
+      {
+        var pawnName = pawnString.Replace("Black", "");
+
+        switch (pawnName)
+        {
+          case "SimplePawn":
+            point += 1;
+            break;
+          case "Knight":
+            point += 3;
+            break;
+          case "Bishop":
+            point += 3;
+            break;
+          case "Rook":
+            point += 5;
+            break;
+          case "Queen":
+            point += 9;
+            break;
+        }
+      }
+
+      _whitePoint = point;
+      BlackPointLabel.Content = "";
+      WhitePointLabel.Content = "";
+
+      if (_blackPoint == _whitePoint)
+        return;
+      if (_blackPoint > _whitePoint)
+      {
+        var diffPoint = _blackPoint - _whitePoint;
+        BlackPointLabel.Content = $"+{diffPoint}";
+        return;
+      }
+
+      if (_whitePoint > _blackPoint)
+      {
+        var diffPoint = _whitePoint - _blackPoint;
+        WhitePointLabel.Content = $"+{diffPoint}";
+        return;
+      }
+
     }
     private void fillGraveyard(string deadPawn)
     {
@@ -274,7 +433,7 @@ namespace Chess
             //SimplePawnBlack
             _simplePawnBlackDeadNumber++;
             if (_simplePawnBlackDeadNumber > 1)
-              SimplePawnBlackDeadNumberLabel.Content = "* " + _simplePawnWhiteDeadNumber.ToString();
+              SimplePawnBlackDeadNumberLabel.Content = "* " + _simplePawnBlackDeadNumber.ToString();
             else
             {
               var dockPanel = new DockPanel();
@@ -543,9 +702,38 @@ namespace Chess
     }
 
 
+    public void ReActive()
+    {
+      //this.IsActive = true;
+      if (this.WindowState == WindowState.Minimized)
+        this.WindowState = WindowState.Normal;
+    }
+
     public async Task SwithTurnAsync()
     {
-      if(CurrentTurn == "White")
+
+      if (_computerColore == CurrentTurn)
+      {
+        //Notification sur l'application
+        //Notifier.ShowInformation("Move completed");
+
+        //notification dans la bare de tache
+         NotificationManagerWindows.Show(new NotificationContent
+         {
+           Title = "Chess notification",
+           Message = $"CPU ({_computerColore}) move completed",
+           Type = NotificationType.Information
+         }, onClick: () => ReActive()/*,
+               onClose: () => ReActive()*/);
+
+       /* NotificationManagerWindows.Show("String notification", onClick: () => ReActive(),
+               onClose: () => ReActive());*/
+      }
+        
+
+     
+
+      if (CurrentTurn == "White")
       {
         whiteTurnNumber++;
         CurrentTurn = "Black";
@@ -572,6 +760,8 @@ namespace Chess
       
       }
 
+      
+      
       Save();
       Load();
     /*  var listBlack = new List<Pawn>();
@@ -1623,7 +1813,9 @@ namespace Chess
       //Thread sherchThread = new Thread(() => ThreadGetBestMoveFromServer(colore));
 
       sherchThread.Start();
-      
+
+     // Notifier.ShowInformation("Move completed");
+
       return null;
     }
 
@@ -1648,11 +1840,12 @@ namespace Chess
         var bestNode = GetBestNodePostion();
         MoveTo(bestNode.Location, bestNode.BestChildPosition);
         _cpuTimer.Stop();
+        
 
 
 
       }));
-
+      
     }
 
 
@@ -2121,11 +2314,14 @@ namespace Chess
         PawnList.AddRange(PawnListWhite);
 
         }*/
+     
       PawnList.AddRange(PawnListBlack);
       PawnList.AddRange(PawnListWhite);
+      
 
 
-      PawnList=PawnList.OrderByDescending(x => x.Value).ToList();
+
+      PawnList =PawnList.OrderByDescending(x => x.Value).ToList();
       //PawnList
 
       FillAllPossibleTrips();
@@ -2152,9 +2348,11 @@ namespace Chess
             //Debug.WriteLine(line);
 
             fillGraveyard(line);
+            _deadList.Add(line);
 
           }
         }
+        calculatePoint();
       }
        
       _graveyardIsLoaded = true;
@@ -2196,14 +2394,20 @@ namespace Chess
     private void GrapheButon_Click(object sender, RoutedEventArgs e)
     {
 
-      /*if (Tree == null)
-        return;*/
+      if (Tree == null)
+        return;
       //Load("Old");
       _computerColore = "Black";
       GenereTree("Black", cumputerLevel);
       var t_t = AllCumputerPawnTreeList;
       var treeGrapheForm = new TreeGrapheForm(Tree);
       treeGrapheForm.Show();
+
+       
+
+      
+
+
     }
 
     public void WriteInLog(string logMessage)

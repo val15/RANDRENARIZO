@@ -1,4 +1,3 @@
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\Bishop.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\Knight.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\Queen.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\Rook.png
@@ -27,3 +26,21 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.csproj.CoreCompileInpu
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\BishopBlack.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\BishopWhite.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\KingBlack.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\KingWhite.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\KnightBlack.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\KnightWhite.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\QueenBlack.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\QueenWhite.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\RookBlack.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\RookWhite.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\SimplePawnBlack.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Images\SimplePawnWhite.png
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Chess.exe.manifest
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\Release\Chess.application
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.View.TreeGrapheForm.resources
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.exe.manifest
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.application
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\Release\Chess.csprojAssemblyReference.cache

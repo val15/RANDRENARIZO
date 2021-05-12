@@ -28,7 +28,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -54,6 +54,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <ManifestCertificateThumbprint>2EEAAC6C1218D68C6B73C13ADCF46736B9BFB14B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
@@ -65,12 +67,18 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.0.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Notifications.Wpf, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Notifications.Wpf.0.1.1\lib\net461\Notifications.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -85,9 +93,16 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="ToastNotifications, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.2.5.1\lib\net40\ToastNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="ToastNotifications.Messages, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.Messages.2.5.1\lib\net40\ToastNotifications.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Windows" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -162,12 +177,14 @@
     <Resource Include="Images\King.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="ico.ico" />
     <Content Include="Images\BishopBlack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\BishopWhite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\ico.png" />
     <Content Include="Images\KingBlack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

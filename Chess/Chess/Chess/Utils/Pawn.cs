@@ -124,7 +124,7 @@ namespace Chess.Utils
 
 
       _image.Source = new BitmapImage(new Uri(@"/Images/"+Name+ Colore + ".png", UriKind.Relative));
-        _dockPanel.Children.Add(_image);
+      _dockPanel.Children.Add(_image);
         AssociateButton.Content = _dockPanel;
 
       PossibleTrips = new List<string>();
