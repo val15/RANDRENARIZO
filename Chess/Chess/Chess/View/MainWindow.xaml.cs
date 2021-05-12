@@ -711,27 +711,30 @@ namespace Chess
 
     public async Task SwithTurnAsync()
     {
-
-      if (_computerColore == CurrentTurn)
+      if (this.WindowState == WindowState.Minimized)
       {
-        //Notification sur l'application
-        //Notifier.ShowInformation("Move completed");
+        if (_computerColore == CurrentTurn)
+        {
+          //Notification sur l'application
+          //Notifier.ShowInformation("Move completed");
 
-        //notification dans la bare de tache
-         NotificationManagerWindows.Show(new NotificationContent
-         {
-           Title = "Chess notification",
-           Message = $"CPU ({_computerColore}) move completed",
-           Type = NotificationType.Information
-         }, onClick: () => ReActive()/*,
+          //notification dans la bare de tache
+          NotificationManagerWindows.Show(new NotificationContent
+          {
+            Title = "Chess notification",
+            Message = $"CPU ({_computerColore}) move completed",
+            Type = NotificationType.Information
+          }, onClick: () => ReActive()/*,
                onClose: () => ReActive()*/);
 
-       /* NotificationManagerWindows.Show("String notification", onClick: () => ReActive(),
-               onClose: () => ReActive());*/
-      }
-        
+          /* NotificationManagerWindows.Show("String notification", onClick: () => ReActive(),
+                  onClose: () => ReActive());*/
+        }
 
-     
+
+      }
+
+
 
       if (CurrentTurn == "White")
       {
