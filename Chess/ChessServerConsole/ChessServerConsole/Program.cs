@@ -1,6 +1,7 @@
 ﻿using ChessServerConsole.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -87,9 +88,9 @@ namespace ChessServerConsole
     static string TreatMessage(List<string> enterStringList,string colore,string stringLevel)
     {
       var level = int.Parse(stringLevel);
-      var server = new Server();
+      var server = new Engine(colore);
       server.GeneratePawnList(enterStringList);
-      var pawnList = server.CurrentPawnList;
+      var pawnList = server.PawnList;
 
       foreach (var pawn in pawnList)
       {
@@ -102,7 +103,7 @@ namespace ChessServerConsole
 
 
 
-      server.GenereTree(colore, level);
+      var bestNode = server.ThreadGetBestMove();
 
 
 
@@ -110,7 +111,7 @@ namespace ChessServerConsole
 
 
 
-      var bestNode = server.GetBestNodePostion();
+
       //MoveTo(bestNode.Location, bestNode.BestChildPosition);
       Console.WriteLine($"Best position : {bestNode.AssociatePawn.Name} {bestNode.Location} to {bestNode.BestChildPosition}");
 
@@ -125,60 +126,20 @@ namespace ChessServerConsole
     {
       Console.WriteLine("Chess server is run...");
 
-
+      
       while(true)
         StartSocketServer();
       Console.ReadLine ();
-
+      
       
      
-     /* 
-      var enterStringList = new List<string>();
-
-      enterStringList.Add("Rook;a1;White;False;False;False;False");
-      enterStringList.Add("SimplePawn;a2;White;True;False;False;False");
-      enterStringList.Add("Knight;b1;White;False;False;False;False");
-      enterStringList.Add("SimplePawn;b2;White;True;False;False;False");
-      enterStringList.Add("Bishop;c1;White;False;False;False;False");
-      enterStringList.Add("SimplePawn;c2;White;True;False;False;False");
-      enterStringList.Add("SimplePawn;d2;White;True;False;False;False");
-      enterStringList.Add("Queen;d1;White;False;False;False;False");
-      enterStringList.Add("King;e1;White;False;True;True;True");
-      enterStringList.Add("SimplePawn;e2;White;False;False;False;False");
-      enterStringList.Add("Bishop;f1;White;False;False;False;False");
-      enterStringList.Add("SimplePawn;f2;White;True;False;False;False");
-      enterStringList.Add("Knight;g1;White;False;False;False;False");
-      enterStringList.Add("SimplePawn;g2;White;True;False;False;False");
-      enterStringList.Add("Rook;h1;White;False;False;False;False");
-      enterStringList.Add("SimplePawn;h2;White;True;False;False;False");
-
-
-
-
-       enterStringList.Add("SimplePawn;a7;Black;True;False;False;False");
-        enterStringList.Add("Rook;a8;Black;False;False;False;False");
-        enterStringList.Add("SimplePawn;b7;Black;True;False;False;False");
-        enterStringList.Add("Knight;b8;Black;False;False;False;False");
-        enterStringList.Add("SimplePawn;c7;Black;True;False;False;False");
-        enterStringList.Add("Bishop;c8;Black;False;False;False;False");
-        enterStringList.Add("SimplePawn;d7;Black;False;False;False;False");
-        enterStringList.Add("Queen;d8;Black;False;False;False;False");
-        enterStringList.Add("SimplePawn;e7;Black;True;False;False;False");
-      enterStringList.Add("King;e8;Black;False;True;True;True");
-      enterStringList.Add("SimplePawn;f7;Black;True;False;False;False");
-      enterStringList.Add("Bishop;f8;Black;False;False;False;False");
-      enterStringList.Add("SimplePawn;g7;Black;True;False;False;False");
-      enterStringList.Add("Knight;g8;Black;False;False;False;False");
-      enterStringList.Add("SimplePawn;h7;Black;True;False;False;False");
-      enterStringList.Add("Rook;h8;Black;False;False;False;False");
-
-
-
-
-
-      var server = new Server();
-      server.GeneratePawnList(enterStringList);
-      var pawnList = server.CurrentPawnList;
+      //TEST
+     /* var enterStringList = new List<string>();
+      //LECTURE DU FICHIER QUI CONTIEN LA LISTE DES POINS (FICHE DE TEST)
+      enterStringList = Load();
+      var engine = new Engine("Black");
+      engine.GeneratePawnList(enterStringList);
+      var pawnList = engine.PawnList;
 
       foreach (var pawn in pawnList)
       {
@@ -190,28 +151,71 @@ namespace ChessServerConsole
       var startTime = DateTime.Now;
 
 
-      server.GenereTree("White", 3);
-
       
 
       
 
+      
 
 
-      var bestNode = server.GetBestNodePostion();
+
+      var bestNode = engine.ThreadGetBestMove();
       //MoveTo(bestNode.Location, bestNode.BestChildPosition);
-      //TODO
       Console.WriteLine($"Best position : {bestNode.AssociatePawn.Name} {bestNode.Location} to {bestNode.BestChildPosition}");
 
 
       var executionTime = DateTime.Now - startTime;
       Console.WriteLine($"Execution time = {executionTime}");
       Console.WriteLine("Finish");
-      Console.ReadLine();*/
-      
+      Console.ReadLine();   */
     }
 
-   
-      
+
+    public static List<string> Load()
+    {
+      var whiteListFile = "./WHITEListOld.txt";
+      var blackListFile = "./BLACKListOld.txt";
+
+      if (!File.Exists(whiteListFile) || !File.Exists(blackListFile))
+        return null;
+
+
+
+
+    var readText = File.ReadAllText(whiteListFile);
+
+
+      var resultList = new List<string>();
+      using (StringReader sr = new StringReader(readText))
+      {
+        string line;
+        while ((line = sr.ReadLine()) != null)
+        {
+          //Debug.WriteLine(line);
+
+          resultList.Add(line);
+
+        }
+      }
+
+       readText = File.ReadAllText(blackListFile);
+
+      using (StringReader sr = new StringReader(readText))
+      {
+        string line;
+        while ((line = sr.ReadLine()) != null)
+        {
+          resultList.Add(line);
+
+        }
+      }
+      return resultList;
+
+
+
+    }
+
+
+
   }
 }

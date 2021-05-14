@@ -16,9 +16,9 @@ namespace ChessServerTest
       enterStringList.Add("SimplePawn;a7;Black;True;False;False;False");
       enterStringList.Add("King;e8;Black;False;True;True;True");
       enterStringList.Add("King;e1;White;False;True;True;True");
-      var server = new Server();
+      var server = new Engine("White");
       server.GeneratePawnList(enterStringList);
-      var pawList = server.CurrentPawnList;
+      var pawList = server.PawnList;
       var firstPaw = pawList.First();
 
       var kingBlackPawn = server.GetPawnFromPawnList("e8");

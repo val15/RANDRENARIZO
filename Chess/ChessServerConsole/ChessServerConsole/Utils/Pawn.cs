@@ -13,7 +13,7 @@ namespace ChessServerConsole.Utils
   {
 
 
-    public Server MainServer { get; set; }
+    public Engine MainServer { get; set; }
     public string Name { get; set; }
 
 
@@ -70,7 +70,7 @@ namespace ChessServerConsole.Utils
 
     }
 
-    public Pawn(string name,string location,string colore,Server server)
+    public Pawn(string name,string location,string colore,Engine server)
     {
 
 
@@ -143,10 +143,10 @@ namespace ChessServerConsole.Utils
           Value = 50;
           break;
         case "Bishop":
-          Value = 30;
+          Value = 40;
           break;
         case "Knight":
-          Value = 60;
+          Value = 30;
           break;
         case "King":
           Value = 1000;
@@ -175,15 +175,15 @@ namespace ChessServerConsole.Utils
 
       //EvaluateScorePossibleTrips();
 
-      //IsMaced = FindIsMaced(CurrentPawnList);
+      //IsMaced = FindIsMaced(PawnList);
 
     }
 
    
-    public bool FindIsMaced(List<Pawn> currentPawnList)
+    public bool FindIsMaced(List<Pawn> PawnList)
     {
       var result = false;
-      foreach (var pawn in currentPawnList.Where(x=>x.Colore != Colore))
+      foreach (var pawn in PawnList.Where(x=>x.Colore != Colore))
       {
         pawn.FillPossibleTrips();
         if (pawn.PossibleTrips.Contains(Location))
@@ -1083,12 +1083,5 @@ namespace ChessServerConsole.Utils
       }
       return false;
     }
-
-
-   
-
- 
-   
-
   }
 }

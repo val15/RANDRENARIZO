@@ -1812,8 +1812,10 @@ namespace Chess
       threadTimer.Start();
 
       //simulProgression();
-      Thread sherchThread = new Thread(()=> ThreadGetBestMove(colore));
-      //Thread sherchThread = new Thread(() => ThreadGetBestMoveFromServer(colore));
+      //utilisation du moteur local
+//      Thread sherchThread = new Thread(()=> ThreadGetBestMove(colore));
+      //utilisation du moteur du server
+      Thread sherchThread = new Thread(() => ThreadGetBestMoveFromServer(colore));
 
       sherchThread.Start();
 
