@@ -119,7 +119,7 @@ namespace ChessServerConsole
       var executionTime = DateTime.Now - startTime;
       Console.WriteLine($"Execution time = {executionTime}");
       Console.WriteLine("Finish");
-      return bestNode.Location + ";" + bestNode.BestChildPosition;
+      return bestNode.Location + ";" + bestNode.BestChildPosition+";"+bestNode.AssociatePawn.Name;
 
     }
     static void Main(string[] args)

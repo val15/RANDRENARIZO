@@ -21,6 +21,8 @@
     </Grid.ColumnDefinitions>
     
     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+      <Button Name="SwithToServerEngineButon"  Content="{materialDesign:PackIcon Kind=CheckNetworkOutline}"  Click="SwithToServerEngineButon_Click" ></Button>
+      <Button Name="SwithToLocalEngineButon"  Content="{materialDesign:PackIcon Kind=Network}"  Click="SwithToLocalEngineButon_Click" ></Button>
       <Button Name="ChoseWhiteForCoputerButon"  Content="{materialDesign:PackIcon Kind=RobotOutline}"  Click="ChoseWhiteForCoputerButon_Click" ></Button>
       <Button Name="ChoseBlackForCoputerButon" Content="{materialDesign:PackIcon Kind=Robot}"   Click="ChoseBlackForCoputerButon_Click" ></Button>
       <Button Content="SAVE" Name="saveButton"  Click="saveButton_Click" ></Button>

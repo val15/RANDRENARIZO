@@ -47,9 +47,15 @@ namespace Chess
     private bool _graveyardIsLoaded;
     private int _blackPoint =0;
     private int _whitePoint =0;
+    private Node _lastBestNode;
+
+    private bool _isInLocalEgine;
+
 
     Notifier Notifier { get; set; }
     NotificationManager NotificationManagerWindows { get; set; }
+
+
     // public List<Pawn> TempsPawnList { get; set; }
     public List<Pawn> PawnListWhite { get; set; }
     public List<Pawn> PawnListBlack { get; set; }
@@ -129,6 +135,9 @@ namespace Chess
     public MainWindow()
     {
       InitializeComponent();
+      _isInLocalEgine = true;
+      SwithToServerEngineButon.Visibility = Visibility.Collapsed;
+      SwithToLocalEngineButon.Visibility = Visibility.Visible;
 
       //pour les notification
       Notifier = new Notifier(cfg =>
@@ -1265,8 +1274,10 @@ namespace Chess
     private int evaluateScoreForBlack(string colore, List<Pawn> actualPawnList,Pawn movingPawn)
     {
 
-      if (actualPawnList.FirstOrDefault(x => x.Name == "King") == null)
+      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
         return -9999999;
+      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "Black") == null)
+        return -9000;
       var whiteScore = 0;
       var blackScore = 0;
 
@@ -1291,8 +1302,10 @@ namespace Chess
 
     private int evaluateScoreForWhite(string colore, List<Pawn> actualPawnList, Pawn movingPawn)
     {
-      if (actualPawnList.FirstOrDefault(x => x.Name == "King") == null)
+      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
         return -9999999;
+      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "White") == null)
+        return -9000;
       var whiteScore = 0;
       var blackScore = 0;
 
@@ -1742,22 +1755,17 @@ namespace Chess
 
     private int GetScore(string colore)
     {
-      var result = 0;
+
       if(colore=="Black")
       {
-        foreach (var item in PawnListBlack)
-        {
-          result += item.Value;
-        }
+
+        return PawnList.Where(x => x.Colore == "Black").Sum(x => x.Value);
       }
       else
       {
-        foreach (var item in PawnListWhite)
-        {
-          result += item.Value;
-        }
+        return PawnList.Where(x => x.Colore == "White").Sum(x => x.Value);
       }
-      return result;
+
       
     }
 
@@ -1812,12 +1820,23 @@ namespace Chess
       threadTimer.Start();
 
       //simulProgression();
-      //utilisation du moteur local
-//      Thread sherchThread = new Thread(()=> ThreadGetBestMove(colore));
-      //utilisation du moteur du server
-      Thread sherchThread = new Thread(() => ThreadGetBestMoveFromServer(colore));
+      
+      if(_isInLocalEgine)
+      {
+        //utilisation du moteur local
+        Thread sherchThread = new Thread(() => ThreadGetBestMove(colore));
+        sherchThread.Start();
+      }
+      else
+      {
+        //utilisation du moteur du server
+        Thread sherchThread = new Thread(() => ThreadGetBestMoveFromServer(colore));
+        sherchThread.Start();
+      }
 
-      sherchThread.Start();
+
+
+      
 
      // Notifier.ShowInformation("Move completed");
 
@@ -1845,7 +1864,10 @@ namespace Chess
         var bestNode = GetBestNodePostion();
         MoveTo(bestNode.Location, bestNode.BestChildPosition);
         _cpuTimer.Stop();
-        
+
+        _lastBestNode = bestNode;
+
+
 
 
 
@@ -1946,6 +1968,8 @@ namespace Chess
 
         MoveTo(location, bestPosition);
         _cpuTimer.Stop();
+
+
 
 
 
@@ -2319,19 +2343,41 @@ namespace Chess
         PawnList.AddRange(PawnListWhite);
 
         }*/
-     
+
       PawnList.AddRange(PawnListBlack);
       PawnList.AddRange(PawnListWhite);
-      
 
 
 
-      PawnList =PawnList.OrderByDescending(x => x.Value).ToList();
+      //T01QuenLaReineNoirNeDoitPasPrendreLeCavalier
+      //if (_computerColore == "Black")
+      //PawnList = PawnList.OrderByDescending(x=>x.Value).ToList();
+
+
+      var whiteScore = GetScore("White");
+      var blackScore = GetScore("Black");
+      lbWhiteScore.Content = whiteScore;
+      lbBlackScore.Content = blackScore;
+      if (blackScore>= whiteScore)
+      {
+        PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+      }
+      else
+      {
+        PawnList = PawnList.OrderBy(x => x.Value).ToList();
+      }
+      //PawnList = PawnList.OrderByDescending(x => x.Colore).ToList();
+      //
+      //T07EchecRookBlancDoitAttaquerLeRoiNoir
+      // if (_computerColore == "White")
+        // PawnList = PawnList.OrderBy(x => x.Value).ToList();
       //PawnList
 
       FillAllPossibleTrips();
 
-      
+
+
+
 
     }
     /*tsiry;10-05-2021
@@ -2422,6 +2468,20 @@ namespace Chess
       {
         writer.WriteLine($"{logMessage}");
       }
+    }
+
+    private void SwithToServerEngineButon_Click(object sender, RoutedEventArgs e)
+    {
+      _isInLocalEgine = true;
+      SwithToServerEngineButon.Visibility = Visibility.Collapsed;
+      SwithToLocalEngineButon.Visibility = Visibility.Visible;
+    }
+
+    private void SwithToLocalEngineButon_Click(object sender, RoutedEventArgs e)
+    {
+      _isInLocalEgine = false;
+      SwithToServerEngineButon.Visibility = Visibility.Visible;
+      SwithToLocalEngineButon.Visibility = Visibility.Collapsed;
     }
   }
 }

@@ -65,7 +65,18 @@ namespace ChessServerConsole.Utils
         newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
         PawnList.Add(newPawn);
       }
-      PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+
+      var whiteScore = PawnList.Where(x => x.Colore == "White").Sum(x => x.Value);
+      var blackScore = PawnList.Where(x => x.Colore == "Black").Sum(x => x.Value);
+      if (blackScore >= whiteScore)
+      {
+        PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+      }
+      else
+      {
+        PawnList = PawnList.OrderBy(x => x.Value).ToList();
+      }
+     // PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
 
       FillAllPossibleTrips();
 
@@ -336,9 +347,9 @@ namespace ChessServerConsole.Utils
     private int evaluateScoreForBlack(string colore, List<Pawn> actualPawnList, Pawn movingPawn)
     {
 
-      if (actualPawnList.FirstOrDefault(x => x.Name == "King") == null)
+      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
         return -9999999;
-      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen") == null)
+      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "Black") == null)
         return -900;
       var whiteScore = 0;
       var blackScore = 0;
@@ -364,9 +375,9 @@ namespace ChessServerConsole.Utils
 
     private int evaluateScoreForWhite(string colore, List<Pawn> actualPawnList, Pawn movingPawn)
     {
-      if (actualPawnList.FirstOrDefault(x => x.Name == "King") == null)
+      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
         return -9999999;
-      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen") == null)
+      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "White") == null)
         return -900;
       var whiteScore = 0;
       var blackScore = 0;
