@@ -8,6 +8,23 @@ class Engine:
 
     PawnList = DynamicArray()
 
+    def GeneratePawnList(self,enterStringList):
+        #print(len(enterStringList))
+        for line in enterStringList:
+            if ";" not in line:
+                break
+            datas = line.split(";")
+            pawn = Pawn(datas[0],datas[1],datas[2])
+            pawn.IsFirstMove = datas[3]
+            pawn.IsFirstMoveKing = datas[4]
+            pawn.IsLeftRookFirstMove = datas[5]
+            pawn.IsRightRookFirstMove = datas[6]
+            self.PawnList.append(pawn)
+            #print(len(self.PawnList))
+        self.FillAllPossibleTips()
+            
+
+
     def FillAllPossibleTips(self):
         c=0
         while c < len(self.PawnList):
@@ -36,8 +53,10 @@ class Engine:
 
 
         #TODO à supprimer
+        
+        """ 
         simplePawnWhite0 = Pawn("SimplePawn","d6","White")
-        """ simplePawnWhite1 = Pawn("SimplePawn","c7","White")
+        simplePawnWhite1 = Pawn("SimplePawn","c7","White")
         simplePawnBlack0 = Pawn("SimplePawn","b7","Black")
         simplePawnBlack1 = Pawn("SimplePawn","f1","Black")
         simpleKnightWhite0 = Pawn("Knight","g1","White")
@@ -63,9 +82,9 @@ class Engine:
         #self.PawnList.append(bishopBlack0)
         #bishopBlack1 = Pawn("Queen","d4","Black")
         #self.PawnList.append(bishopBlack1)
-        kingBlack0 = Pawn("King","d4","Black")
-        self.PawnList.append(kingBlack0)
-        self.FillAllPossibleTips()
+        #kingBlack0 = Pawn("King","d4","Black")
+        #self.PawnList.append(kingBlack0)
+        #self.FillAllPossibleTips()
         
         
         

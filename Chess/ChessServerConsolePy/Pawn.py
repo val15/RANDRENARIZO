@@ -58,7 +58,7 @@ class Pawn:
         intY = int(self.Y)
 
         tripsPosition = self.X + str((intY +(toAdd)))
-        print("retY"+tripsPosition)
+        #print("retY"+tripsPosition)
         if(tripsPosition[1].isnumeric() == False):
             return
         if(int(tripsPosition[1])>8 or int(tripsPosition[1])<1):
@@ -82,7 +82,7 @@ class Pawn:
         
         #pour les attaques des pions
         tripsPosition = chr(xasciiCode -1) + str(intY +toAdd)
-        print("ATTAQUE " + tripsPosition)
+       # print("ATTAQUE " + tripsPosition)
         pawnInTrips = self.GetPawnFromPawnList(tripsPosition,pawnList)
         if pawnInTrips is not None:
             if pawnInTrips.Colore != self.Colore:
@@ -326,8 +326,8 @@ class Pawn:
             i = i+1
             j = j-1
             tripsPosition = chr(i) + str(j)
-            print("j = " + str(j))
-            print("tripsPosition = " + tripsPosition)
+            #print("j = " + str(j))
+            #print("tripsPosition = " + tripsPosition)
             pawnInTrips = self.GetPawnFromPawnList(tripsPosition,pawnList)
             if((len(tripsPosition) ==2 and tripsPosition[1].isnumeric() and (ord(tripsPosition[0])>=ord('a') and ord(tripsPosition[0])<=ord('h')) and (int(tripsPosition[1])>=1 and int(tripsPosition[1])<=8)) == False ):
                 break
@@ -479,8 +479,8 @@ class Pawn:
             i = i+1
             j = j-1
             tripsPosition = chr(i) + str(j)
-            print("j = " + str(j))
-            print("tripsPosition = " + tripsPosition)
+            #print("j = " + str(j))
+            #print("tripsPosition = " + tripsPosition)
             pawnInTrips = self.GetPawnFromPawnList(tripsPosition,pawnList)
             if((len(tripsPosition) ==2 and tripsPosition[1].isnumeric() and (ord(tripsPosition[0])>=ord('a') and ord(tripsPosition[0])<=ord('h')) and (int(tripsPosition[1])>=1 and int(tripsPosition[1])<=8)) == False ):
                 break

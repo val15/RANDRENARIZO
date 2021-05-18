@@ -10,15 +10,21 @@ print("Chess main")
 def Load():
     f = open("D:\\tsiry\RANDRENARIZO\Chess\ChessServerConsolePy\WHITEListOld.txt", "r")
     contentList  = f.read()
+
     f = open("D:\\tsiry\RANDRENARIZO\Chess\ChessServerConsolePy\BLACKListOld.txt", "r")
     contentList += f.read()
+
     return contentList
 
-result = Load() 
+result = Load()
+resultList=result.split("\n")
+
 
 #print(result)
 
 engine = Engine(computerColore)
+
+engine.GeneratePawnList(resultList)
 
 #l = len(engine.CaseList)
 #print(l)
@@ -26,9 +32,11 @@ engine = Engine(computerColore)
 #while c < l:
 #    print(engine.CaseList[c].caseName)
 #    c = c+1
-PawnList = DynamicArray()
 
-""" pawnTest = Pawn("SimplePawn","a1","White",PawnList)
+
+"""
+PawnList = DynamicArray()
+pawnTest = Pawn("SimplePawn","a1","White",PawnList)
 print(len(PawnList))
 PawnList.append(pawnTest)
 
