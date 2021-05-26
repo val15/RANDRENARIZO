@@ -67,6 +67,16 @@ namespace Chess
 
     private string _currentTurn;
 
+    public string ComputerColore
+    {
+      get => _computerColore;
+      set
+      {
+        _computerColore = value;
+        
+      }
+    }
+
     public string CurrentTurn
     {
       get => _currentTurn;
@@ -1271,13 +1281,32 @@ namespace Chess
 
     }
 
-    private int evaluateScoreForBlack(string colore, List<Pawn> actualPawnList,Pawn movingPawn)
+    private int[] evaluateScoreForBlack(string colore, List<Pawn> actualPawnList,Pawn movingPawn)
     {
 
+      var finalScore = 0;
+      var makeCheckmateLevel = 0;
+
+      if (opinionIsCheckmate("Black", actualPawnList))
+        makeCheckmateLevel = 1;
+
+
+
       if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
-        return -9999999;
+      {
+        var resultArray0 = new int[2] { -9999999, makeCheckmateLevel };
+        return resultArray0;
+      }
+      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
+      {
+        var resultArray0 = new int[2] { 9999999, makeCheckmateLevel };
+        return resultArray0;
+      }
       if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "Black") == null)
-        return -9000;
+      {
+        var resultArray0 = new int[2] { -9000, makeCheckmateLevel };
+        return resultArray0;
+      }
       var whiteScore = 0;
       var blackScore = 0;
 
@@ -1293,19 +1322,40 @@ namespace Chess
                 
       }
       if (movingPawn.Colore == colore)
-        return  blackScore - whiteScore;
+        finalScore = blackScore - whiteScore;
       else
-        return whiteScore - blackScore ;
+        finalScore = whiteScore - blackScore ;
+
+      var resultArray = new int[2] { finalScore, makeCheckmateLevel };
+      return resultArray;
     }
 
 
 
-    private int evaluateScoreForWhite(string colore, List<Pawn> actualPawnList, Pawn movingPawn)
+    private int[] evaluateScoreForWhite(string colore, List<Pawn> actualPawnList, Pawn movingPawn)
     {
+      var finalScore = 0;
+      var makeCheckmateLevel = 0;
+
+      if(opinionIsCheckmate("White",actualPawnList))
+        makeCheckmateLevel = 1;
+
       if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
-        return -9999999;
+      {
+        var resultArray0 = new int[2] { -9999999, makeCheckmateLevel };
+        return resultArray0;
+      }
+        
+      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
+      {
+        var resultArray0 = new int[2] { 9999999, makeCheckmateLevel };
+        return resultArray0;
+      }
       if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "White") == null)
-        return -9000;
+      {
+        var resultArray0 = new int[2] { -9000, makeCheckmateLevel };
+        return resultArray0;
+      }
       var whiteScore = 0;
       var blackScore = 0;
 
@@ -1323,10 +1373,34 @@ namespace Chess
 
       }
       if (movingPawn.Colore == colore)
-        return whiteScore - blackScore;
+        finalScore=whiteScore - blackScore;
       else
-        return blackScore - whiteScore;
+        finalScore=blackScore - whiteScore;
 
+      var resultArray = new int[2] { finalScore, makeCheckmateLevel };
+      return resultArray;
+
+
+
+
+    }
+
+
+    private bool opinionIsCheckmate(string curentColor, List<Pawn> actualPawnList)
+    {
+      var opinionKing = actualPawnList.FirstOrDefault(x => x.Colore != curentColor && x.Name == "King");
+      if (opinionKing == null)
+        return false;
+
+      var opinionKingLocation = opinionKing.Location;
+      var alierPawnList = actualPawnList.Where(x => x.Colore == curentColor);
+      foreach (var pawn in alierPawnList)
+      {
+        if (pawn.PossibleTrips.Contains(opinionKingLocation))
+          return true;
+      }
+
+      return false;
 
     }
 
@@ -1345,15 +1419,27 @@ namespace Chess
             continue;
           parent.ChildList.Add(node);
 
+          /*if(node.Weight == 9999999)
+          {
+            parent.Weight = 9999999;
+            parent.BestChildPosition = node.Location;
+            continue;
+          }*/
+         
 
           if ((node.Level % 2) != 0)//Max
           {
             //on remonte le max
             if (parent.Weight < node.Weight)
             {
-              parent.Weight = node.Weight - 1;
+              parent.Weight = node.Weight - node.Level;
+              parent.MakeCheckmateLevel = node.MakeCheckmateLevel;
+
               if (parent.Level == 0)
+              {
                 parent.BestChildPosition = node.Location;
+              }
+                
 
             }
           }
@@ -1362,9 +1448,10 @@ namespace Chess
 
             if (parent.Weight > node.Weight)
             {
-              parent.Weight = node.Weight - 1;
+              parent.Weight = node.Weight - node.Level;
+              parent.MakeCheckmateLevel = node.MakeCheckmateLevel;
             }
-          }
+         }
         }
       }
 
@@ -1462,9 +1549,19 @@ namespace Chess
       
 
       if (_computerColore == "Black")
-        newNode.Weight = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
+      {
+        var weightAndMakeCheckmateLevel = evaluateScoreForBlack(actualColore, depPawnsList, selectedPawn);
+        newNode.Weight = weightAndMakeCheckmateLevel[0];
+        newNode.MakeCheckmateLevel = weightAndMakeCheckmateLevel[1];
+      }
+        
      if (_computerColore == "White")
-        newNode.Weight = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
+      {
+        var weightAndMakeCheckmateLevel = evaluateScoreForWhite(actualColore, depPawnsList, selectedPawn);
+        newNode.Weight = weightAndMakeCheckmateLevel[0];
+        newNode.MakeCheckmateLevel = weightAndMakeCheckmateLevel[1];
+      }
+        
    /*   DebugTextBlock2.Text = "";
      if (newNode.Colore == "Black" && newNode.AssociatePawn.Name == "Rook" && newNode.Level ==2)
       {
@@ -1650,12 +1747,33 @@ namespace Chess
       }
       var maxWeiht = bestNodeList.OrderByDescending(x => x.Weight).First().Weight;
 
-      var bestMaxWeithNodeList = bestNodeList.Where(x => x.Weight == maxWeiht).ToList();
+      var maxMakeCheckmateLevel = bestNodeList.OrderByDescending(x => x.MakeCheckmateLevel).First().MakeCheckmateLevel;
+
+      //on prend tout les maxMakeCheckmateLevel
+     var bestMaxWeithNodeList = new List<Node>();
+      var temp = bestNodeList.Where(x => x.Weight == maxWeiht && x.MakeCheckmateLevel == maxMakeCheckmateLevel).ToList();
+      if(temp.Count >0)
+      {
+        bestMaxWeithNodeList = temp;
+      }
+      else
+      {
+        if (maxMakeCheckmateLevel == 1)
+          bestMaxWeithNodeList = bestNodeList.Where(x => x.MakeCheckmateLevel == maxMakeCheckmateLevel).ToList();
+        else
+          //si maxMakeCheckmateLevel = 0 , on prend les maxWeiht
+          bestMaxWeithNodeList = bestNodeList.Where(x => x.Weight == maxWeiht).ToList();
+      }
+     // var bestMaxWeithNodeList = bestNodeList.Where(x => x.Weight == maxWeiht ).ToList();
+
+
+
+
       foreach (var node in bestMaxWeithNodeList)
       {
-        DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
+        DebugTextBlock.Text += $"Level:{node.Level} Name:{node.AssociatePawn.Name} Weight:{node.Weight} BestChildPosition:{node.BestChildPosition} MakeCheckmateLevel:{node.MakeCheckmateLevel} \n";
       }
-      
+      var t = DebugTextBlock.Text;
       if (bestMaxWeithNodeList.Count() == 1)
       {
         var node = bestMaxWeithNodeList.First(); ;
@@ -1663,9 +1781,11 @@ namespace Chess
          $" {node.Location} to {node.BestChildPosition}\n";
         return node;
       }
-       
+
       //si il y a plusieur meilleurs arbre
       //On Simule les noeuds qui on les milleurs score
+
+      DebugTextBlock.Text += "Next level : \n";
       AllCumputerPawnTreeList = null;
       AllCumputerPawnTreeList = new List<List<Node>>();
 
@@ -1675,6 +1795,7 @@ namespace Chess
         Tree = null;
         Tree = new List<Node>();
         var pawn = node.AssociatePawn;
+        pawn.FillPossibleTrips();
 
 
         for (int i = 0; i < pawn.PossibleTrips.Count; i++)
@@ -1693,11 +1814,22 @@ namespace Chess
 
 
       //var tl = bestMaxWeithNodeList.Count();
+      var tl = AllCumputerPawnTreeList.Count;
       MinMax();
+      var tl0 = AllCumputerPawnTreeList.Count;
       foreach (var tree in AllCumputerPawnTreeList)
       {
+        if(tree.Count == 0)
+        {
+          if (_computerColore == "Black")
+            Win("White");
+          else
+            Win("Black");
+        }
+
         var node = tree.First();
-        DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
+        //DebugTextBlock.Text += $"{node.Level} {node.AssociatePawn.Name} {node.Weight} {node.BestChildPosition} \n";
+        DebugTextBlock.Text += $"Level:{node.Level} Name:{node.AssociatePawn.Name} Weight:{node.Weight} BestChildPosition:{node.BestChildPosition} MakeCheckmateLevel:{node.MakeCheckmateLevel} \n";
 
       }
 
@@ -1753,7 +1885,7 @@ namespace Chess
 
 
 
-    private int GetScore(string colore)
+    public int GetScore(string colore)
     {
 
       if(colore=="Black")
@@ -1814,17 +1946,19 @@ namespace Chess
     }
 
 
-    private Node GetBestPositionAndMoveFor(string colore)
+    public Node GetBestPositionAndMoveFor(string colore)
     {
       Thread threadTimer = new Thread(ThreadCountCPUReflectionTime);
       threadTimer.Start();
+
+      var node = new Node();
 
       //simulProgression();
       
       if(_isInLocalEgine)
       {
         //utilisation du moteur local
-        Thread sherchThread = new Thread(() => ThreadGetBestMove(colore));
+        Thread sherchThread = new Thread(() => node = ThreadGetBestMove(colore));
         sherchThread.Start();
       }
       else
@@ -1840,14 +1974,22 @@ namespace Chess
 
      // Notifier.ShowInformation("Move completed");
 
-      return null;
+      return node;
     }
 
-    private void ThreadGetBestMove(string color)
+    /*tsiry;26-05-2021
+     * copie de GetBestPositionAndMoveFor mais pour les tests
+     * */
+    public Node GetBestPositionLocalNotTask(string colore)
+    {
+      return ThreadGetBestMoveNotTask(colore);
+    }
+
+    private Node ThreadGetBestMove(string color)
     {
 
       Thread.Sleep(TimeSpan.FromSeconds(5));
-
+      var node = new Node();
       this.Dispatcher.BeginInvoke(new Action(() =>
       {
 
@@ -1866,13 +2008,39 @@ namespace Chess
         _cpuTimer.Stop();
 
         _lastBestNode = bestNode;
+        node= bestNode;
 
 
 
 
 
       }));
-      
+      return node;
+
+
+    }
+
+    /*tsiry;26-05-2021
+     * copie de ThreadGetBestMove pour les test
+     * */
+    public Node ThreadGetBestMoveNotTask(string color)
+    {
+
+
+
+        Tree = null;
+        Tree = new List<Node>();
+        AllCumputerPawnTreeList = null;
+        AllCumputerPawnTreeList = new List<List<Node>>();
+        GenereTree(color, 3);
+        var t_tree = Tree;
+        return GetBestNodePostion();
+       
+
+
+
+
+
     }
 
 
@@ -1988,16 +2156,16 @@ namespace Chess
       var bestNode = GetBestPositionAndMoveFor("White");
        */
 
-      /*if (bestNode.Colore == CurrentTurn)//bug, on load
-      {
-        Load();
-        GetBestPositionAndMoveFor(CurrentTurn);
-      }*/
-      // _computerColore = "White";
+    /*if (bestNode.Colore == CurrentTurn)//bug, on load
+    {
+      Load();
+      GetBestPositionAndMoveFor(CurrentTurn);
+    }*/
+    // _computerColore = "White";
 
-      // Save();
+    // Save();
 
-      _computerColore = "";
+    _computerColore = "";
 
       while (true)
       {
@@ -2143,9 +2311,9 @@ namespace Chess
      //  _computerColore = "Black";
       WhiteRunEngineButton.IsEnabled = true;
       BlackRunEngineButton.IsEnabled = true;
-      PawnList.AddRange(PawnListBlack);
-      PawnList.AddRange(PawnListWhite);
-      FillAllPossibleTrips();
+     // PawnList.AddRange(PawnListBlack);
+      //PawnList.AddRange(PawnListWhite);
+      //FillAllPossibleTrips();
 
       if (_computerColore == "Black")
         return;
@@ -2235,7 +2403,7 @@ namespace Chess
     }
 
 
-    private void CleanPawnList()
+    public void CleanPawnList()
     {
       foreach (var  pawn in PawnList)
       {
@@ -2274,6 +2442,9 @@ namespace Chess
       Tree = null;
       CleanPawnList();
 
+      var pawnListWhite = new List<Pawn>();
+      var pawnListBlack =new List< Pawn > ();
+
 
       var readText = File.ReadAllText("./WHITEList"+old+".txt");
 
@@ -2292,7 +2463,7 @@ namespace Chess
           newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
           newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
           newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
-          PawnListWhite.Add(newPawn);
+          pawnListWhite.Add(newPawn);
 
         }
       }
@@ -2314,7 +2485,7 @@ namespace Chess
           newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
           newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
           newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
-          PawnListBlack.Add(newPawn);
+          pawnListBlack.Add(newPawn);
 
         }
       }
@@ -2344,42 +2515,70 @@ namespace Chess
 
         }*/
 
-      PawnList.AddRange(PawnListBlack);
-      PawnList.AddRange(PawnListWhite);
 
 
+      FillPawnListAndFillAllPossibleTrips(pawnListWhite, pawnListBlack) ;
 
-      //T01QuenLaReineNoirNeDoitPasPrendreLeCavalier
-      //if (_computerColore == "Black")
-      //PawnList = PawnList.OrderByDescending(x=>x.Value).ToList();
-
-
-      var whiteScore = GetScore("White");
-      var blackScore = GetScore("Black");
-      lbWhiteScore.Content = whiteScore;
-      lbBlackScore.Content = blackScore;
-      if (blackScore>= whiteScore)
-      {
-        PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
-      }
-      else
-      {
-        PawnList = PawnList.OrderBy(x => x.Value).ToList();
-      }
-      //PawnList = PawnList.OrderByDescending(x => x.Colore).ToList();
-      //
-      //T07EchecRookBlancDoitAttaquerLeRoiNoir
-      // if (_computerColore == "White")
-        // PawnList = PawnList.OrderBy(x => x.Value).ToList();
-      //PawnList
-
-      FillAllPossibleTrips();
 
 
 
 
 
     }
+
+    public void FillPawnListAndFillAllPossibleTrips(List<Pawn> pawnListWhite, List<Pawn> pawnListBlack)
+    {
+      
+      PawnList.AddRange(pawnListWhite);
+      PawnList.AddRange(pawnListBlack);
+
+
+      PawnListWhite = PawnList.Where(x => x.Colore == "White").ToList();
+      PawnListBlack = PawnList.Where(x => x.Colore == "Black").ToList();
+
+
+
+
+
+      var whiteScore = GetScore("White");
+      var blackScore = GetScore("Black");
+      lbWhiteScore.Content = whiteScore;
+      lbBlackScore.Content = blackScore;
+      /*if (blackScore> whiteScore)
+      {
+        PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+      }
+      else
+      {
+        PawnList = PawnList.OrderBy(x => x.Value).ToList();
+      }*/
+      /*PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+
+      if(_computerColore == "Black")
+        PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+      else*/
+      // PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+
+
+      
+      //OK=>T05,T11
+      //NOK=>T02
+      if(whiteScore<=blackScore)
+        PawnList = PawnList.OrderByDescending(x => x.Value).ToList();
+      else
+        PawnList = PawnList.OrderBy(x => x.Value).ToList();
+
+      //
+      //T07EchecRookBlancDoitAttaquerLeRoiNoir
+      // if (_computerColore == "White")
+      // PawnList = PawnList.OrderBy(x => x.Value).ToList();
+      //PawnList
+
+      FillAllPossibleTrips();
+
+    }
+
+
     /*tsiry;10-05-2021
      * lecture du cemetiére
      * */

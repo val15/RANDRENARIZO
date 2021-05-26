@@ -1,0 +1,1 @@
+King;f3;Black;False;True;False;True

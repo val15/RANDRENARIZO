@@ -11,6 +11,7 @@ namespace Chess.Utils
 
     private List<Pawn> _currentLocalPawnList;
     public int Level { get; set; }
+    public int MakeCheckmateLevel { get; set; }
     public int Weight { get; set; }
     public string Location { get; set; }
     public string OldPositionName { get; set; }
