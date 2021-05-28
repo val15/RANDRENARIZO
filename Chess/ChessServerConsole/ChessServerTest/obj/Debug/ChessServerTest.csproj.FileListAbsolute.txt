@@ -14,3 +14,4 @@ D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessSe
 D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.dll
 D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\obj\Debug\ChessServerTest.pdb
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerTest\bin\Debug\ChessServerConsole.pdb

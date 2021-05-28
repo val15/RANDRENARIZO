@@ -223,7 +223,8 @@ namespace ChessServerConsole.Utils
       if (!success)
         return;
 
-      var tripsPosition = X + (intY +(toAdd)).ToString()      var pawnInTrips = MainServer.GetPawnFromPawnList(tripsPosition);
+      var tripsPosition = X + (intY + (toAdd)).ToString();
+      var pawnInTrips = MainServer.GetPawnFromPawnList(tripsPosition);
       if (pawnInTrips == null)
       {
         PossibleTrips.Add(tripsPosition);
