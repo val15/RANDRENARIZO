@@ -112,7 +112,11 @@ namespace Chess.Utils
       Location = location;
       X = Location[0].ToString();
       Y = Location[1].ToString();
+      PossibleTrips = new List<string>();
+      PossibleTripsScore = new List<int>();
       AssociateButton = associateButton;
+      if (AssociateButton == null)
+        return;
       _dockPanel = new DockPanel();
       _image = new Image();
       _image.Height = 60;
@@ -125,25 +129,11 @@ namespace Chess.Utils
 
       _image.Source = new BitmapImage(new Uri(@"/Images/"+Name+ Colore + ".png", UriKind.Relative));
       _dockPanel.Children.Add(_image);
-        AssociateButton.Content = _dockPanel;
-
-      PossibleTrips = new List<string>();
-      PossibleTripsScore = new List<int>();
-     // fillPossibleTrips();
+      
+       AssociateButton.Content = _dockPanel;
 
 
-
-
-      /* Image image = new Image();
-       image.Source = new BitmapImage(new Uri(@"Images\SimplePawn.png", UriKind.Relative));
-       AssociateButton.Content = image;*/
-
-      //<DockPanel Margin="0,0,0,0">
-      //  <Image  Height="59"  Width="58" Source="../Images/SimplePawn.png"/>
-      //</DockPanel>
-
-
-      //AssociateButton.Click += buttonCase_Click;
+    
 
     }
 
@@ -1285,13 +1275,21 @@ namespace Chess.Utils
     public void Move(Case newCase)//quan on déplace un pion, en fonction de sa position; 
     {
 
-      
+
 
 
       if (MainWindowParent.CurrentTurn != this.Colore)
         return;
 
-
+      /*tsiry;28-05-2021
+* creation de l'historique
+* on copie les entien coordonnées dans un docier*/
+      if(MainWindowParent.CurrentTurn == "Black")
+        MainWindowParent.SaveToHistorical(MainWindowParent.BlackTurnNumber, MainWindowParent.CurrentTurn);
+      else if (MainWindowParent.CurrentTurn == "White")
+        MainWindowParent.SaveToHistorical(MainWindowParent.BlackTurnNumber, MainWindowParent.CurrentTurn);
+    
+      var t0 = MainWindowParent.PawnList.Count;
       var oldLocation = this.Location;
 
       //attaque
@@ -1316,7 +1314,7 @@ namespace Chess.Utils
       newCase.ButtonCase.Content = _dockPanel;
       AssociateButton = newCase.ButtonCase;
       //newCase.ButtonCase.Background = Brushes.Black;
-
+       t0 = MainWindowParent.PawnList.Count;
       var deletedPawn = MainWindowParent.GetPawn(newCase.CaseName);
       if (deletedPawn != null)
       {
@@ -1343,12 +1341,12 @@ namespace Chess.Utils
       this.Location = newCase.CaseName;
       this.X = newCase.X;
       this.Y = newCase.Y;
+      t0 = MainWindowParent.PawnList.Count;
 
 
-      
-      
-     
-       
+
+
+
 
       Debug.WriteLine("nove: new position = " + this.Location);
 
@@ -1391,22 +1389,26 @@ namespace Chess.Utils
         IsFirstMoveKing = false;
 
       //on recalcure la valeurs du pion en fonction de sa nouvelle position
-     // SetValue();
+      // SetValue();
 
 
 
       //si le roi se deplace de deux case vers la gauche ou la droite
       //et le fou se place à droite ou à gauche du roi
-
+      t0 = MainWindowParent.PawnList.Count;
       MainWindowParent.FillAllPossibleTrips();
       this.MaxScore = 0;
       this.EvaluateScorePossibleTrips();
-
+      t0 = MainWindowParent.PawnList.Count;
       MainWindowParent.SetDefaultColoreAllCases();
+      t0 = MainWindowParent.PawnList.Count;
       //MainWindowParent.SetDefaultColoreAllCases();
       MainWindowParent.SetOldPositionColore(oldLocation);
+      t0 = MainWindowParent.PawnList.Count;
 
       MainWindowParent.SwithTurnAsync();
+
+       t0 = MainWindowParent.PawnList.Count;
 
     }
 

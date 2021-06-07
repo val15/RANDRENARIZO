@@ -42,6 +42,7 @@ namespace Chess
 
 
     public List<Case> CaseList { get; set; }
+
     public List<Pawn> PawnList { get; set; }
     private List<string> _deadList;
     private bool _graveyardIsLoaded;
@@ -70,9 +71,9 @@ namespace Chess
     /*tsiry;28-05-2021
  * creation de l'historique
  * */
-    private long _dirID;
-    private string _dirName;
-    private int _previousCount = 0;
+    public List<List<string>> HistoricalWhiteList { get; set; } //une liste de liste de Pawn qui servira d'hystorique
+    public List<List<string>> HistoricalBlackList { get; set; } //une liste de liste de Pawn qui servira d'hystorique
+
     public string ComputerColore
     {
       get => _computerColore;
@@ -127,8 +128,8 @@ namespace Chess
     public List<List<Node>> AllCumputerPawnTreeList { get; set; }
 
     private string _computerColore;
-    private int blackTurnNumber = 0;
-    private int whiteTurnNumber = 0;
+    public int BlackTurnNumber { get; set; }
+    public int WhiteTurnNumber { get; set; }
 
     //Timers
     private DispatcherTimer _cpuTimer;
@@ -154,32 +155,10 @@ namespace Chess
     {
       InitializeComponent();
 
-      /*tsiry;28-05-2021
- * creation de l'historique*/
-      var directories = Directory.GetDirectories(".");
-      var odldirID = 0;
-      _dirID = 0;
-      foreach (var dir in directories)
-      {
-        var localDirName = dir.Replace(".\\", "");
-        var temp = 0;
-          bool isParsable = Int32.TryParse(localDirName, out temp);
-          if (isParsable)
-          {
-             odldirID++;
-          }
-        
-      
+      HistoricalWhiteList = new List<List<string>>();
+      HistoricalBlackList = new List<List<string>>();
 
-      }
-      _dirID = odldirID;
-      var t_dirID = _dirID;
-      _dirName = _dirID.ToString();
-      // If directory does not exist, create it
-      if (!Directory.Exists(_dirName))
-      {
-        Directory.CreateDirectory(_dirName);
-      }
+
 
       PreviousButon.IsEnabled = false;
       _isInLocalEgine = true;
@@ -800,7 +779,7 @@ namespace Chess
 
       if (CurrentTurn == "White")
       {
-        whiteTurnNumber++;
+        WhiteTurnNumber++;
         CurrentTurn = "Black";
 
         if (ComputerColore == CurrentTurn)
@@ -808,17 +787,14 @@ namespace Chess
           //await Task.Delay(100);
           GetBestPositionAndMoveFor(CurrentTurn);
         }
-        /*tsiry;28-05-2021
-      * creation de l'historique
-      * on copie les entien coordonnées dans un docier*/
-        SaveToHistorical(whiteTurnNumber, "White");
+
 
 
 
       }
       else
       {
-        blackTurnNumber++;
+        BlackTurnNumber++;
         CurrentTurn = "White";
         //searchAndExecuteBestMove(PawnListBlack);
         if (ComputerColore == CurrentTurn)
@@ -826,10 +802,7 @@ namespace Chess
           //await Task.Delay(100);
           GetBestPositionAndMoveFor(CurrentTurn);
         }
-        /*tsiry;28-05-2021
-      * creation de l'historique
-      * on copie les entien coordonnées dans un docier*/
-        SaveToHistorical(blackTurnNumber, "Black");
+
 
       }
 
@@ -837,10 +810,11 @@ namespace Chess
 
      
       Save();
-      
 
 
+     // var t0 = PawnList.Count;
       Load();
+     // t0 = PawnList.Count;
 
 
 
@@ -979,6 +953,7 @@ namespace Chess
 
       this.FromPosition = "";
       this.ToPosition = "";
+
     }
 
     public (string minPosition, int minScore, string maxPosition, int maxScore, string bestPosition) Emulate(string initialPosition, string newPosition, List<Pawn> initialPawnsList)
@@ -1202,15 +1177,9 @@ namespace Chess
         //var deep = 0;
         Tree = null;
         Tree = new List<Node>();
-
-
         Node newNode = new Node(PawnList);
         newNode.Location = pawn.Location;
         newNode.OldPositionName = "";
-        /* if (_computerColore == "Black")
-           newNode.Weight = evaluateScoreForBlack(colore, computerPawnList, pawn);
-         if (_computerColore == "White")
-           newNode.Weight = evaluateScoreForWhite(colore, computerPawnList, pawn);*/
         newNode.Weight = -10000000;
         newNode.Level = 0;
         newNode.Colore = colore;
@@ -1219,15 +1188,6 @@ namespace Chess
         Tree.Add(newNode);
 
 
-
-        //pawn.EvaluateScorePossibleTrips();
-
-        if (pawn.Name == "King")
-        {
-
-          var t_p = pawn;
-          var t_king = pawn.PossibleTrips;
-        }
 
 
 
@@ -1241,6 +1201,8 @@ namespace Chess
             item.EmulateAllPossibleTips();
           }
         }
+
+        
         //Chaque pion a son arbre(Tree)
         AllCumputerPawnTreeList.Add(Tree);
 
@@ -1450,7 +1412,7 @@ namespace Chess
 
     private void MinMax()
     {
-
+      var additionalTree = new List<Node>();
       //pour chaque arbre, on amplique le MinMax
       foreach (var tree in AllCumputerPawnTreeList)
       {
@@ -1498,26 +1460,181 @@ namespace Chess
             }
           }
         }
-      }
+        
+        var minLevel = tree.Min(x => x.Level);
+        
 
-      //pour chaque arbre, on amplique le MinMax
-      /*  foreach (var tree in AllCumputerPawnTreeList)
+        //simulation pour les branches
+       if(minLevel ==0)
         {
-          for (int i = tree.Count - 1; i >= 0; i--)
+          var maxWeight = tree.Where(x => x.Level == 0).OrderByDescending(x => x.Weight).First().Weight;
+          var maxWeightList = tree.Where(x => x.Weight == maxWeight + 1 && x.Level == 1).ToList();
+          //if (maxWeightList == 0)
+         //   return;
+         
+          if (maxWeightList.Count() > 0)
           {
-            var node = tree[i];
-            var rootNode = tree[0];
-            if (node.MakeCheckmateLevel == 1)
+            var rootLocation = maxWeightList.First().Parent.Location;
+            var bestLocation = "";
+            var bestWeight = -10000000;
+            var currentAllCumputerPawnTreeList = new List<List<Node>>();
+
+
+            
+            for (int i = 0; i < maxWeightList.Count; i++)
             {
-              rootNode.BestChildPosition = node.Location;
+              var location = maxWeightList[i].Location;
+              var currentPawnList = new List<Pawn>();
+
+
+              foreach (var item in PawnList)
+              {
+                //Debug.WriteLine(line);
+               /* var  bt = (Button)this.FindName(item.Location);
+                if (bt == null)
+                  return;*/
+                var newPawn = new Pawn(item.Name, item.Location, null, item.Colore, this);
+                //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+                newPawn.IsFirstMove = item.IsFirstMove;
+                newPawn.IsFirstMoveKing = item.IsFirstMoveKing;
+                newPawn.IsLeftRookFirstMove = item.IsLeftRookFirstMove;
+                newPawn.IsRightRookFirstMove = item.IsRightRookFirstMove;
+                currentPawnList.Add(newPawn);
+              }
+
+
+
+
+               
+              currentPawnList.Where(x => x.Location == rootLocation).ToList().ForEach(x => x.Location = location);
+
+              var pawn = currentPawnList.FirstOrDefault(x => x.Location == location);
+              pawn.FillPossibleTrips();
+              //var deep = 0;
+              Tree = null;
+              Tree = new List<Node>();
+              Node newNode = new Node(PawnList);
+              newNode.Location = location;
+              newNode.OldPositionName = "";
+              newNode.Weight = -10000000;
+              newNode.Level = 0;
+              newNode.Colore = ComputerColore;
+              newNode.AssociatePawn = pawn;
+              newNode.CurrentLocalPawnList = currentPawnList;
+              Tree.Add(newNode);
+
+
+              for (int j = 0; j < pawn.PossibleTrips.Count; j++)
+              {
+                //deep++;
+                GenerateThread(pawn.Location, pawn.PossibleTrips[j], pawn.Colore, newNode, pawn, cumputerLevel);
+                //deepStep = 0;
+                foreach (var item in PawnList)
+                {
+                  item.EmulateAllPossibleTips();
+                }
+              }
+              //tC = Tree.Count;
+              // currentAllCumputerPawnTreeList.Add(Tree);
+              var currentWeight = MinMaxForBranch(Tree);
+              if (bestWeight < currentWeight)
+              {
+                bestWeight = currentWeight;
+                bestLocation = location;
+              }
+                
+
+
+            }
+
+            //var t_currentAllCumputerPawnTreeList = currentAllCumputerPawnTreeList;
+            //un petit min max
+            
+
+
+            var t_= bestWeight;
+            var t_d = bestLocation;
+            // tree.Where(x => x.Location == rootLocation).ToList().ForEach(x => x.BestChildPosition = bestLocation && x.Weight = bestWeight);
+            var toUpdatedTree = tree.Where(x => x.Location == rootLocation);
+            foreach (var node in toUpdatedTree)
+            {
+              node.BestChildPosition = bestLocation;
+              node.Weight = bestWeight;
             }
 
           }
-        }*/
+
+
+
+
+
+
+        }
+
+
+        
+       
+      }
+
+    }
+/*tsiry;07-06-2021
+ * ajout d'un autre niveau d'analyse pour les brenches
+ * */
+    private int MinMaxForBranch(List<Node> tree)
+    {
+      //pour chaque arbre, on amplique le MinMax
+
+        for (int i = tree.Count - 1; i >= 0; i--)
+        {
+          var node = tree[i];
+          var parent = tree[i].Parent;
+          node.AssociatePawn.SetValue();
+          if (parent == null)
+            continue;
+          parent.ChildList.Add(node);
+
+        
+
+
+          if ((node.Level % 2) != 0)//Max
+          {
+            //on remonte le max
+            if (parent.Weight < node.Weight)
+            {
+              parent.Weight = node.Weight - node.Level;
+              parent.MakeCheckmateLevel = node.MakeCheckmateLevel;
+
+              if (parent.Level == 0)
+              {
+                parent.BestChildPosition = node.Location;
+
+              }
+
+
+            }
+          }
+          else //Min
+          {
+
+            if (parent.Weight > node.Weight)
+            {
+              parent.Weight = node.Weight - node.Level;
+              parent.MakeCheckmateLevel = node.MakeCheckmateLevel;
+            }
+          }
+        }
+
+
+      var maxWeiht = tree.FirstOrDefault(x => x.Level == 0).Weight;
+      return maxWeiht;
+
+
+
 
 
 
     }
+
     private void GenerateThread(string initialPosition, string evaluatePosition, string actualColore, Node parentNode, Pawn associatePawn, int deepLevel)
     {
 
@@ -1689,6 +1806,10 @@ namespace Chess
       /* if (deepStep > deepLevel)
          deepStep = 0;*/
       // deepStep++;
+
+    /*  cumputerLevel = 3;
+      if (newNode.AssociatePawn.Name == "King" && newNode.AssociatePawn.Location == "e2" && newNode.Colore == "White")
+        cumputerLevel = 5;*/
       if (parentNode.Level < cumputerLevel - 1)
       {
 
@@ -1730,7 +1851,10 @@ namespace Chess
             {
               var tdeze = parentNode;
             }
-            GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, newNode, pawn, deepLevel);
+         /*   if (newNode.AssociatePawn.Name == "King" && newNode.AssociatePawn.Location == "e2" && newNode.Colore == "White")
+              GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, newNode, pawn, 5);
+            else*/
+              GenerateThread(pawn.Location, pawn.PossibleTrips[i], pawn.Colore, newNode, pawn, deepLevel);
             //deepStep = 0;
           }
         }
@@ -2452,26 +2576,58 @@ namespace Chess
     }
 
 
-    /*tsiry;28-05-2021
- * creation de l'historique
- * on copie les entien coordonnées dans un docier*/
-    public void SaveToHistorical(int turnNumber,string color)
+    /*tsiry;01-06-2021
+* creation de l'historique
+* on copie les entien coordonnées dans un docier*/
+    public void SaveToHistorical(int turnNumber, string color)
     {
-      if(color == "White")
+     
+        var newLits = new List<Pawn>();
+      /*foreach (var item in PawnList)
       {
-        var whiteListOldFile = "./WHITEListOld.txt";
-        var destinationWhite = $"./{_dirName}/WHITEListOld{turnNumber.ToString()}.txt";
-        File.Copy(whiteListOldFile, destinationWhite, true);
+
+
+        var bt = (Button)this.FindName(item.Location);
+      //Pawn(string name,string location, Button associateButton,string colore, MainWindow mainWindowParent)
+      var  dockPanel = new DockPanel();
+      var image = new Image();
+      dockPanel.Children.Add(image);
+      bt.Content = dockPanel;
+      var newPawn = new Pawn(item.Name, item.Location, bt, item.Colore, this) ;
+        //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+        newPawn.IsFirstMove = item.IsFirstMove;
+        newPawn.IsFirstMoveKing = item.IsFirstMoveKing;
+        newPawn.IsLeftRookFirstMove = item.IsLeftRookFirstMove;
+        newPawn.IsRightRookFirstMove = item.IsRightRookFirstMove;
+        newLits.Add(newPawn);
+      }
+
+
+    */
+
+
+      var srtListPawn = new List<string>();
+
+        foreach (var pawn in PawnList)
+        {
+          srtListPawn.Add($"{pawn.Name};{pawn.Location};{pawn.Colore};{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}");
+        }
+      
+      if (color == "White")
+    {
+        HistoricalWhiteList.Add(srtListPawn);
       }
       else
       {
-        var blackListOldFile = "./BLACKListOld.txt";
-        var destinationBlack = $"./{_dirName}/BLACKListOld{turnNumber.ToString()}.txt";
-        File.Copy(blackListOldFile, destinationBlack, true);
+        HistoricalBlackList.Add(srtListPawn);
       }
+    
 
-      
+
+
     }
+
+
 
     public void CleanPawnList()
     {
@@ -2505,7 +2661,7 @@ namespace Chess
       PawnList = new List<Pawn>();
     }
 
-    private void Load(string old = "",int previousCount=0)
+    public void Load(string old = "",bool isForPrevious=false)
     {
       if (Tree != null)
         Tree.Clear();
@@ -2518,11 +2674,9 @@ namespace Chess
       var whiteFileLocation = "./WHITEList" + old + ".txt";
       var blackFileLocation = "./BlackList" + old + ".txt";
 
-      if(previousCount>0)
-      {
-         whiteFileLocation = $"./{_dirName}/WHITEList{old}{(whiteTurnNumber- previousCount).ToString()}.txt";
-         blackFileLocation = $"./{_dirName}/BlackList{old}{(blackTurnNumber- previousCount).ToString()}.txt";
-      }
+
+      
+      
 
 
       var readText = File.ReadAllText(whiteFileLocation);
@@ -2686,18 +2840,93 @@ namespace Chess
 
     private void PreviousButon_Click(object sender, RoutedEventArgs e)
     {
-      /*tsiry;28-05-2021
-       * implementation de l'historique
-       * */
+      if (HistoricalBlackList.Count == 0 && HistoricalWhiteList.Count == 0)
+        Load("Old");
+      else
+        Previous();
 
-      Load("Old", _previousCount);
-      if (CurrentTurn == "Black")
-        CurrentTurn = "White";
-      if (CurrentTurn == "White")
-        CurrentTurn = "Black";
-      LoadGraveyardFile();
-      _previousCount++;
     }
+
+    public void Previous()
+    {
+      /*tsiry;28-05-2021
+      * implementation de l'historique
+      * */
+
+      //Load("Old", _previousCount);
+      CleanPawnList();
+      var pawnList = new List<Pawn>();
+      if (CurrentTurn == "Black")
+      {
+        WhiteTurnNumber--;
+
+        //Load("Old", true);
+
+
+        var tempPawnList = HistoricalWhiteList[WhiteTurnNumber];
+        foreach (var line in tempPawnList)
+        {
+            //Debug.WriteLine(line);
+
+            var datas = line.Split(';');
+            var bt = (Button)this.FindName(datas[1]);
+            var newPawn = new Pawn(datas[0], datas[1], bt, datas[2], this);
+            //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+            newPawn.IsFirstMove = bool.Parse(datas[3]);
+            newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
+            newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
+            newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
+          pawnList.Add(newPawn);
+          }
+
+        var whiteList = pawnList.Where(x => x.Colore == "White").ToList();
+        var blackList = pawnList.Where(x => x.Colore == "Black").ToList();
+
+
+
+        FillPawnListAndFillAllPossibleTrips(whiteList, blackList);
+
+
+        CurrentTurn = "White";
+        
+      }
+      else if (CurrentTurn == "White")
+      {
+        BlackTurnNumber--;
+        var tempPawnList = HistoricalBlackList[BlackTurnNumber];
+        foreach (var line in tempPawnList)
+        {
+          //Debug.WriteLine(line);
+
+          var datas = line.Split(';');
+          var bt = (Button)this.FindName(datas[1]);
+          var newPawn = new Pawn(datas[0], datas[1], bt, datas[2], this);
+          //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+          newPawn.IsFirstMove = bool.Parse(datas[3]);
+          newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
+          newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
+          newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
+          pawnList.Add(newPawn);
+        }
+
+        var whiteList = pawnList.Where(x => x.Colore == "White").ToList();
+        var blackList = pawnList.Where(x => x.Colore == "Black").ToList();
+
+
+
+        FillPawnListAndFillAllPossibleTrips(whiteList, blackList);
+        CurrentTurn = "Black";
+        
+      }
+        
+      LoadGraveyardFile();
+
+      if(BlackTurnNumber==0 && WhiteTurnNumber == 0)
+        PreviousButon.IsEnabled = false;
+
+
+    }
+
 
     private void GrapheButon_Click(object sender, RoutedEventArgs e)
     {

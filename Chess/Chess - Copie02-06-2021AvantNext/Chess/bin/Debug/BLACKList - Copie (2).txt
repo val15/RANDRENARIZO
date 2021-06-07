@@ -1,0 +1,11 @@
+SimplePawn;a4;Black
+Rook;a7;Black
+Knight;h7;Black
+SimplePawn;c5;Black
+Bishop;g6;Black
+King;e8;Black
+SimplePawn;f7;Black
+Bishop;f8;Black
+Knight;g8;Black
+SimplePawn;h5;Black
+Rook;h8;Black

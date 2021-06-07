@@ -1,0 +1,8 @@
+Bishop;c8;Black
+Queen;f4;Black
+King;d8;Black
+SimplePawn;f5;Black
+Bishop;g7;Black
+SimplePawn;g6;Black
+Knight;f6;Black
+SimplePawn;f5;Black
