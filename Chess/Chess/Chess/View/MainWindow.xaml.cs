@@ -91,6 +91,7 @@ namespace Chess
       get => _currentTurn;
       set
       {
+       // var currentTimeStart = DateTime.Now;
         lbBlackScore.Content = GetScore("Black");
         lbWhiteScore.Content = GetScore("White");
         //DoSomething();
@@ -113,7 +114,13 @@ namespace Chess
           startOrContinuWhiteTimer();
         }
 
+
+      //  var turnTimeReflection = currentTimeStart - DateTime.Now;
+
+       // MessageBox.Show(turnTimeReflection.ToString());
       }
+
+
     }
 
 
@@ -814,7 +821,9 @@ namespace Chess
 
      // var t0 = PawnList.Count;
       Load();
-     // t0 = PawnList.Count;
+      // t0 = PawnList.Count;
+
+      //lbBlackTime +
 
 
 
@@ -1490,9 +1499,9 @@ namespace Chess
               foreach (var item in PawnList)
               {
                 //Debug.WriteLine(line);
-               /* var  bt = (Button)this.FindName(item.Location);
-                if (bt == null)
-                  return;*/
+               // var  bt = (Button)this.FindName(item.Location);
+               // if (bt == null)
+                //  return;
                 var newPawn = new Pawn(item.Name, item.Location, null, item.Colore, this);
                 //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
                 newPawn.IsFirstMove = item.IsFirstMove;
@@ -1554,13 +1563,18 @@ namespace Chess
 
             var t_= bestWeight;
             var t_d = bestLocation;
-            // tree.Where(x => x.Location == rootLocation).ToList().ForEach(x => x.BestChildPosition = bestLocation && x.Weight = bestWeight);
-            var toUpdatedTree = tree.Where(x => x.Location == rootLocation);
-            foreach (var node in toUpdatedTree)
+
+            if(bestWeight>=maxWeight)
             {
-              node.BestChildPosition = bestLocation;
-              node.Weight = bestWeight;
+              // tree.Where(x => x.Location == rootLocation).ToList().ForEach(x => x.BestChildPosition = bestLocation && x.Weight = bestWeight);
+                var toUpdatedTree = tree.Where(x => x.Location == rootLocation);
+                foreach (var node in toUpdatedTree)
+                {
+                  node.BestChildPosition = bestLocation;
+                  node.Weight = bestWeight;
+                }
             }
+
 
           }
 
@@ -1573,7 +1587,7 @@ namespace Chess
 
 
         
-       
+      
       }
 
     }

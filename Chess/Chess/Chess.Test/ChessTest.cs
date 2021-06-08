@@ -1666,6 +1666,95 @@ namespace Chess.Test
       Assert.AreEqual(nodeResult.BestChildPosition, "d3");
     }
 
+    [TestMethod]
+    public void T22LeBishopNoirDoitPrendreLePion()
+    {
+      /*Le Bishop Noir Doit Prendre le pion */
+      ////le Bishop noir  doit se mettre sur "e7"
+
+
+
+
+      var mainWindow = new MainWindow();
+      mainWindow.ComputerColore = "Black";
+      if (mainWindow.Tree != null)
+        mainWindow.Tree.Clear();
+      mainWindow.Tree = null;
+      mainWindow.CleanPawnList();
+      var pawnListWhite = new List<Pawn>();
+      var pawnListBlack = new List<Pawn>();
+
+
+
+      //WHITEList
+      var whiteListString = "" +
+        "King;f1;White;False;False;True;True"+
+"\nQueen;d1;White;False;False;False;False"+
+"\nRook;a1;White;False;False;False;False"+
+"\nRook;h1;White;False;False;False;False"+
+"\nBishop;c1;White;False;False;False;False"+
+"\nKnight;e2;White;False;False;False;False"+
+"\nSimplePawn;a4;White;False;False;False;False"+
+"\nSimplePawn;b2;White;True;False;False;False"+
+"\nSimplePawn;c3;White;False;False;False;False"+
+"\nSimplePawn;e7;White;False;False;False;False"+
+"\nSimplePawn;e4;White;False;False;False;False"+
+"\nSimplePawn;f3;White;False;False;False;False"+
+"\nSimplePawn;g2;White;True;False;False;False"+
+"\nSimplePawn;h2;White;True;False;False;False";
+      var whiteList = whiteListString.Split('\n');
+      foreach (var line in whiteList)
+      {
+        var datas = line.Split(';');
+        var newPawn = new Pawn(datas[0], datas[1], new Button(), datas[2], mainWindow);
+        //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+        newPawn.IsFirstMove = bool.Parse(datas[3]);
+        newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
+        newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
+        newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
+        pawnListWhite.Add(newPawn);
+      }
+
+      //BLACKList
+      var blackListString = "" +
+        "King;e8;Black;False;True;True;True" +
+        "\nQueen;c4;Black;False;False;False;False"+
+"\nRook;a8;Black;False;False;False;False"+
+"\nRook;h8;Black;False;False;False;False"+
+"\nBishop;f8;Black;False;False;False;False"+
+"\nSimplePawn;a7;Black;True;False;False;False"+
+"\nSimplePawn;b6;Black;False;False;False;False"+
+"\nSimplePawn;c7;Black;True;False;False;False"+
+"\nSimplePawn;d7;Black;True;False;False;False"+
+"\nSimplePawn;f7;Black;True;False;False;False"+
+"\nSimplePawn;g6;Black;False;False;False;False"+
+"\nSimplePawn;h6;Black;False;False;False;False";
+      var blackList = blackListString.Split('\n');
+      foreach (var line in blackList)
+      {
+        var datas = line.Split(';');
+        var newPawn = new Pawn(datas[0], datas[1], new Button(), datas[2], mainWindow);
+        //;{pawn.IsFirstMove};{pawn.IsFirstMoveKing};{pawn.IsLeftRookFirstMove};{pawn.IsRightRookFirstMove}
+        newPawn.IsFirstMove = bool.Parse(datas[3]);
+        newPawn.IsFirstMoveKing = bool.Parse(datas[4]);
+        newPawn.IsLeftRookFirstMove = bool.Parse(datas[5]);
+        newPawn.IsRightRookFirstMove = bool.Parse(datas[6]);
+        pawnListBlack.Add(newPawn);
+      }
+
+
+
+      mainWindow.FillPawnListAndFillAllPossibleTrips(pawnListWhite, pawnListBlack);
+
+
+      var nodeResult = mainWindow.GetBestPositionLocalNotTask(mainWindow.ComputerColore);
+      ////le Bishop noir  doit se mettre sur "e7"
+      Assert.AreEqual(nodeResult.AssociatePawn.Name, "Bishop");
+      Assert.AreEqual(nodeResult.BestChildPosition, "e7");
+    }
+
+
+
 
     [TestMethod]
     public void PreviousTestC2ToC3ToC2()

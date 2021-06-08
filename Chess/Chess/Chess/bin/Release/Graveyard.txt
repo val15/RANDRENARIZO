@@ -1,3 +1,0 @@
-QueenWhite
-SimplePawnWhite
-BishopWhite

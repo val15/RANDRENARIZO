@@ -1,0 +1,6 @@
+SimplePawnWhite
+SimplePawnWhite
+SimplePawnBlack
+SimplePawnWhite
+SimplePawnWhite
+RookBlack
