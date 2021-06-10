@@ -1,0 +1,3 @@
+SimplePawnWhite
+KnightBlack
+KnightBlack

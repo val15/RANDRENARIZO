@@ -1366,7 +1366,7 @@ namespace Chess
           return resultArray0;
         }
       }
-
+      
 
       var whiteScore = 0;
       var blackScore = 0;
@@ -1419,7 +1419,7 @@ namespace Chess
     }
 
 
-    private void MinMax()
+    private void MinMax(bool isNodeSeconde=true)
     {
       var additionalTree = new List<Node>();
       //pour chaque arbre, on amplique le MinMax
@@ -1481,18 +1481,54 @@ namespace Chess
           //if (maxWeightList == 0)
          //   return;
          
-          if (maxWeightList.Count() > 0)
+          if (maxWeightList.Count() > 1)
           {
+            var rootNode = maxWeightList.First().Parent;
             var rootLocation = maxWeightList.First().Parent.Location;
             var bestLocation = "";
             var bestWeight = -10000000;
             var currentAllCumputerPawnTreeList = new List<List<Node>>();
 
 
-            
+            var menacedList = new List<Pawn>();
+            foreach (var item in PawnList.Where(x => x.Colore == ComputerColore))
+            {
+              if (LoactionIsMenaced(item.Location, ComputerColore))
+              {
+                //onceAlierIsMenaced = true;
+                //break;
+                menacedList.Add(item);
+              }
+
+            }
             for (int i = 0; i < maxWeightList.Count; i++)
             {
-              var location = maxWeightList[i].Location;
+
+              var currentNode = maxWeightList[i];
+              var location = currentNode.Location;
+
+
+
+               if (LoactionIsMenaced(location, ComputerColore))
+                 continue;
+
+              //var onceAlierIsMenaced = false;
+              //si une piece est menacer par plus petit que lui, on ne s'arrete
+              
+              
+
+              //var t_onceAlierIsMenaced = onceAlierIsMenaced;
+
+
+             // if (onceAlierIsMenaced)
+             //   continue;
+
+
+
+
+
+
+
               var currentPawnList = new List<Pawn>();
 
 
@@ -1545,7 +1581,8 @@ namespace Chess
               }
               //tC = Tree.Count;
               // currentAllCumputerPawnTreeList.Add(Tree);
-              var currentWeight = MinMaxForBranch(Tree);
+              var currentMaxNode = MinMaxForBranch(Tree);
+              var currentWeight = currentMaxNode.Weight;
               if (bestWeight < currentWeight)
               {
                 bestWeight = currentWeight;
@@ -1564,14 +1601,19 @@ namespace Chess
             var t_= bestWeight;
             var t_d = bestLocation;
 
-            if(bestWeight>=maxWeight)
+            //si le pion à déplacer ne fait pas partie des menacer
+            if (!menacedList.Contains(rootNode.AssociatePawn))
+              continue;
+
+            if(bestWeight>maxWeight)
             {
               // tree.Where(x => x.Location == rootLocation).ToList().ForEach(x => x.BestChildPosition = bestLocation && x.Weight = bestWeight);
                 var toUpdatedTree = tree.Where(x => x.Location == rootLocation);
                 foreach (var node in toUpdatedTree)
                 {
+                
                   node.BestChildPosition = bestLocation;
-                  node.Weight = bestWeight;
+                  //node.Weight = bestWeight;
                 }
             }
 
@@ -1594,7 +1636,7 @@ namespace Chess
 /*tsiry;07-06-2021
  * ajout d'un autre niveau d'analyse pour les brenches
  * */
-    private int MinMaxForBranch(List<Node> tree)
+    private Node MinMaxForBranch(List<Node> tree)
     {
       //pour chaque arbre, on amplique le MinMax
 
@@ -1639,13 +1681,59 @@ namespace Chess
         }
 
 
-      var maxWeiht = tree.FirstOrDefault(x => x.Level == 0).Weight;
-      return maxWeiht;
+      var maxNode = tree.FirstOrDefault(x => x.Level == 0);
+      return maxNode;
 
 
 
 
 
+
+    }
+
+    private bool LoactionIsMenaced(string location,string colore)
+    {
+
+        var result = false;
+        foreach (var pawn in GetOpignonPawnList(colore))
+        {
+            if(pawn.Name == "King")
+        {
+          var t_dse = pawn;
+        }
+
+            if(pawn.Name == "SimplePawn")
+            {
+          //si simple pion on prend les diagonaux avant
+          var toAdd = 0;
+          if (pawn.Colore == "White")
+          {
+            toAdd = +1;
+
+          }
+          else
+          {
+            toAdd = -1;
+          }
+          var xasciiCode = (int)Convert.ToChar(pawn.X);
+          var intY = 0;
+          //Int32.Parse(Y);
+          bool success = Int32.TryParse(pawn.Y, out intY);
+          var tripsPosition = Convert.ToChar(xasciiCode - 1).ToString() + (intY + toAdd).ToString();
+          if (tripsPosition == location)
+            return true;
+          tripsPosition = Convert.ToChar(xasciiCode + 1).ToString() + (intY + toAdd).ToString();
+          if (tripsPosition == location)
+            return true;
+
+        }
+          if (pawn.PossibleTrips.Contains(location))
+          {
+            result = true;
+            break;
+          }
+        }
+        return result;
 
     }
 
@@ -1997,9 +2085,9 @@ namespace Chess
 
 
       //var tl = bestMaxWeithNodeList.Count();
-      var tl = AllCumputerPawnTreeList.Count;
-      MinMax();
-      var tl0 = AllCumputerPawnTreeList.Count;
+
+      MinMax(false);
+
       foreach (var tree in AllCumputerPawnTreeList)
       {
         if (tree.Count == 0)
