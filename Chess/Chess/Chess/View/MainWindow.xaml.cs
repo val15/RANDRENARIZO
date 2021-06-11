@@ -1282,24 +1282,26 @@ namespace Chess
 
 
 
-
+      
 
       if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
       {
         var resultArray0 = new int[2] { -9999999, makeCheckmateLevel };
         return resultArray0;
       }
-      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
+      
+      else if  (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
       {
         var resultArray0 = new int[2] { 9999999, makeCheckmateLevel };
         return resultArray0;
       }
-      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "Black") == null)
+
+      else if(actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "Black") == null)
       {
         var resultArray0 = new int[2] { -9000, makeCheckmateLevel };
         return resultArray0;
       }
-      if (level <= 1)
+      else if (level <= 1)
       {
         if (opinionIsCheckmate("Black", actualPawnList))
         {
@@ -1308,6 +1310,18 @@ namespace Chess
           return resultArray0;
         }
       }
+      //si echech,
+      //actualPawnList . opinion
+      //si position du roi est dans les possible timps des adversaire
+      //alors -9999999
+      else if (isInChess(actualPawnList, "Black"))
+      {
+        var resultArray0 = new int[2] { -9999999, makeCheckmateLevel };
+        return resultArray0;
+      }
+
+
+
       var whiteScore = 0;
       var blackScore = 0;
 
@@ -1327,6 +1341,8 @@ namespace Chess
       else
         finalScore = whiteScore - blackScore;
 
+      
+
       var resultArray = new int[2] { finalScore, makeCheckmateLevel };
       return resultArray;
     }
@@ -1338,6 +1354,8 @@ namespace Chess
       var finalScore = 0;
       var makeCheckmateLevel = 0;
 
+      
+
 
 
       if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "White") == null)
@@ -1346,17 +1364,17 @@ namespace Chess
         return resultArray0;
       }
 
-      if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
+      else if (actualPawnList.FirstOrDefault(x => x.Name == "King" && x.Colore == "Black") == null)
       {
         var resultArray0 = new int[2] { 9999999, makeCheckmateLevel };
         return resultArray0;
       }
-      if (actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "White") == null)
+      else if(actualPawnList.FirstOrDefault(x => x.Name == "Queen" && x.Colore == "White") == null)
       {
         var resultArray0 = new int[2] { -9000, makeCheckmateLevel };
         return resultArray0;
       }
-      if (level <= 1)
+      else if(level <= 1)
       {
         if (opinionIsCheckmate("White", actualPawnList))
         {
@@ -1366,7 +1384,16 @@ namespace Chess
           return resultArray0;
         }
       }
-      
+      //si echech,
+      //actualPawnList . opinion
+      //si position du roi est dans les possible timps des adversaire
+      //alors -9999999
+      else if (isInChess(actualPawnList, "White"))
+      {
+        var resultArray0 = new int[2] { -9999999, makeCheckmateLevel };
+        return resultArray0;
+      }
+
 
       var whiteScore = 0;
       var blackScore = 0;
@@ -1397,6 +1424,27 @@ namespace Chess
 
     }
 
+    private bool isInChess(List<Pawn> actualPawnList,string colore)
+    {
+      var kingLocation = actualPawnList.FirstOrDefault(x => x.Colore == colore && x.Name == "King");
+      if(kingLocation==null)
+        return false;
+      var opignonPawnList = actualPawnList.Where(x=>x.Colore != colore);
+        foreach (var opignonPawn in opignonPawnList)
+        {
+
+        foreach (var item in opignonPawn.PossibleTrips)
+        {
+          if (item == kingLocation.Location)
+          {
+            return true;
+          }
+        }
+          
+        }
+
+      return false;
+    }
 
     private bool opinionIsCheckmate(string curentColor, List<Pawn> actualPawnList)
     {
@@ -1419,7 +1467,7 @@ namespace Chess
     }
 
 
-    private void MinMax(bool isNodeSeconde=true)
+    private void MinMax()
     {
       var additionalTree = new List<Node>();
       //pour chaque arbre, on amplique le MinMax
@@ -1469,6 +1517,9 @@ namespace Chess
             }
           }
         }
+
+       /* if (tree.Count==0)
+          return;*/
         
         var minLevel = tree.Min(x => x.Level);
         
@@ -2086,7 +2137,7 @@ namespace Chess
 
       //var tl = bestMaxWeithNodeList.Count();
 
-      MinMax(false);
+      MinMax();
 
       foreach (var tree in AllCumputerPawnTreeList)
       {
@@ -2850,20 +2901,20 @@ namespace Chess
       PawnListBlack = null;
       PawnListBlack = new List<Pawn>();
 
-      if (ComputerColore == "White")
-      {
+      /*if (ComputerColore == "White")
+      {*/
         PawnList.AddRange(pawnListWhite.OrderByDescending(x => x.Value));
         PawnList.AddRange(pawnListBlack.OrderByDescending(x => x.Value));
         PawnListWhite = PawnList.Where(x => x.Colore == "White").ToList();
         PawnListBlack = PawnList.Where(x => x.Colore == "Black").ToList();
-      }
+     /* }
       if (ComputerColore == "Black")
       {
         PawnList.AddRange(pawnListBlack.OrderByDescending(x => x.Value));
         PawnList.AddRange(pawnListWhite.OrderByDescending(x => x.Value));
         PawnListBlack = PawnList.Where(x => x.Colore == "Black").ToList();
         PawnListWhite = PawnList.Where(x => x.Colore == "White").ToList();
-      }
+      }*/
 
 
 

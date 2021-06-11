@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Chess.exe" size="519592">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Chess.exe" size="519080">
       <assemblyIdentity name="Chess" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EfJs6cReyphbueB1t/cp/mVlcs80dI0G1JoKKZHZX3Q=</dsig:DigestValue>
+        <dsig:DigestValue>/rSlCWbUBAj+HU5MJ17eqk8xvhzLrigZl5ILuHzW+AI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
