@@ -28,7 +28,6 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\ToastNotifications.Message
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignColors.pdb
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignThemes.Wpf.pdb
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignThemes.Wpf.xml
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.csprojAssemblyReference.cache
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\View\MainWindow.g.cs
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\View\RiseInRankWindow.g.cs
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\App.g.cs
@@ -48,3 +47,4 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.application
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.csprojAssemblyReference.cache

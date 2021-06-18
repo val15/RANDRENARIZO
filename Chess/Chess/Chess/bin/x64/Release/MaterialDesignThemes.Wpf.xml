@@ -648,6 +648,8 @@
         <member name="M:MaterialDesignThemes.Wpf.Extensions.GetVisualAncestry(System.Windows.DependencyObject)">
             <summary>
             Returns full visual ancestry, starting at the leaf.
+            <para>If element is not of <see cref="T:System.Windows.Media.Visual"/> or <see cref="T:System.Windows.Media.Media3D.Visual3D"/> the
+            logical ancestry is used.</para>
             </summary>
             <param name="leaf"></param>
             <returns></returns>

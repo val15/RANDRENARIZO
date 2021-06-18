@@ -148,7 +148,7 @@ namespace Chess.Utils
           Value = 100;
           break;
         case "Rook":
-          Value = 50;
+          Value = 60;
           break;
         case "Bishop":
           Value = 40;
@@ -167,6 +167,7 @@ namespace Chess.Utils
     public void FillPossibleTrips(bool isFromTemps=false)
     {
      // TempsPawnList = null;
+
       PossibleTrips.Clear();
       if(this.Name== "SimplePawn")
         fillPossibleTripsSimplePawn(this.Colore, isFromTemps);
@@ -770,6 +771,7 @@ namespace Chess.Utils
         MainWindowParent.SetDebugTextBlockText(debugText);
       }
       */
+     
       PossibleTrips.AddRange(avalablesPositionList);
     }
 

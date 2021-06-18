@@ -1,6 +1,7 @@
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Microsoft.TestPlatform.AdapterUtilities.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Images\BishopBlack.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Images\BishopWhite.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Images\KingBlack.png

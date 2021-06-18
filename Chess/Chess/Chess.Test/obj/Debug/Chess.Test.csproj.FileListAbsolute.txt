@@ -83,6 +83,7 @@ D:\tsiry\RANDRENARIZO\Chess\Chess - Copie02-06-2021AvantNext\Chess.Test\obj\Debu
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Images\BishopBlack.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Images\BishopWhite.png
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Images\KingBlack.png
@@ -109,6 +110,8 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Microsoft.VisualStudio.Te
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\ToastNotifications.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Notifications.Wpf.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Chess.exe.config
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\MaterialDesignColors.pdb
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\MaterialDesignThemes.Wpf.pdb
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\MaterialDesignThemes.Wpf.xml
@@ -119,5 +122,3 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\Debug\Chess.Test.csproj.CoreCom
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\Debug\Chess.Test.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\Debug\Chess.Test.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\Debug\Chess.Test.pdb
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Chess.pdb
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\Debug\Chess.exe.config

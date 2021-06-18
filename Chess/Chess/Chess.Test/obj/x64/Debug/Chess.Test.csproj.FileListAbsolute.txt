@@ -39,3 +39,4 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Debug\Chess.Test.csproj.Cor
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Debug\Chess.Test.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Debug\Chess.Test.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Debug\Chess.Test.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
