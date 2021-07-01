@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Chess.exe" version="1.0.0.6" publicKeyToken="6cd174fc13de2eb9" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="ico.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Chess" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Chess.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Chess.exe" size="520104">
+      <assemblyIdentity name="Chess" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>k5tsyEb7Tw9dDIRk6vu2o2p3i3QmmS9YUAw7aeCwbuI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MaterialDesignColors.dll" size="302080">
+      <assemblyIdentity name="MaterialDesignColors" version="2.0.0.2422" publicKeyToken="DF2A72020BD7962A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>n6OBl+7Vyh+sLQVvz9J2enRki8g2cl0lVHeyUVZ7rbY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MaterialDesignThemes.Wpf.dll" size="8171520">
+      <assemblyIdentity name="MaterialDesignThemes.Wpf" version="4.0.0.2422" publicKeyToken="DF2A72020BD7962A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>myTnN3zwPtk812xOETMOLGfMQuKHWpf6ULmgNqAF910=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Chess.exe.config" size="184">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>FihlZtVNgcNyH37Pf0Jtll3jZOm+L55ijXNjtoS2/mo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="ico.ico" size="166910">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>a1R14TkOymU1sNL7bWSDHuDVO2hsdg9DWgsXeNBKPoI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\BishopBlack.png" size="12023">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>CvXHE6w+YgoT4Q9GG0aiNHPXQfME5WvynDUdBFbnO+g=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\BishopWhite.png" size="141470">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MDDiAOGPpPwIcTNSeRJG+Jh9NZsL4XDezM+uJ3CheK0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\KingBlack.png" size="64246">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>2lhBsyKMVVx/g61lnq2HddA2wVF5WpgQ/VHy6o2ZvlM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\KingWhite.png" size="78502">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>NcTO7LUUa2ZRTHLha1vgGfWQygwVf2k3wfIHzoUs3cs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\Knight.png" size="55008">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>DpiIT5b06+po/LNhaKo9Swrh3Rcw5cj64MTyetLFLG0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\KnightBlack.png" size="12591">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>kmPMCnVYHLE3Sg0HHYpQCCnCCuGM9yQBEruVH9Hf7yk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\KnightWhite.png" size="122735">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>id/XuMeAjqS8iXJ74FuRO2CGmPu9LCAfE9eDLckhTf0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\Queen.png" size="21170">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>nTOqAl0OvGQw3CNDclyCe8OYKy4qrZIiTP4u1FoXpmM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\QueenBlack.png" size="19493">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>zHLaNGPdetGHJbpmXcdlZTY3TPWdTJ5OD6dTbtIV0zQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\QueenWhite.png" size="70747">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>b+2FYeZCwm3NJhkJ/pm9bk9Lpal638kA/tDS2zAnmpA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\Rook.png" size="5868">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ns7hwivmlBySA1YS/6bJ977IMOuZ4uUxGuGt9jwjXqA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\RookBlack.png" size="12752">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lVFue73JXR0SjUWbocVsbMxwzb3aBxaMabzgJ7H9qII=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\RookWhite.png" size="33282">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>B5jgbEzv5GZAteN39/E2x9y5JGutUBPziSaenJmpgeY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\SimplePawn.png" size="6545">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>M0Nq9pO2jJ3fYCxA9o0UqzwE+SCErhM+4jNhrfrFoTA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\SimplePawnBlack.png" size="9814">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PA0zWoNeQCia3o+43Hrif9f/mfE0aRVjxDt7HTC0x/Q=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Images\SimplePawnWhite.png" size="20823">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>QA0Ne3jFtgsw6KV2vmvsx8YUvCRJmH8kChmFyyc2tV4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Utils\SimplePawn.png" size="2247">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MsV06ZxUTttlqtacOy2lL+i+t1PWHkFBoBVmu5OJqkw=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=NUC16\tsiry" issuerKeyHash="73b924da8b596706f54e78c878e7a954d1fa4b66" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>c6QZ+BoSoV+4XAztiz/Lqc9dlJZpk4ocI2BzSd9GMmk=</DigestValue></Reference></SignedInfo><SignatureValue>hoAOg3mcaJjWLG8BOqgfReeWHpokcXBbwd4bBTcpKcOd4g4vcGPPk9DrLl/x0QFXIRrByoW9VdvOqKfNGay7to9Czg/ePeNIsDzeLICQd7gAlYzcZmzi0vaMXMuTswuLNjWjK7zY3wsPF3jkKbvyDsxVQuVtG7PVmZhrFqo4mP0=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>zhUV8Kw8OW8hpiMMy58guKAJXNn3kRMeo5Iq2HwrD/TqUQwYkGepeBn2nJ8044xgO8DRYtlnOa0fP37MKKzSM+WogtekqdjtEsF+Xm9ME6Ycy3eS0pGf3aLS2TriYXIn6lTH8awV71CIz0SZquKt9cfcfHLsFEHS3PTCHC1jc6U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="693246df497360231c8a936996945dcfa9cb3f8bed0c5cb85fa1121af819a473" Description="" Url=""><as:assemblyIdentity name="Chess.exe" version="1.0.0.6" publicKeyToken="6cd174fc13de2eb9" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=NUC16\tsiry</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>CVNg7oU0doQgoOkY6Eu9cwmAuoBgaDEI+TNG3Y3xeXI=</DigestValue></Reference></SignedInfo><SignatureValue>MtnKRX6CkfNQCHMIxwtUG/cA48upLxMBf1TqAbtIQZbAdgtX5s0T1eodbrpgI1spzGl4NWdm7hXVVN5Tb/u29Iqq34hgHxgrlLrnYgixp8zlnSRdTk8e7aC3nku2eP8Oc4H+zyoWdG2fgA+seBkSSEy0cwYI55TWbFUNbNhkHz8=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>zhUV8Kw8OW8hpiMMy58guKAJXNn3kRMeo5Iq2HwrD/TqUQwYkGepeBn2nJ8044xgO8DRYtlnOa0fP37MKKzSM+WogtekqdjtEsF+Xm9ME6Ycy3eS0pGf3aLS2TriYXIn6lTH8awV71CIz0SZquKt9cfcfHLsFEHS3PTCHC1jc6U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBxTCCAS6gAwIBAgIQPs/32ytcAoNEDWnxsFCGTTANBgkqhkiG9w0BAQsFADAhMR8wHQYDVQQDHhYATgBVAEMAMQA2AFwAdABzAGkAcgB5MB4XDTIxMDMyNDA2MzQyNFoXDTIyMDMyNDEyMzQyNFowITEfMB0GA1UEAx4WAE4AVQBDADEANgBcAHQAcwBpAHIAeTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAzhUV8Kw8OW8hpiMMy58guKAJXNn3kRMeo5Iq2HwrD/TqUQwYkGepeBn2nJ8044xgO8DRYtlnOa0fP37MKKzSM+WogtekqdjtEsF+Xm9ME6Ycy3eS0pGf3aLS2TriYXIn6lTH8awV71CIz0SZquKt9cfcfHLsFEHS3PTCHC1jc6UCAwEAATANBgkqhkiG9w0BAQsFAAOBgQAupx/WycopGF2E6hA9P4nhQGhHubFwSsRteDLz1Cw1JRa7hdD6r4ioVDu54FmcHpUsnLYHAIJEPwpZ2VSv5K+dNb4lK/OvH34HogCO13GfL8Mrj59wyYjKsxoNaxGpdyfMKrD08IvenamlDBrkJTYCiyX1g9NvJyULMRjZJJM1qA==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

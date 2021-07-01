@@ -7,14 +7,14 @@
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Chess.exe.manifest" size="14154">
+    <dependentAssembly dependencyType="install" codebase="Chess.exe.manifest" size="16351">
       <assemblyIdentity name="Chess.exe" version="1.0.0.7" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HSqLIWlZ3PB75zHHA/8kjqumK/YxCrONxLAbLDbAFII=</dsig:DigestValue>
+        <dsig:DigestValue>ozIDNB1vmkA04BIR+mwoJPjFRpFVH4gkwurSZCBcgGI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

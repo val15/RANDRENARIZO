@@ -677,8 +677,8 @@ class Board:
         
         "Display the chessboard in console mode"
         
-        input("\nType a key to continue...")
-        os.system('cls' if os.name == 'nt' else 'clear')
+       # input("\nType a key to continue...")
+        #os.system('cls' if os.name == 'nt' else 'clear')
         
         print('')
         print('=> Commands are :')

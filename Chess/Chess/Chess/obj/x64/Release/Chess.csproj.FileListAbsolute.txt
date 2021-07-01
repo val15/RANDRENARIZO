@@ -47,3 +47,8 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Release\Chess.application
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Release\Chess.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Release\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Release\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Release\EntityFramework.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Release\EntityFramework.SqlServer.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Release\EntityFramework.xml
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Release\EntityFramework.SqlServer.xml
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Release\Chess.csproj.AssemblyReference.cache

@@ -91,6 +91,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.1.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.1\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -101,8 +107,11 @@
       <HintPath>..\packages\Notifications.Wpf.0.1.1\lib\net461\Notifications.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -129,6 +138,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entity\ChessDBModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChessDBModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ChessDBModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChessDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ChessDBModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChessDBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GamePart.cs">
+      <DependentUpon>ChessDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Turns.cs">
+      <DependentUpon>ChessDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ServiceChessDB.cs" />
     <Compile Include="Utils\CircleNode.cs" />
     <Compile Include="Utils\IDrawable.cs" />
     <Compile Include="Utils\Node.cs" />
@@ -184,6 +215,13 @@
       <DependentUpon>TreeGrapheForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Chess_TemporaryKey.pfx" />
+    <EntityDeploy Include="Entity\ChessDBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ChessDBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entity\ChessDBModel.edmx.diagram">
+      <DependentUpon>ChessDBModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -198,6 +236,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="ico.ico" />
+    <Content Include="Entity\ChessDBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ChessDBModel.edmx</DependentUpon>
+      <LastGenOutput>ChessDBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\ChessDBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ChessDBModel.edmx</DependentUpon>
+      <LastGenOutput>ChessDBModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Images\BishopBlack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -266,6 +314,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Chess"
         mc:Ignorable="d"
         Title="MainWindow" Height="950" Width="1850" >
@@ -21,18 +22,23 @@
     </Grid.ColumnDefinitions>
     
     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+      <Button Name="VSPythonButon"  Content="{materialDesign:PackIcon Kind=AccountConvertOutline}"  Click="VSPythonButon_Click" ></Button>
+      <Button Name="PythonTurnButon"  Content="{materialDesign:PackIcon Kind=AppleKeyboardShift}"  Click="PythonTurnButon_Click" ></Button>
+
       <Button Name="SwithToServerEngineButon"  Content="{materialDesign:PackIcon Kind=CheckNetworkOutline}"  Click="SwithToServerEngineButon_Click" ></Button>
       <Button Name="SwithToLocalEngineButon"  Content="{materialDesign:PackIcon Kind=Network}"  Click="SwithToLocalEngineButon_Click" ></Button>
       <Button Name="ChoseWhiteForCoputerButon"  Content="{materialDesign:PackIcon Kind=RobotOutline}"  Click="ChoseWhiteForCoputerButon_Click" ></Button>
       <Button Name="ChoseBlackForCoputerButon" Content="{materialDesign:PackIcon Kind=Robot}"   Click="ChoseBlackForCoputerButon_Click" ></Button>
-      <Button Content="SAVE" Name="saveButton"  Click="saveButton_Click" ></Button>
-      <Button Content="LOAD" Name="loadButton"  Click="loadButton_Click" ></Button>
+      <Button Content="LOAD DB" Name="LoadButton"  Click="loadButton_Click" ></Button>
+      <ComboBox Width="155" Height="25"  Name="GamePartComboBox" SelectionChanged="GamePartComboBox_SelectionChanged"  DisplayMemberPath ="GamePartLabel"></ComboBox>
+      <Button Content="SAVE" Name="SaveButton"  Click="saveButton_Click" ></Button>
       <Button Content="White" Name="WhiteFirstButon"  Click="WhiteFirstButon_Click" ></Button>
       <Button Content="Black" Name="BlackFirstButon"  Click="BlackFirstButon_Click" ></Button>
       <Button  Content="{materialDesign:PackIcon Kind=PreviousTitle}" Name="PreviousButon"  Click="PreviousButon_Click" ></Button>
-      <Button  Content="GRAPHE" Name="GrapheButon"  Click="GrapheButon_Click" ></Button>
-      <!--<Button  Content="{materialDesign:PackIcon Kind=NextTitle}" Name="NextButon"   ></Button>-->
-      
+      <!--<Button  Content="GRAPHE" Name="GrapheButon"  Click="GrapheButon_Click" ></Button>-->
+      <Label Width="25" VerticalAlignment="Center" HorizontalAlignment="Center" Name="TurnNumberLabel"></Label>
+      <Button  Content="{materialDesign:PackIcon Kind=NextTitle}" Name="NextButon" Click="NextButon_Click"  ></Button>
+
     </StackPanel>
     <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Vertical">
       <!--<ProgressBar DockPanel.Dock="Bottom" Height="18" Name="pbCalculationProgress" />-->

@@ -121,6 +121,7 @@ class Engine:
         according to the given chessboard 'b'
         """
         
+        
         if(self.endgame):
             self.print_result(b)
             return
@@ -158,6 +159,7 @@ class Engine:
         best=self.pv[0][0]
         b.domove(best[0],best[1],best[2])
         self.print_result(b)
+        return  b.caseInt2Str(best[0]) +";"+b.caseInt2Str(best[1])
 
     ####################################################################
 
@@ -315,7 +317,30 @@ class Engine:
         # Things seems to be all right
         self.init_depth=d
         print('Depth set to',d)
+
+    def setDepthStr(self,c):
         
+        """'c' is the user command line, i.e. 'sd [x]'
+        to set the search depth.
+        """
+        
+        # Checking the requested value
+
+        #cmd[0]='sd'
+        #cmd[1] should be an integer
+        
+        
+        d=int(c)
+        
+            
+        if(d<2 or d>self.MAX_PLY):
+            print('Depth must be between 2 and',self.MAX_PLY)
+            return
+        
+        # Things seems to be all right
+        self.init_depth=d
+        print('Depth set to',d)
+      
     ####################################################################
 
     def perft(self,c,b):

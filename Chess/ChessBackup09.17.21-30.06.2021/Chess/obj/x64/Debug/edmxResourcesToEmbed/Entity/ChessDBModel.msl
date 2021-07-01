@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChessDBModelStoreContainer" CdmEntityContainer="ChessDBEntities">
+    <EntitySetMapping Name="GamePart">
+      <EntityTypeMapping TypeName="ChessDBModel.GamePart">
+        <MappingFragment StoreEntitySet="GamePart">
+          <ScalarProperty Name="GamePartID" ColumnName="GamePartID" />
+          <ScalarProperty Name="GamePartLabel" ColumnName="GamePartLabel" />
+          <ScalarProperty Name="GamePartStartDateTime" ColumnName="GamePartStartDateTime" />
+          <ScalarProperty Name="GamePartDuration" ColumnName="GamePartDuration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GamePartHistory">
+      <EntityTypeMapping TypeName="ChessDBModel.GamePartHistory">
+        <MappingFragment StoreEntitySet="GamePartHistory">
+          <ScalarProperty Name="GamePartHistoryID" ColumnName="GamePartHistoryID" />
+          <ScalarProperty Name="GamePartID" ColumnName="GamePartID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Turn">
+      <EntityTypeMapping TypeName="ChessDBModel.Turn">
+        <MappingFragment StoreEntitySet="Turn">
+          <ScalarProperty Name="InserionDateTime" ColumnName="InserionDateTime" />
+          <ScalarProperty Name="BestMove" ColumnName="BestMove" />
+          <ScalarProperty Name="BestCurrentBlowScore" ColumnName="BestCurrentBlowScore" />
+          <ScalarProperty Name="BlackScore" ColumnName="BlackScore" />
+          <ScalarProperty Name="WhiteScore" ColumnName="WhiteScore" />
+          <ScalarProperty Name="TurnColor" ColumnName="TurnColor" />
+          <ScalarProperty Name="PawnListStr" ColumnName="PawnListStr" />
+          <ScalarProperty Name="GamePartHistoryID" ColumnName="GamePartHistoryID" />
+          <ScalarProperty Name="TurnID" ColumnName="TurnID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

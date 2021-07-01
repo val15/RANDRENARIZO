@@ -127,14 +127,14 @@ namespace ChessServerConsole
       Console.WriteLine("Chess server is run...");
 
       
-      while(true)
+    /*  while(true)
         StartSocketServer();
-      Console.ReadLine ();
+      Console.ReadLine ();*/
       
       
      
       //TEST
-     /* var enterStringList = new List<string>();
+      var enterStringList = new List<string>();
       //LECTURE DU FICHIER QUI CONTIEN LA LISTE DES POINS (FICHE DE TEST)
       enterStringList = Load();
       var engine = new Engine("Black");
@@ -167,7 +167,7 @@ namespace ChessServerConsole
       var executionTime = DateTime.Now - startTime;
       Console.WriteLine($"Execution time = {executionTime}");
       Console.WriteLine("Finish");
-      Console.ReadLine();   */
+      Console.ReadLine();   
     }
 
 

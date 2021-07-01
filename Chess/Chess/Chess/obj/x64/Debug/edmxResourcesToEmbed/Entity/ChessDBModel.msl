@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChessDBModelStoreContainer" CdmEntityContainer="ChessDBEntities">
+    <EntitySetMapping Name="GamePart">
+      <EntityTypeMapping TypeName="ChessDBModel.GamePart">
+        <MappingFragment StoreEntitySet="GamePart">
+          <ScalarProperty Name="GamePartMode" ColumnName="GamePartMode" />
+          <ScalarProperty Name="GamePartDuration" ColumnName="GamePartDuration" />
+          <ScalarProperty Name="GamePartStartDateTime" ColumnName="GamePartStartDateTime" />
+          <ScalarProperty Name="GamePartLabel" ColumnName="GamePartLabel" />
+          <ScalarProperty Name="GamePartID" ColumnName="GamePartID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Turns">
+      <EntityTypeMapping TypeName="ChessDBModel.Turns">
+        <MappingFragment StoreEntitySet="Turns">
+          <ScalarProperty Name="InserionDateTime" ColumnName="InserionDateTime" />
+          <ScalarProperty Name="BestMove" ColumnName="BestMove" />
+          <ScalarProperty Name="BestCurrentBlowScore" ColumnName="BestCurrentBlowScore" />
+          <ScalarProperty Name="BlackScore" ColumnName="BlackScore" />
+          <ScalarProperty Name="WhiteScore" ColumnName="WhiteScore" />
+          <ScalarProperty Name="TurnColor" ColumnName="TurnColor" />
+          <ScalarProperty Name="PawnListStr" ColumnName="PawnListStr" />
+          <ScalarProperty Name="GamePartID" ColumnName="GamePartID" />
+          <ScalarProperty Name="TurnID" ColumnName="TurnID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

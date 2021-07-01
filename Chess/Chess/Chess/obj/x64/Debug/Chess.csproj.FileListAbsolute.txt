@@ -20,11 +20,15 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\Chess.exe.manifest
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\Chess.application
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\Chess.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\EntityFramework.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\EntityFramework.SqlServer.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignColors.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignThemes.Wpf.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\Notifications.Wpf.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\ToastNotifications.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\ToastNotifications.Messages.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\EntityFramework.xml
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\EntityFramework.SqlServer.xml
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignColors.pdb
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignThemes.Wpf.pdb
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\bin\x64\Debug\MaterialDesignThemes.Wpf.xml
@@ -47,4 +51,4 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.application
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.exe
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.pdb
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.csprojAssemblyReference.cache
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess\obj\x64\Debug\Chess.csproj.AssemblyReference.cache

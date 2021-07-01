@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChessDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ChessDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="GamePart" EntityType="ChessDBModel.GamePart" />
+    <EntitySet Name="Turns" EntityType="ChessDBModel.Turns" />
+    <AssociationSet Name="FK_Turns_GamePart" Association="ChessDBModel.FK_Turns_GamePart">
+      <End Role="GamePart" EntitySet="GamePart" />
+      <End Role="Turns" EntitySet="Turns" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="GamePart">
+    <Key>
+      <PropertyRef Name="GamePartID" />
+    </Key>
+    <Property Name="GamePartID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GamePartLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GamePartStartDateTime" Type="DateTime" Precision="3" />
+    <Property Name="GamePartDuration" Type="Int64" />
+    <NavigationProperty Name="Turns" Relationship="ChessDBModel.FK_Turns_GamePart" FromRole="GamePart" ToRole="Turns" />
+    <Property Name="GamePartMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Turns">
+    <Key>
+      <PropertyRef Name="TurnID" />
+    </Key>
+    <Property Name="TurnID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GamePartID" Type="Int64" />
+    <Property Name="PawnListStr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TurnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WhiteScore" Type="Int32" />
+    <Property Name="BlackScore" Type="Int32" />
+    <Property Name="BestCurrentBlowScore" Type="Int32" />
+    <Property Name="BestMove" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InserionDateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="GamePart" Relationship="ChessDBModel.FK_Turns_GamePart" FromRole="Turns" ToRole="GamePart" />
+  </EntityType>
+  <Association Name="FK_Turns_GamePart">
+    <End Type="ChessDBModel.GamePart" Role="GamePart" Multiplicity="0..1" />
+    <End Type="ChessDBModel.Turns" Role="Turns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GamePart">
+        <PropertyRef Name="GamePartID" />
+      </Principal>
+      <Dependent Role="Turns">
+        <PropertyRef Name="GamePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

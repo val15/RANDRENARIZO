@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GamePart">
+    <Key>
+      <PropertyRef Name="GamePartID" />
+    </Key>
+    <Property Name="GamePartID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GamePartLabel" Type="nvarchar" MaxLength="50" />
+    <Property Name="GamePartStartDateTime" Type="datetime" />
+    <Property Name="GamePartDuration" Type="bigint" />
+    <Property Name="GamePartMode" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Turns">
+    <Key>
+      <PropertyRef Name="TurnID" />
+    </Key>
+    <Property Name="TurnID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GamePartID" Type="bigint" />
+    <Property Name="PawnListStr" Type="text" />
+    <Property Name="TurnColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="WhiteScore" Type="int" />
+    <Property Name="BlackScore" Type="int" />
+    <Property Name="BestCurrentBlowScore" Type="int" />
+    <Property Name="BestMove" Type="nvarchar" MaxLength="50" />
+    <Property Name="InserionDateTime" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_Turns_GamePart">
+    <End Role="GamePart" Type="Self.GamePart" Multiplicity="0..1" />
+    <End Role="Turns" Type="Self.Turns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GamePart">
+        <PropertyRef Name="GamePartID" />
+      </Principal>
+      <Dependent Role="Turns">
+        <PropertyRef Name="GamePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ChessDBModelStoreContainer">
+    <EntitySet Name="GamePart" EntityType="Self.GamePart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Turns" EntityType="Self.Turns" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Turns_GamePart" Association="Self.FK_Turns_GamePart">
+      <End Role="GamePart" EntitySet="GamePart" />
+      <End Role="Turns" EntitySet="Turns" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

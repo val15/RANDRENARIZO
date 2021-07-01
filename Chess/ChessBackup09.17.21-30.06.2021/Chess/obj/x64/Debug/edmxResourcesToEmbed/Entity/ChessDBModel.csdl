@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChessDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="GamePart">
+    <Key>
+      <PropertyRef Name="GamePartID" />
+    </Key>
+    <Property Name="GamePartID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GamePartLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GamePartStartDateTime" Type="DateTime" Precision="3" />
+    <Property Name="GamePartDuration" Type="Int64" />
+    <NavigationProperty Name="GamePartHistory" Relationship="Self.FK_GamePartHistory_GamePart" FromRole="GamePart" ToRole="GamePartHistory" />
+  </EntityType>
+  <EntityType Name="GamePartHistory">
+    <Key>
+      <PropertyRef Name="GamePartHistoryID" />
+    </Key>
+    <Property Name="GamePartHistoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GamePartID" Type="Int64" />
+    <NavigationProperty Name="GamePart" Relationship="Self.FK_GamePartHistory_GamePart" FromRole="GamePartHistory" ToRole="GamePart" />
+    <NavigationProperty Name="Turn" Relationship="ChessDBModel.FK_Blow_GamePartHistory" FromRole="GamePartHistory" ToRole="Turn" />
+  </EntityType>
+  <Association Name="FK_GamePartHistory_GamePart">
+    <End Role="GamePart" Type="Self.GamePart" Multiplicity="0..1" />
+    <End Role="GamePartHistory" Type="Self.GamePartHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GamePart">
+        <PropertyRef Name="GamePartID" />
+      </Principal>
+      <Dependent Role="GamePartHistory">
+        <PropertyRef Name="GamePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ChessDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="GamePart" EntityType="Self.GamePart" />
+    <EntitySet Name="GamePartHistory" EntityType="Self.GamePartHistory" />
+    <AssociationSet Name="FK_GamePartHistory_GamePart" Association="Self.FK_GamePartHistory_GamePart">
+      <End Role="GamePart" EntitySet="GamePart" />
+      <End Role="GamePartHistory" EntitySet="GamePartHistory" />
+    </AssociationSet>
+    <EntitySet Name="Turn" EntityType="ChessDBModel.Turn" />
+    <AssociationSet Name="FK_Blow_GamePartHistory" Association="ChessDBModel.FK_Blow_GamePartHistory">
+      <End Role="GamePartHistory" EntitySet="GamePartHistory" />
+      <End Role="Turn" EntitySet="Turn" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Turn">
+    <Key>
+      <PropertyRef Name="TurnID" />
+    </Key>
+    <Property Name="TurnID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GamePartHistoryID" Type="Int64" />
+    <Property Name="PawnListStr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TurnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WhiteScore" Type="Int32" />
+    <Property Name="BlackScore" Type="Int32" />
+    <Property Name="BestCurrentBlowScore" Type="Int32" />
+    <Property Name="BestMove" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InserionDateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="GamePartHistory" Relationship="ChessDBModel.FK_Blow_GamePartHistory" FromRole="Turn" ToRole="GamePartHistory" />
+  </EntityType>
+  <Association Name="FK_Blow_GamePartHistory">
+    <End Type="ChessDBModel.GamePartHistory" Role="GamePartHistory" Multiplicity="0..1" />
+    <End Type="ChessDBModel.Turn" Role="Turn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GamePartHistory">
+        <PropertyRef Name="GamePartHistoryID" />
+      </Principal>
+      <Dependent Role="Turn">
+        <PropertyRef Name="GamePartHistoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

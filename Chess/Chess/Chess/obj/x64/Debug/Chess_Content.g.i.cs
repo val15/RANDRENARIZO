@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("entity/chessdbmodel.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("entity/chessdbmodel.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/bishopblack.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/bishopwhite.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/kingblack.png")]

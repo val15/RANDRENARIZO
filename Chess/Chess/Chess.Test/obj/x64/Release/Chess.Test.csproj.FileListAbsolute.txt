@@ -35,8 +35,13 @@ D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\MaterialDesignTheme
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\MaterialDesignThemes.Wpf.xml
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Release\Chess.Test.csprojAssemblyReference.cache
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Release\Chess.Test.csproj.CoreCompileInputs.cache
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Release\Chess.Test.csproj.CopyComplete
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Release\Chess.Test.dll
 D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Release\Chess.Test.pdb
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\Chess.Test.dll.config
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\EntityFramework.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\EntityFramework.SqlServer.dll
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\EntityFramework.xml
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\bin\x64\Release\EntityFramework.SqlServer.xml
+D:\tsiry\RANDRENARIZO\Chess\Chess\Chess.Test\obj\x64\Release\Chess.Test.csproj.AssemblyReference.cache

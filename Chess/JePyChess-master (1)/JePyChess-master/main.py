@@ -35,7 +35,8 @@ while(True):
         e.getboard(b)
 
     elif(c=='go'):
-        e.search(b)
+        result = e.search(b)
+        print("result = " +result)
 
     elif(c=='new'):
         e.newgame(b)

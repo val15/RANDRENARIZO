@@ -1,0 +1,13 @@
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerConsole\bin\Debug\ChessServerConsole.exe.config
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerConsole\bin\Debug\ChessServerConsole.exe
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerConsole\bin\Debug\ChessServerConsole.pdb
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerConsole\obj\Debug\ChessServerConsole.csproj.CoreCompileInputs.cache
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerConsole\obj\Debug\ChessServerConsole.exe
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole\ChessServerConsole\obj\Debug\ChessServerConsole.pdb
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\bin\Debug\ChessServerConsole.exe.config
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\bin\Debug\ChessServerConsole.exe
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\bin\Debug\ChessServerConsole.pdb
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\obj\Debug\ChessServerConsole.csprojAssemblyReference.cache
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\obj\Debug\ChessServerConsole.csproj.CoreCompileInputs.cache
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\obj\Debug\ChessServerConsole.exe
+D:\tsiry\RANDRENARIZO\Chess\ChessServerConsole - CopieBeforeEditMinMaxAphaBeta\ChessServerConsole\obj\Debug\ChessServerConsole.pdb

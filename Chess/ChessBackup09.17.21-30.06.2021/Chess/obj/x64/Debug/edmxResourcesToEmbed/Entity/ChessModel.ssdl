@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChessBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Blow">
+    <Key>
+      <PropertyRef Name="BlowID" />
+    </Key>
+    <Property Name="BlowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GameParthistoryID" Type="bigint" />
+    <Property Name="PawnListStr" Type="text" />
+    <Property Name="BlowColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="WhiteScore" Type="int" />
+    <Property Name="BlackScore" Type="int" />
+    <Property Name="BestCurrentBlowScore" Type="int" />
+    <Property Name="BestMove" Type="nvarchar" MaxLength="50" />
+    <Property Name="InserionDateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="GamePart">
+    <Key>
+      <PropertyRef Name="GamePartID" />
+    </Key>
+    <Property Name="GamePartID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GamePartLabel" Type="nvarchar" MaxLength="50" />
+    <Property Name="GamePartStartDateTime" Type="datetime" />
+    <Property Name="GamePartDuration" Type="bigint" />
+  </EntityType>
+  <EntityType Name="GameParthistory">
+    <Key>
+      <PropertyRef Name="GameParthistoryID" />
+    </Key>
+    <Property Name="GameParthistoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GamePartID" Type="bigint" />
+  </EntityType>
+  <Association Name="FK_GameParthistory_Blow">
+    <End Role="Blow" Type="Self.Blow" Multiplicity="0..1" />
+    <End Role="GameParthistory" Type="Self.GameParthistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blow">
+        <PropertyRef Name="BlowID" />
+      </Principal>
+      <Dependent Role="GameParthistory">
+        <PropertyRef Name="GamePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GameParthistory_GamePart">
+    <End Role="GamePart" Type="Self.GamePart" Multiplicity="0..1" />
+    <End Role="GameParthistory" Type="Self.GameParthistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GamePart">
+        <PropertyRef Name="GamePartID" />
+      </Principal>
+      <Dependent Role="GameParthistory">
+        <PropertyRef Name="GamePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ChessBDModelStoreContainer">
+    <EntitySet Name="Blow" EntityType="Self.Blow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GamePart" EntityType="Self.GamePart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GameParthistory" EntityType="Self.GameParthistory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_GameParthistory_Blow" Association="Self.FK_GameParthistory_Blow">
+      <End Role="Blow" EntitySet="Blow" />
+      <End Role="GameParthistory" EntitySet="GameParthistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GameParthistory_GamePart" Association="Self.FK_GameParthistory_GamePart">
+      <End Role="GamePart" EntitySet="GamePart" />
+      <End Role="GameParthistory" EntitySet="GameParthistory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
